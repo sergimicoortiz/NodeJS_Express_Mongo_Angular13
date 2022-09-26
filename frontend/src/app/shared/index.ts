@@ -1,0 +1,1 @@
+export * from './list-category/list-category.component'

@@ -14,10 +14,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //Form Reactive
 import { ReactiveFormsModule } from '@angular/forms';
 
+// import { ListCategoryComponent } from './shared/list-category/list-category.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    // ListCategoryComponent
   ],
   imports: [
     BrowserModule,
