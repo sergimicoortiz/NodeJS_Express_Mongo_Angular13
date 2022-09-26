@@ -1,3 +1,6 @@
-<p>list-products works!</p>
-
-<app-card-products></app-card-products>
+<div *ngIf="!products$">No products</div>
+<div *ngIf="products$">
+    <div *ngFor="let product of products$">
+        <app-card-products [product]="product"></app-card-products>
+    </div>
+</div>

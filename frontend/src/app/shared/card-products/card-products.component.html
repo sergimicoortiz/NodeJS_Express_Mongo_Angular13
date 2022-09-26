@@ -1,1 +1,6 @@
-<p>card-products works!</p>
+<div>
+    <div *ngIf="!product">No product</div>
+    <div *ngIf="product">
+        <img src="{{product.picture[0]}}">
+    </div>
+</div>

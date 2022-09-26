@@ -14,7 +14,7 @@ async function main() {
         require("../models/product_model.js");
         const Category = mongoose.model('Category');
         const Product = mongoose.model('Product');
-        const products = fake_products(process.env.DUMMY_PRODUCTS || 10);
+        const products = fake_products(process.env.DUMMY_PRODUCTS || 10, process.env.DUMMY_COMMENTS || 3);
         await Product.collection.drop();
         await Category.collection.drop();
         categorys.forEach(async (e) => {

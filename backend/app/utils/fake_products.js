@@ -1,7 +1,21 @@
 const faker = require('@faker-js/faker/locale/en').faker;
 const categorys = require('./data_categorys.js');
 
-function fake_products(n) {
+function fake_comments(n) {
+    let comments = [];
+    for (let i = 0; i < n; i++) {
+        const comment = {
+            owner: faker.name.firstName(),
+            msg: faker.lorem.paragraph(),
+            likes: parseInt(faker.commerce.price(10, 300)),
+            date: new Date()
+        };
+        comments.push(comment);
+    }//end for
+    return comments;
+}//fake_comments
+
+function fake_products(n, c) {
     let products = [];
     for (let i = 0; i < n; i++) {
         const min = 0;
@@ -13,7 +27,10 @@ function fake_products(n) {
             description: faker.lorem.paragraph(),
             owner: faker.name.firstName(),
             category: categorys[index].category_name,
-            picture: ['pic1', 'pic2', 'pic3']
+            picture: [faker.image.cats(500, 500, true), faker.image.cats(500, 500, true), faker.image.cats(500, 500, true)],
+            likes: parseInt(faker.commerce.price(10, 300)),
+            date: new Date(),
+            comments: fake_comments(c)
         };
         products.push(product);
     }//for
