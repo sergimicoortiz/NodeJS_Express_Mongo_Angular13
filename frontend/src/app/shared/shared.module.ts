@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { ListCategoryComponent } from "./list-category/list-category.component";
+import { ListProductsComponent } from './list-products/list-products.component';
+import { CardProductsComponent } from './card-products/card-products.component';
 
 
 @NgModule({
@@ -16,10 +18,14 @@ import { ListCategoryComponent } from "./list-category/list-category.component";
         RouterModule
     ],
     declarations: [
-        ListCategoryComponent
+        ListCategoryComponent,
+        ListProductsComponent,
+        CardProductsComponent
     ],
     exports: [
-        ListCategoryComponent
+        ListCategoryComponent,
+        ListProductsComponent,
+        CardProductsComponent
     ],
 })
 export class SharedModule { }
