@@ -1,15 +1,19 @@
 "use strict";
 
 require('dotenv').config();
+const mongoose = require('mongoose');
 const connectdb = require("../config/config_db.js");
 const fake_products = require("./fake_products.js");
-const Product = require("../models/product_model.js");
-const Category = require('../models/category_model.js');
+
 const categorys = require('./data_categorys.js');
 
 async function main() {
     try {
         await connectdb(process.env.MONGO_URI)
+        require('../models/category_model.js');
+        require("../models/product_model.js");
+        const Category = mongoose.model('Category');
+        const Product = mongoose.model('Product');
         const products = fake_products(process.env.DUMMY_PRODUCTS || 10);
         await Product.collection.drop();
         await Category.collection.drop();

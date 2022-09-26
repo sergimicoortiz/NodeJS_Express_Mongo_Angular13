@@ -49,8 +49,9 @@ async function delete_product(req, res) {
     try {
         const id = req.params.id
         const product = await Product.findOneAndDelete({ slug: id });
-        if (!product) { res.status(404).json(FormatError("Product not found", res.statusCode)); }
-        res.json(FormatSuccess("Product deleted"));
+        if (!product) { res.status(404).json(FormatError("Product not found", res.statusCode)); } else {
+            res.json(FormatSuccess("Product deleted"));
+        }
     } catch (error) {
         if (error.kind === 'ObjectId') { res.status(404).json(FormatError("Product not found", res.statusCode)); }
         else { res.status(500).json(FormatError("An error has ocurred", res.statusCode)); }
@@ -73,8 +74,9 @@ async function update_product(req, res) {
         old_product.picture = req.body.picture || old_product.picture;
         const update = await old_product.save();
 
-        if (!update) { res.status(404).json(FormatError("Product not found", res.statusCode)); }
-        res.json({ msg: "Product updated" })
+        if (!update) { res.status(404).json(FormatError("Product not found", res.statusCode)); } else {
+            res.json({ msg: "Product updated" })
+        }
     } catch (error) {
         if (error.kind === 'ObjectId') { res.status(404).json(FormatError("Product not found", res.statusCode)); }
         else { res.status(500).json(FormatError("An error has ocurred", res.statusCode)); }

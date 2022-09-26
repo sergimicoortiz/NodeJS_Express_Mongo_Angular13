@@ -45,8 +45,9 @@ async function delete_category(req, res) {
     try {
         const id = req.params.id
         const category = await Category.findOneAndDelete({ slug: id });
-        if (!category) { res.status(404).json(FormatError("Category not found", res.statusCode)) }
-        res.json(FormatSuccess("Category deleted"))
+        if (!category) { res.status(404).json(FormatError("Category not found", res.statusCode)) } else {
+            res.json(FormatSuccess("Category deleted"));
+        }
     } catch (error) {
         if (error.kind === 'ObjectId') { res.status(404).json(FormatError("Category not found", res.statusCode)); }
         else { res.status(500).json(FormatError("An error has ocurred", res.statusCode)); }
@@ -63,8 +64,9 @@ async function update_category(req, res) {
         old_category.category_name = req.body.category_name || old_category.category_name;
         old_category.category_picture = req.body.category_picture || old_category.category_picture;
         const category = await old_category.save();
-        if (!category) { res.status(404).json(FormatError("Category not found", res.statusCode)); }
-        res.json({ msg: "Category updated" })
+        if (!category) { res.status(404).json(FormatError("Category not found", res.statusCode)); } else {
+            res.json({ msg: "Category updated" })
+        }
     } catch (error) {
         if (error.kind === 'ObjectId') { res.status(404).json(FormatError("Category not found", res.statusCode)); }
         else { res.status(500).json(FormatError("An error has ocurred", res.statusCode)); }
