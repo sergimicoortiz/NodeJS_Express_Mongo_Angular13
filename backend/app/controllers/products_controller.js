@@ -36,6 +36,9 @@ async function create_product(req, res) {
             owner: req.body.owner || null,
             category: req.body.category || null,
             picture: req.body.picture || [null],
+            date: new Date(),
+            likes: 0,
+            comments: [],
         };
         const product = new Product(product_data);
         const new_product = await product.save();
