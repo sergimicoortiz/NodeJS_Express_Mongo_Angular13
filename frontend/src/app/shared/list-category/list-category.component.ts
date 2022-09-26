@@ -8,12 +8,17 @@ import { CategoryService, Category } from '../../core'
 })
 export class ListCategoryComponent implements OnInit {
 
+  category?: Category[];
+
   constructor(private CategoryService: CategoryService) { }
 
   ngOnInit(): void {
-    this.CategoryService.getAll().subscribe((data) => {
-      console.log(data)
-    })
+    this.showCategorys()
   }
 
+  showCategorys() {
+    this.CategoryService.getAll().subscribe((data) => {
+      this.category = data;
+    })
+  }
 }
