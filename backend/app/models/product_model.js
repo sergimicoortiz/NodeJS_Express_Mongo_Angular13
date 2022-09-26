@@ -10,7 +10,15 @@ const product_shcema = new mongoose.Schema({
     description: String,
     owner: String,
     category: String,
-    picture: [String]
+    picture: [String],
+    date: String,
+    likes: Number,
+    comments: [{
+        owner: String,
+        msg: String,
+        date: String,
+        likes: Number
+    }]
 });
 
 product_shcema.plugin(uniqueValidator, { msg: "already taken" });

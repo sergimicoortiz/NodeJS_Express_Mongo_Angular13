@@ -2,6 +2,7 @@ var router = require('express').Router();
 
 const category_controller = require("../../controllers/category_controller")
 const product_controller = require("../../controllers/products_controller")
+const comment_constroller = require('../../controllers/comment_controller');
 
 
 router.get('/category', category_controller.getall_category);
@@ -19,5 +20,8 @@ router.delete('/products/:id', product_controller.delete_product);
 router.delete('/products_all', product_controller.deleteAll_product);
 router.put('/products/:id', product_controller.update_product);
 
+
+router.post('/products/:id/comments', comment_constroller.add_comment);
+router.delete('/products/:id/comments/:comment_id', comment_constroller.delete_comment);
 
 module.exports = router;
