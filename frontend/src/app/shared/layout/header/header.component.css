@@ -1,0 +1,38 @@
+button {
+    border: none;
+    background-color: transparent;
+}
+
+header {
+    height: 130px;
+    background-image: url('../../../../assets/img/banner_header.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+
+}
+
+header img {
+    height: 130px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0px 15px;
+}
+
+header nav button {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    color: black;
+    font-size: 1.2em;
+    background-color: white;
+    border-radius: 20px;
+}

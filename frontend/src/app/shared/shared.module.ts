@@ -9,6 +9,7 @@ import { ListProductsComponent } from './list-products/list-products.component';
 import { CardProductsComponent } from './card-products/card-products.component';
 
 
+
 @NgModule({
     imports: [
         CommonModule,
@@ -20,12 +21,12 @@ import { CardProductsComponent } from './card-products/card-products.component';
     declarations: [
         ListCategoryComponent,
         ListProductsComponent,
-        CardProductsComponent
+        CardProductsComponent,
     ],
     exports: [
         ListCategoryComponent,
         ListProductsComponent,
-        CardProductsComponent
+        CardProductsComponent,
     ],
 })
 export class SharedModule { }
