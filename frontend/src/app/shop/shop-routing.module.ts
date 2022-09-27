@@ -4,7 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShopComponent } from './shop.component';
 
 const routes: Routes = [
-  { path: '', component: ShopComponent }
+  { path: '', component: ShopComponent },
+  { path: 'category/:slug', component: ShopComponent }
 ];
 
 @NgModule({

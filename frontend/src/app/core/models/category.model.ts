@@ -1,5 +1,8 @@
-export class Category {
-    slug?:any;
-    category_name?:string;
-    category_picture?:string;
+import { Product } from "./product.model";
+
+export interface Category {
+    slug: String;
+    category_name: String;
+    category_picture: String;
+    category_products: Product[]
 }

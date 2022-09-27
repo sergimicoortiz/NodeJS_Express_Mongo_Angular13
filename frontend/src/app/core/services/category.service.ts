@@ -18,24 +18,24 @@ export class CategoryService {
     return this.http.get<Category[]>(baseUrl);
   }
 
-  get(id: any): Observable<Category> {
-    return this.http.get(`${baseUrl}/${id}`);
+  get(id: String): Observable<Category> {
+    return this.http.get<Category>(`${baseUrl}/${id}`);
   }
 
-  create(data: any): Observable<any> {
-    return this.http.post(baseUrl, data);
+  create(data: Category): Observable<Category> {
+    return this.http.post<Category>(baseUrl, data);
   }
 
-  update(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
+  update(id: String, data: Category): Observable<Category> {
+    return this.http.put<Category>(`${baseUrl}/${id}`, data);
   }
 
-  delete(id: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/${id}`);
+  delete(id: String): Observable<Category> {
+    return this.http.delete<Category>(`${baseUrl}/${id}`);
   }
 
-  deleteAll(): Observable<any> {
-    return this.http.delete(removeAllUrl);
+  deleteAll(): Observable<Category> {
+    return this.http.delete<Category>(removeAllUrl);
   }
 
   getCarousel(): Observable<Category[]> {

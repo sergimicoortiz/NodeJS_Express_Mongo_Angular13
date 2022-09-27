@@ -26,7 +26,6 @@ function fake_products(n, c) {
             price: parseInt(faker.commerce.price(10, 300)),
             description: faker.lorem.paragraph(1),
             owner: faker.name.firstName(),
-            category: categorys[index].category_name,
             picture: [faker.image.cats(500, 500, true), faker.image.cats(500, 500, true), faker.image.cats(500, 500, true)],
             likes: parseInt(faker.commerce.price(10, 300)),
             date: new Date(),
