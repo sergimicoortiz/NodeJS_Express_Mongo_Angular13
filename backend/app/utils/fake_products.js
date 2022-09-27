@@ -6,7 +6,7 @@ function fake_comments(n) {
     for (let i = 0; i < n; i++) {
         const comment = {
             owner: faker.name.firstName(),
-            msg: faker.lorem.paragraph(),
+            msg: faker.lorem.paragraph(1),
             likes: parseInt(faker.commerce.price(10, 300)),
             date: new Date()
         };
@@ -24,7 +24,7 @@ function fake_products(n, c) {
         const product = {
             name: faker.commerce.product(),
             price: parseInt(faker.commerce.price(10, 300)),
-            description: faker.lorem.paragraph(),
+            description: faker.lorem.paragraph(1),
             owner: faker.name.firstName(),
             category: categorys[index].category_name,
             picture: [faker.image.cats(500, 500, true), faker.image.cats(500, 500, true), faker.image.cats(500, 500, true)],

@@ -1,6 +1,16 @@
 <div>
     <div *ngIf="!product">No product</div>
     <div *ngIf="product">
-        <img src="{{product.picture[0]}}">
+        <figure class="snip1423">
+            <img src="{{product.picture[0]}}" alt="" />
+            <figcaption>
+                <h3>{{product.name}}</h3>
+                <p>{{product.description}}</p>
+                <div class="price">
+                    {{product.price}}€
+                </div>
+            </figcaption><i class="ion-android-cart"></i>
+            <a href="#"></a>
+        </figure>
     </div>
 </div>
