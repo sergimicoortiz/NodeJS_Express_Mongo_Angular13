@@ -9,7 +9,6 @@ const product_shcema = new mongoose.Schema({
     price: Number,
     description: String,
     owner: String,
-    category: String,
     picture: [String],
     date: String,
     likes: Number,

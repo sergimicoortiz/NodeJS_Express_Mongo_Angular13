@@ -1,13 +1,13 @@
 const categorys = [
+    /*  {
+         category_name: 'Otros',
+         category_picture: 'fa-align-center'
+     }, */
     {
-        category_name: 'Otros',
-        category_picture: 'fa-align-center'
+        category_name: 'Cars',
+        category_picture: '../../../assets/img/category_car.png'
     },
-    {
-        category_name: 'Coches',
-        category_picture: 'fa-car'
-    },
-    {
+    /* {
         category_name: 'Motos',
         category_picture: 'fa-motorcycle'
     },
@@ -18,11 +18,11 @@ const categorys = [
     {
         category_name: 'Moda y Accesorios',
         category_picture: 'fa-tshirt'
-    },
+    }, */
     {
         category_name: 'Inmobiliaria',
-        category_picture: 'fa-home'
-    },
+        category_picture: '../../../assets/img/category_sofa.png'
+    }/* ,
     {
         category_name: 'TV, Audio y Foto',
         category_picture: 'fa-tv'
@@ -74,7 +74,7 @@ const categorys = [
     {
         category_name: 'Industrial y Agricultura',
         category_picture: 'fa-industry'
-    }
+    } */
 ];
 
 module.exports = categorys;

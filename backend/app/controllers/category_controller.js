@@ -5,7 +5,7 @@ const FormatSuccess = require('../utils/responseApi.js').FormatSuccess;
 
 async function getall_category(req, res) {
     try {
-        const category = await Category.find();
+        const category = await Category.find().populate('category_products');
         res.json(category);
     } catch (error) {
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
@@ -15,7 +15,7 @@ async function getall_category(req, res) {
 async function getone_category(req, res) {
     try {
         const id = req.params.id
-        const category = await Category.findOne({ slug: id });
+        const category = await Category.findOne({ slug: id }).populate('category_products');
         if (!category) {
             res.status(404).json(FormatError("Category not found", res.statusCode));
         } else {
@@ -32,6 +32,7 @@ async function create_category(req, res) {
         const category_data = {
             category_name: req.body.category_name || null,
             category_picture: req.body.category_picture || null,
+            category_products: []
         };
         const category = new Category(category_data);
         await category.save();
@@ -63,6 +64,7 @@ async function update_category(req, res) {
         }//end if
         old_category.category_name = req.body.category_name || old_category.category_name;
         old_category.category_picture = req.body.category_picture || old_category.category_picture;
+        old_category.category_products = req.body.category_products || old_category.category_products;
         const category = await old_category.save();
         if (!category) { res.status(404).json(FormatError("Category not found", res.statusCode)); } else {
             res.json({ msg: "Category updated" })

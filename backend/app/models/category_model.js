@@ -7,7 +7,8 @@ const uniqueValidator = require('mongoose-unique-validator');
 const category_shcema = new mongoose.Schema({
     slug: { type: String, lowercase: true, unique: true },
     category_name: String,
-    category_picture: String
+    category_picture: String,
+    category_products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product'}]
 });
 
 category_shcema.plugin(uniqueValidator, { msg: "already taken" });

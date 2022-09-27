@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Product = mongoose.model('Product');
+const Category = mongoose.model('Category');
 const FormatError = require('../utils/responseApi.js').FormatError;
 const FormatSuccess = require('../utils/responseApi.js').FormatSuccess;
 
@@ -34,13 +35,18 @@ async function create_product(req, res) {
             price: req.body.price || 0,
             description: req.body.description || null,
             owner: req.body.owner || null,
-            category: req.body.category || null,
             picture: req.body.picture || [null],
             date: new Date(),
             likes: 0,
             comments: [],
         };
         const product = new Product(product_data);
+        const category = await Category.findOneAndUpdate({ slug: req.body.category },
+            {
+                $push: {
+                    category_products: product._id
+                }
+            });
         const new_product = await product.save();
         res.json(new_product);
     } catch (error) {
@@ -73,7 +79,6 @@ async function update_product(req, res) {
         old_product.price = req.body.price || old_product.price;
         old_product.description = req.body.description || old_product.description;
         old_product.owner = req.body.owner || old_product.owner;
-        old_product.category = req.body.category || old_product.category;
         old_product.picture = req.body.picture || old_product.picture;
         const update = await old_product.save();
 

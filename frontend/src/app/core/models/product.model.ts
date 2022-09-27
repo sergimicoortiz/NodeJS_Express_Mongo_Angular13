@@ -4,7 +4,6 @@ export interface Product {
     price: Number
     description: String
     owner: String
-    category: String
     picture: String[]
     date: String
     likes: Number
