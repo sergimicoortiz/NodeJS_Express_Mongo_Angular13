@@ -16,4 +16,5 @@ export class CarouselComponent {
   selectImage(index: number): void {
     this.selectIndex = index;
   }
+
 }

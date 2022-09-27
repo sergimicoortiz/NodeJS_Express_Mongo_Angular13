@@ -2,7 +2,7 @@
     position: relative;
     margin: auto;
     text-align: center;
-    width: 100px;
+    width: 200px;
     border-radius: 15px;
 }
 
@@ -14,7 +14,7 @@
 .carousel-container img.image-active{
     display: block;
     width: 100%;
-    height: 70px;
+    height: 200px;
 }
 
 .carousel-dot-container{
