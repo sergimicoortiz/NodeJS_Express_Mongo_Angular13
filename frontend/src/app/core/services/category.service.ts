@@ -5,6 +5,7 @@ import { Category } from '../models/category.model';
 
 const baseUrl = 'http://localhost:3001/api/category';
 const removeAllUrl = 'http://localhost:3001/api/category_all'
+const carouselUrl = 'http://localhost:3001/api/carousel/category'
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,7 @@ export class CategoryService {
     return this.http.delete(removeAllUrl);
   }
 
-  findByCategory_name(category_name: any): Observable<Category[]> {
-    return this.http.get<Category[]>(`${baseUrl}?category_name=${category_name}`);
+  getCarousel(): Observable<Category[]> {
+    return this.http.get<Category[]>(carouselUrl);
   }
 }

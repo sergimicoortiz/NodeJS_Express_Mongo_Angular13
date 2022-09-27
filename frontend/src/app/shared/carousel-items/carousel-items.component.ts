@@ -14,11 +14,10 @@ export class CarouselItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.showCategorys();
-    console.log("holaaa")
   }
 
   showCategorys() {
-    this.carousel_service.getAll().subscribe((data) => {
+    this.carousel_service.getCarousel().subscribe((data) => {
       this.picture_carousel = data;
     })
   }

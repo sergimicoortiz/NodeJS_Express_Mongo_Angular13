@@ -86,13 +86,23 @@ async function deleteAll_category(req, res) {
     }//end try catch
 }
 
+async function getCarousel_category(req, res) {
+    try {
+        const category = await Category.find({},{slug:1, category_picture:1});
+        res.json(category);
+    } catch (error) {
+        res.status(500).json(FormatError("An error has ocurred", res.statusCode));
+    }//end trycath
+}//getall_category
+
 const category_controller = {
     getall_category: getall_category,
     getone_category: getone_category,
     create_category: create_category,
     delete_category: delete_category,
     update_category: update_category,
-    deleteAll_category: deleteAll_category
+    deleteAll_category: deleteAll_category,
+    getCarousel_category:getCarousel_category
 }
 
 module.exports = category_controller;

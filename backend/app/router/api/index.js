@@ -5,12 +5,14 @@ const product_controller = require("../../controllers/products_controller")
 const comment_constroller = require('../../controllers/comment_controller');
 
 
+router.get('/carousel/category', category_controller.getCarousel_category);
 router.get('/category', category_controller.getall_category);
 router.get('/category/:id', category_controller.getone_category);
 router.post('/category', category_controller.create_category);
 router.delete('/category/:id', category_controller.delete_category);
 router.put('/category/:id', category_controller.update_category);
 router.delete('/category_all', category_controller.deleteAll_category);
+
 
 
 router.get('/products', product_controller.getall_products);
