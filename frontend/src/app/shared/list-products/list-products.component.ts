@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ProductService, Product, CategoryService, Category } from '../../core'
 import { ActivatedRoute } from '@angular/router';
 
@@ -12,6 +12,8 @@ export class ListProductsComponent implements OnInit {
   products$?: Product[];
   category_slug: String = "";
   categorys?: Category[];
+
+  @Input() home = false;
 
   constructor(
     private ProductService: ProductService,
