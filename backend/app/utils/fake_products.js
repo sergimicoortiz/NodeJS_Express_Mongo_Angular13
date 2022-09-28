@@ -1,5 +1,6 @@
 const faker = require('@faker-js/faker/locale/en').faker;
 const categorys = require('./data_categorys.js');
+const pic_resolution = [400, 400];
 
 function fake_comments(n) {
     let comments = [];
@@ -26,7 +27,7 @@ function fake_products(n, c) {
             price: parseInt(faker.commerce.price(10, 300)),
             description: faker.lorem.paragraph(1),
             owner: faker.name.firstName(),
-            picture: [faker.image.cats(500, 500, true), faker.image.cats(500, 500, true), faker.image.cats(500, 500, true)],
+            picture: [faker.image.cats(pic_resolution[0], pic_resolution[1], true), faker.image.cats(pic_resolution[0], pic_resolution[1], true), faker.image.cats(pic_resolution[0], pic_resolution[1], true)],
             likes: parseInt(faker.commerce.price(10, 300)),
             date: new Date(),
             comments: fake_comments(c)

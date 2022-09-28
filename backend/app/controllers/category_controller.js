@@ -15,6 +15,7 @@ async function getall_category(req, res) {
 async function getone_category(req, res) {
     try {
         const id = req.params.id
+        //const category = await Category.findOne({ slug: id }).populate({ path: 'category_products', options: { limit: 2, skip: 2 } });
         const category = await Category.findOne({ slug: id }).populate('category_products');
         if (!category) {
             res.status(404).json(FormatError("Category not found", res.statusCode));
@@ -75,7 +76,6 @@ async function update_category(req, res) {
     }//end try catch
 }
 
-
 async function deleteAll_category(req, res) {
     try {
         const category = await Category.collection.drop();
@@ -88,12 +88,13 @@ async function deleteAll_category(req, res) {
 
 async function getCarousel_category(req, res) {
     try {
-        const category = await Category.find({},{slug:1, category_picture:1});
-        res.json(category);
+        const category = await Category.find();
+        res.json(category.map(c => c.toJSONcarusel()));
     } catch (error) {
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
     }//end trycath
 }//getall_category
+
 
 const category_controller = {
     getall_category: getall_category,
@@ -102,7 +103,7 @@ const category_controller = {
     delete_category: delete_category,
     update_category: update_category,
     deleteAll_category: deleteAll_category,
-    getCarousel_category:getCarousel_category
+    getCarousel_category: getCarousel_category
 }
 
 module.exports = category_controller;
