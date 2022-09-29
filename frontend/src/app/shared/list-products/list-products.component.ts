@@ -1,17 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Directive, Input, OnInit } from '@angular/core';
 import { ProductService, Product, CategoryService, Category } from '../../core'
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-products',
   templateUrl: './list-products.component.html',
-  styleUrls: ['./list-products.component.css']
+  styleUrls: ['./list-products.component.css'],
 })
 export class ListProductsComponent implements OnInit {
 
   products$?: Product[];
   category_slug: String = "";
   categorys?: Category[];
+  offset = 0;
 
   @Input() home = false;
 
@@ -24,6 +25,15 @@ export class ListProductsComponent implements OnInit {
   ngOnInit(): void {
     this.category_slug = this.ActivatedRoute.snapshot.paramMap.get('slug') || "";
     this.get_products();
+  }
+
+  getScrollRequestParams(offset: number, limit: number): any {
+    let params: any = {};
+
+    params[`offset`] = offset;
+    params[`limit`] = limit;
+
+    return params;
   }
 
   get_products(): void {
@@ -39,9 +49,15 @@ export class ListProductsComponent implements OnInit {
           }
         });
       } else if (this.category_slug == "" && this.home == true) {
-        this.ProductService.all_products_popular().subscribe({
-          next: data => this.ProductService.products = data,
-          error: e => console.error(e)
+        const params = this.getScrollRequestParams(this.offset, 6);
+        console.log(params)
+        this.ProductService.all_products_popular(params).subscribe({
+          next: (data) => {
+            this.ProductService.products = data,
+              this.offset = this.offset + 6,
+              console.log(this.offset)
+          },
+          error: (e) => { console.error(e) }
         });
       }
       else {
@@ -56,4 +72,9 @@ export class ListProductsComponent implements OnInit {
       error: e => console.error(e)
     });
   }//get_products
+
+  onScroll() {
+    console.log("asd")
+    this.get_products();
+  }
 }//class

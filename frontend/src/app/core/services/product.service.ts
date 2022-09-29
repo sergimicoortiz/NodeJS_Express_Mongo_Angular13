@@ -30,8 +30,8 @@ export class ProductService {
     return this.http.get<Product[]>(URL);
   }
 
-  all_products_popular(): Observable<Product[]> {
-    return this.http.get<Product[]>(products_popular_url);
+  all_products_popular(params:any): Observable<Product[]> {
+    return this.http.get<Product[]>(products_popular_url, { params });
   }
 
   get_product(id: String): Observable<Product> {

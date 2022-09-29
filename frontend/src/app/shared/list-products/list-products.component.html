@@ -1,6 +1,10 @@
 <div *ngIf="products$ && home">
     <h1>Most Popular</h1>
-    <div class="container">
+    <div class="container" 
+    infinite-scroll 
+    [infiniteScrollDistance]="1"
+    [infiniteScrollThrottle] = "500"
+    (scrolled)="onScroll()">
         <app-card-products class="item" *ngFor="let product of products$" [product]="product"></app-card-products>
     </div>
 </div>

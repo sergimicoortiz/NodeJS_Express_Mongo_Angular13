@@ -14,8 +14,10 @@ async function getall_products(req, res) {
 }//getall_products
 
 async function getall_products_popular(req, res) {
+    console.log(req.query)
     try {
-        const products = await Product.find();
+        const {offset, limit} = req.query;
+        const products = await Product.find().skip(offset).limit(limit);
         res.json(products);
     } catch (error) {
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));

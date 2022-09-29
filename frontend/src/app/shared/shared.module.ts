@@ -9,6 +9,7 @@ import { ListProductsComponent } from './list-products/list-products.component';
 import { CardProductsComponent } from './card-products/card-products.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { CarouselItemsComponent } from './carousel-items/carousel-items.component';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 
 
@@ -18,7 +19,8 @@ import { CarouselItemsComponent } from './carousel-items/carousel-items.componen
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        RouterModule
+        RouterModule,
+        InfiniteScrollModule,
     ],
     declarations: [
         ListCategoryComponent,
