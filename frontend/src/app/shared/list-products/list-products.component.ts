@@ -29,7 +29,7 @@ export class ListProductsComponent implements OnInit {
   get_products(): void {
     this.ProductService.products = [];
     if (this.ProductService.products.length == 0) {
-      if (this.category_slug !== "") {
+      if (this.category_slug !== "" && this.home == false) {
         this.CategoryService.get(this.category_slug).subscribe({
           next: data => {
             this.ProductService.products = data.category_products
@@ -38,7 +38,13 @@ export class ListProductsComponent implements OnInit {
             console.error(e)
           }
         });
-      } else {
+      } else if (this.category_slug == "" && this.home == true) {
+        this.ProductService.all_products_popular().subscribe({
+          next: data => this.ProductService.products = data,
+          error: e => console.error(e)
+        });
+      }
+      else {
         this.ProductService.all_products().subscribe({
           next: data => this.ProductService.products = data,
           error: e => console.error(e)

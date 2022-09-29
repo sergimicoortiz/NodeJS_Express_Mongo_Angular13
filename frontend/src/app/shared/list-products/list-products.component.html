@@ -1,7 +1,10 @@
-<div *ngIf="products$?.length == 0">No products</div>
-<div *ngIf="products$" class="container">
-    <app-card-products class="item" *ngFor="let product of products$" [product]="product"></app-card-products>
+<div *ngIf="products$ && home">
+    <h1>Most Popular</h1>
+    <div class="container">
+        <app-card-products class="item" *ngFor="let product of products$" [product]="product"></app-card-products>
+    </div>
 </div>
-
-<div *ngIf="home">home
+<div *ngIf="products$?.length == 0">No products</div>
+<div *ngIf="products$ && !home" class="container">
+    <app-card-products class="item" *ngFor="let product of products$" [product]="product"></app-card-products>
 </div>

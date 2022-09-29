@@ -13,6 +13,15 @@ async function getall_products(req, res) {
     }//end trycath
 }//getall_products
 
+async function getall_products_popular(req, res) {
+    try {
+        const products = await Product.find();
+        res.json(products);
+    } catch (error) {
+        res.status(500).json(FormatError("An error has ocurred", res.statusCode));
+    }//end trycath
+}//getall_products
+
 async function getone_product(req, res) {
     try {
         const id = req.params.id
@@ -107,7 +116,8 @@ const product_controller = {
     create_product: create_product,
     delete_product: delete_product,
     update_product: update_product,
-    deleteAll_product: deleteAll_product
+    deleteAll_product: deleteAll_product,
+    getall_products_popular: getall_products_popular
 }
 
 module.exports = product_controller

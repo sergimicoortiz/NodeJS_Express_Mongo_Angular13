@@ -16,6 +16,7 @@ router.delete('/category_all', category_controller.deleteAll_category);
 
 
 router.get('/products', product_controller.getall_products);
+router.get('/products_popular', product_controller.getall_products_popular);
 router.get('/products/:id', product_controller.getone_product);
 router.post('/products', product_controller.create_product);
 router.delete('/products/:id', product_controller.delete_product);

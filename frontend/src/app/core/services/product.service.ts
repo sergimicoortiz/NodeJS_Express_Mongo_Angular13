@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Product } from '../models/product.model';
 
 const URL = 'http://localhost:3001/api/products';
+const products_popular_url = 'http://localhost:3001/api/products_popular';
 
 
 @Injectable({
@@ -27,6 +28,10 @@ export class ProductService {
 
   all_products(): Observable<Product[]> {
     return this.http.get<Product[]>(URL);
+  }
+
+  all_products_popular(): Observable<Product[]> {
+    return this.http.get<Product[]>(products_popular_url);
   }
 
   get_product(id: String): Observable<Product> {
