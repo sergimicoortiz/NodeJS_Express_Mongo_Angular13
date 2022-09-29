@@ -3,6 +3,19 @@ const Category = mongoose.model('Category');
 const FormatError = require('../utils/responseApi.js').FormatError;
 const FormatSuccess = require('../utils/responseApi.js').FormatSuccess;
 
+const CalculatePagination = (page = 1, size = 9) => {
+    if (page <= 0) {
+        page = 1;
+    }
+    if (size <= 0) {
+        size = 1
+    }
+    return {
+        limit: size,
+        offset: size * (page - 1)
+    }
+}//CalculatePaginate
+
 async function getall_category(req, res) {
     try {
         const category = await Category.find().populate('category_products');
@@ -15,7 +28,10 @@ async function getall_category(req, res) {
 async function getone_category(req, res) {
     try {
         const id = req.params.id
-        //const category = await Category.findOne({ slug: id }).populate({ path: 'category_products', options: { limit: 2, skip: 2 } });
+        const page = parseInt(req.query.page);
+        const size = parseInt(req.query.size);
+        let options = CalculatePagination(page || 1, size || 9);
+        options.populate = 'category_products';
         const category = await Category.findOne({ slug: id }).populate('category_products');
         if (!category) {
             res.status(404).json(FormatError("Category not found", res.statusCode));

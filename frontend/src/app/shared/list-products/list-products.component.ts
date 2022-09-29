@@ -12,6 +12,10 @@ export class ListProductsComponent implements OnInit {
   products$?: Product[];
   category_slug: String = "";
   categorys?: Category[];
+  params: any = {
+    page: 1,
+    size: 9
+  }
 
   constructor(
     private ProductService: ProductService,
@@ -37,8 +41,8 @@ export class ListProductsComponent implements OnInit {
           }
         });
       } else {
-        this.ProductService.all_products().subscribe({
-          next: data => this.ProductService.products = data,
+        this.ProductService.all_products(this.params).subscribe({
+          next: data => this.ProductService.products = data.docs,
           error: e => console.error(e)
         });
       }//end else if

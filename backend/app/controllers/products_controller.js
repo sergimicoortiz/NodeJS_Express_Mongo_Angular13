@@ -4,10 +4,31 @@ const Category = mongoose.model('Category');
 const FormatError = require('../utils/responseApi.js').FormatError;
 const FormatSuccess = require('../utils/responseApi.js').FormatSuccess;
 
+const CalculatePagination = (page = 1, size = 9) => {
+    if (page <= 0) {
+        page = 1;
+    }
+    if (size <= 0) {
+        size = 1
+    }
+    return {
+        limit: size,
+        offset: size * (page - 1)
+    }
+}//CalculatePaginate
+
 async function getall_products(req, res) {
     try {
-        const products = await Product.find();
+        // if (req.query.page || req.query.size) {
+        const page = parseInt(req.query.page);
+        const size = parseInt(req.query.size);
+        const options = CalculatePagination(page || 1, size || 9);
+        const products = await Product.paginate({}, options);
         res.json(products);
+        //} else {
+        //    const products = await Product.find();
+        //    res.json(products);
+        //}
     } catch (error) {
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
     }//end trycath
