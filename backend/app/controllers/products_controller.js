@@ -17,7 +17,7 @@ async function getall_products_popular(req, res) {
     console.log(req.query)
     try {
         const {offset, limit} = req.query;
-        const products = await Product.find().skip(offset).limit(limit);
+        const products = await Product.find().sort({"likes":-1}).skip(offset).limit(limit);
         res.json(products);
     } catch (error) {
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
