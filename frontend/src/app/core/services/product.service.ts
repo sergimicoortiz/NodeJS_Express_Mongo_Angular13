@@ -26,8 +26,8 @@ export class ProductService {
     this.productsList.next(data);
   }
 
-  all_products(param: any): Observable<PaginateProduct> {
-    return this.http.get<PaginateProduct>(URL, { params: new HttpParams({ fromObject: param }) });
+  all_products(params: any): Observable<PaginateProduct> {
+    return this.http.get<PaginateProduct>(URL, { params });
   }
 
   get_product(id: String): Observable<Product> {

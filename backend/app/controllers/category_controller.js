@@ -32,13 +32,17 @@ async function getone_category(req, res) {
         const size = parseInt(req.query.size);
         let options = CalculatePagination(page || 1, size || 9);
         options.populate = 'category_products';
-        const category = await Category.findOne({ slug: id }).populate('category_products');
+        const category = await Category.paginate({ slug: id }, options);
+        res.json(category);
+        //const category = await Category.findOne({ slug: id }).populate({ path: 'category_products', options: { limit: 2, skip: 2 } });
+        /* const category = await Category.findOne({ slug: id }).populate('category_products');
         if (!category) {
             res.status(404).json(FormatError("Category not found", res.statusCode));
         } else {
             res.json(category);
-        };
+        }; */
     } catch (error) {
+        console.error(error);
         if (error.kind === 'ObjectId') { res.status(404).json(FormatError("Category not found", res.statusCode)); }
         else { res.status(500).json(FormatError("An error has ocurred", res.statusCode)); }
     }
