@@ -16,6 +16,9 @@ export class ListProductsComponent implements OnInit {
     page: 1,
     size: 9
   }
+  currentPage: Number = 1;
+  lastPage: Number = 1;
+  pages: Number[] = [];
 
   constructor(
     private ProductService: ProductService,
@@ -42,7 +45,13 @@ export class ListProductsComponent implements OnInit {
         });
       } else {
         this.ProductService.all_products(this.params).subscribe({
-          next: data => this.ProductService.products = data.docs,
+          next: data => {
+            this.ProductService.products = data.docs;
+            this.currentPage = data.page;
+            this.lastPage = data.totalPages;
+            this.CalculatePages();
+            console.log(this.pages);
+          },
           error: e => console.error(e)
         });
       }//end else if
@@ -52,4 +61,16 @@ export class ListProductsComponent implements OnInit {
       error: e => console.error(e)
     });
   }//get_products
+
+  CalculatePages() {
+    if (this.currentPage === 1) {
+      for (let i = 2; i <= 6; i++) {
+        if (i > this.lastPage) {
+          this.pages.push(i);
+        }
+
+      }
+    }
+  }
+
 }//class

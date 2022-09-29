@@ -1,4 +1,31 @@
 <div *ngIf="products$?.length == 0">No products</div>
-<div *ngIf="products$" class="container">
+<div *ngIf="products$" class="container_cat">
     <app-card-products class="item" *ngFor="let product of products$" [product]="product"></app-card-products>
+</div>
+
+<div class="container">
+    <button class="btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+    </button>
+
+    <div class="link-container">
+        <a href="#" class="page--link">1</a>
+        <a href="#" class="page--link">2</a>
+        <a href="#" class="page--link page--link--current">3</a>
+        <a href="#" class="page--link">4</a>
+        <a href="#" class="page--link">5</a>
+        <a href="#" class="page--link">6</a>
+        <span>...</span>
+        <a href="#" class="page--link">23</a>
+    </div>
+
+    <button class="btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+        </svg>
+    </button>
 </div>
