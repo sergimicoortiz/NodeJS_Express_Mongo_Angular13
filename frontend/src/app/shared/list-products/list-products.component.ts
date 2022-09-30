@@ -14,10 +14,10 @@ export class ListProductsComponent implements OnInit {
   categorys?: Category[];
   params: any = {
     page: 1,
-    size: 9
+    size: 10
   }
   currentPage: Number = 1;
-  lastPage: Number = 1;
+  lastPage: number = 1;
   pages: Number[] = [];
 
   constructor(
@@ -50,13 +50,8 @@ export class ListProductsComponent implements OnInit {
           next: data => {
             this.ProductService.products = data.docs;
             this.currentPage = data.page;
-            this.lastPage = data.totalPages;
+            this.lastPage = Number(data.totalPages);
             this.CalculatePages();
-            console.log('---------');
-            console.log(this.pages);
-            console.log(this.currentPage);
-            console.log(this.lastPage);
-            console.log('---------');
           },
           error: e => console.error(e)
         });
@@ -69,6 +64,7 @@ export class ListProductsComponent implements OnInit {
   }//get_products
 
   CalculatePages(): void {
+    this.pages = [];
     if (this.currentPage === 1) {
       for (let i = 2; i <= 6; i++) {
         if (i < this.lastPage) {
@@ -84,13 +80,25 @@ export class ListProductsComponent implements OnInit {
       }//for
     }
     else {
+      this.pages = [this.currentPage];
+      for (let i = 1; i < 4; i++) {
+        if (Number(this.currentPage) + i < this.lastPage) {
+          this.pages.push(Number(this.currentPage) + i);
+        }
+        if (Number(this.currentPage) - i > 1) {
+          this.pages.unshift(Number(this.currentPage) - i);
+        }
+      }//for
+      if (this.pages.length > 6) {
+        this.pages.pop();
+      }//if
     }//else if
   }//CalculatePages
 
   SetPage(page: Number, sum: any = 0): void {
     if (this.currentPage !== page + sum) {
       this.params.page = page + sum;
-      console.log(this.params);
+      this.get_products();
     }//if
   }//SetPage
 

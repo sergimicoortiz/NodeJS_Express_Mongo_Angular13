@@ -13,10 +13,10 @@
 
     <div class="link-container">
         <a href="" class="page--link" [ngClass]="{'page--link--current': currentPage == 1}" (click)="SetPage(1)">1</a>
-        <span *ngIf="currentPage !=1">...</span>
+        <span *ngIf="currentPage > 5">...</span>
         <a *ngFor="let page of pages" href="" class="page--link"
             [ngClass]="{'page--link--current': currentPage == page}" (click)="SetPage(page)">{{page}}</a>
-        <span *ngIf="currentPage !=lastPage">...</span>
+        <span *ngIf="currentPage < lastPage-5">...</span>
         <a href="" class="page--link" [ngClass]="{'page--link--current': currentPage == lastPage}"
             (click)="SetPage(lastPage)">{{lastPage}}</a>
     </div>
