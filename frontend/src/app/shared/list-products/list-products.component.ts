@@ -29,6 +29,8 @@ export class ListProductsComponent implements OnInit {
   ngOnInit(): void {
     this.category_slug = this.ActivatedRoute.snapshot.paramMap.get('slug') || "";
     this.get_products();
+
+    document.addEventListener('click', e => e.preventDefault());
   }
 
   get_products(): void {
@@ -50,7 +52,11 @@ export class ListProductsComponent implements OnInit {
             this.currentPage = data.page;
             this.lastPage = data.totalPages;
             this.CalculatePages();
+            console.log('---------');
             console.log(this.pages);
+            console.log(this.currentPage);
+            console.log(this.lastPage);
+            console.log('---------');
           },
           error: e => console.error(e)
         });
@@ -62,15 +68,30 @@ export class ListProductsComponent implements OnInit {
     });
   }//get_products
 
-  CalculatePages() {
+  CalculatePages(): void {
     if (this.currentPage === 1) {
       for (let i = 2; i <= 6; i++) {
-        if (i > this.lastPage) {
+        if (i < this.lastPage) {
           this.pages.push(i);
         }
-
-      }
+      }//for
     }
-  }
+    else if (this.currentPage === this.lastPage) {
+      for (let i = Number(this.lastPage) - 1; i > 1; i--) {
+        if (i > Number(this.lastPage) - 6) {
+          this.pages.push(i);
+        }//if
+      }//for
+    }
+    else {
+    }//else if
+  }//CalculatePages
+
+  SetPage(page: Number, sum: any = 0): void {
+    if (this.currentPage !== page + sum) {
+      this.params.page = page + sum;
+      console.log(this.params);
+    }//if
+  }//SetPage
 
 }//class

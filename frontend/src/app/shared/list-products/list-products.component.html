@@ -3,8 +3,8 @@
     <app-card-products class="item" *ngFor="let product of products$" [product]="product"></app-card-products>
 </div>
 
-<div class="container">
-    <button class="btn">
+<div class="container" *ngIf="products$?.length != 0">
+    <button class="btn" *ngIf="currentPage !=1" (click)="SetPage(currentPage, -1)">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="icon">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
@@ -12,17 +12,16 @@
     </button>
 
     <div class="link-container">
-        <a href="#" class="page--link">1</a>
-        <a href="#" class="page--link">2</a>
-        <a href="#" class="page--link page--link--current">3</a>
-        <a href="#" class="page--link">4</a>
-        <a href="#" class="page--link">5</a>
-        <a href="#" class="page--link">6</a>
-        <span>...</span>
-        <a href="#" class="page--link">23</a>
+        <a href="" class="page--link" [ngClass]="{'page--link--current': currentPage == 1}" (click)="SetPage(1)">1</a>
+        <span *ngIf="currentPage !=1">...</span>
+        <a *ngFor="let page of pages" href="" class="page--link"
+            [ngClass]="{'page--link--current': currentPage == page}" (click)="SetPage(page)">{{page}}</a>
+        <span *ngIf="currentPage !=lastPage">...</span>
+        <a href="" class="page--link" [ngClass]="{'page--link--current': currentPage == lastPage}"
+            (click)="SetPage(lastPage)">{{lastPage}}</a>
     </div>
 
-    <button class="btn">
+    <button class="btn" *ngIf="currentPage !=lastPage" (click)="SetPage(currentPage, +1)">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="icon">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />

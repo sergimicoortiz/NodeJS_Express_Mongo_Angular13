@@ -4,7 +4,7 @@ const Category = mongoose.model('Category');
 const FormatError = require('../utils/responseApi.js').FormatError;
 const FormatSuccess = require('../utils/responseApi.js').FormatSuccess;
 
-const CalculatePagination = (page = 1, size = 9) => {
+const CalculatePagination = (page, size) => {
     if (page <= 0) {
         page = 1;
     }
@@ -19,16 +19,11 @@ const CalculatePagination = (page = 1, size = 9) => {
 
 async function getall_products(req, res) {
     try {
-        // if (req.query.page || req.query.size) {
         const page = parseInt(req.query.page);
         const size = parseInt(req.query.size);
         const options = CalculatePagination(page || 1, size || 9);
         const products = await Product.paginate({}, options);
         res.json(products);
-        //} else {
-        //    const products = await Product.find();
-        //    res.json(products);
-        //}
     } catch (error) {
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
     }//end trycath
