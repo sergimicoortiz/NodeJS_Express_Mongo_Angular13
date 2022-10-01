@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const slug = require('slug');
 const uniqueValidator = require('mongoose-unique-validator');
-const mongoosePaginate = require('mongoose-paginate-v2');
+//const mongoosePaginate = require('mongoose-paginate-v2');
 
 
 
@@ -13,7 +13,7 @@ const category_shcema = new mongoose.Schema({
 });
 
 category_shcema.plugin(uniqueValidator, { msg: "already taken" });
-category_shcema.plugin(mongoosePaginate);
+//category_shcema.plugin(mongoosePaginate);
 
 
 category_shcema.pre('validate', function (next) {
@@ -34,5 +34,17 @@ category_shcema.methods.toJSONcarusel = function () {
         category_picture: this.category_picture
     }
 }//toJSONcarusel
+
+category_shcema.methods.toJSONpagination = function (options, page, total) {
+    return {
+        docs: this.category_products,
+        totalDocs: total,
+        offset: options.skip,
+        limit: options.limit,
+        totalPages: Math.ceil(total / options.limit),
+        page: page
+
+    }
+}//toJSONpagination
 
 mongoose.model('Category', category_shcema);

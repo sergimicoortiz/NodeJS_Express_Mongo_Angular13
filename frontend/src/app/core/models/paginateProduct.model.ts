@@ -7,9 +7,9 @@ export interface PaginateProduct {
     limit: Number
     totalPages: Number
     page: Number
-    pagingCounter: Number
-    hasPrevPage: Boolean
-    hasNextPage: Boolean
-    prevPage: Number
-    nextPage: Number
+    //pagingCounter: Number
+    //hasPrevPage: Boolean
+    //hasNextPage: Boolean
+    // prevPage: Number
+    // nextPage: Number
 }

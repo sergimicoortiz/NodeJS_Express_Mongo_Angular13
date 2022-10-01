@@ -37,9 +37,12 @@ export class ListProductsComponent implements OnInit {
     this.ProductService.products = [];
     if (this.ProductService.products.length == 0) {
       if (this.category_slug !== "") {
-        this.CategoryService.get(this.category_slug).subscribe({
+        this.CategoryService.get(this.category_slug, this.params).subscribe({
           next: data => {
-            this.ProductService.products = data.category_products
+            this.ProductService.products = data.docs;
+            this.currentPage = data.page;
+            this.lastPage = Number(data.totalPages);
+            this.CalculatePages();
           },
           error: e => {
             console.error(e)
@@ -57,6 +60,7 @@ export class ListProductsComponent implements OnInit {
         });
       }//end else if
     }
+
     this.ProductService.products$.subscribe({
       next: data => this.products$ = data,
       error: e => console.error(e)

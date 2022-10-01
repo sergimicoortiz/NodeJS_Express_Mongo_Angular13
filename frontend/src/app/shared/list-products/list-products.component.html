@@ -3,7 +3,7 @@
     <app-card-products class="item" *ngFor="let product of products$" [product]="product"></app-card-products>
 </div>
 
-<div class="container" *ngIf="products$?.length != 0">
+<div class="container" *ngIf="products$?.length != 0 && lastPage > 1">
     <button class="btn" *ngIf="currentPage !=1" (click)="SetPage(currentPage, -1)">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="icon">
