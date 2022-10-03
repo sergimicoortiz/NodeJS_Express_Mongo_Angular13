@@ -9,7 +9,8 @@ import { ListProductsComponent } from './list-products/list-products.component';
 import { CardProductsComponent } from './card-products/card-products.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { CarouselItemsComponent } from './carousel-items/carousel-items.component';
-import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { SearchComponent } from './search/search.component';
 
 
 
@@ -28,13 +29,15 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
         CardProductsComponent,
         CarouselComponent,
         CarouselItemsComponent,
+        SearchComponent,
     ],
     exports: [
         ListCategoryComponent,
         ListProductsComponent,
         CardProductsComponent,
         CarouselComponent,
-        CarouselItemsComponent
+        CarouselItemsComponent,
+        SearchComponent
     ],
 })
 export class SharedModule { }

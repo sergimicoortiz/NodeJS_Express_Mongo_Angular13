@@ -3,9 +3,10 @@ var router = require('express').Router();
 const category_controller = require("../../controllers/category_controller")
 const product_controller = require("../../controllers/products_controller")
 const comment_constroller = require('../../controllers/comment_controller');
+const carousel_controller = require('../../controllers/carousel_controller');
 
 
-router.get('/carousel/category', category_controller.getCarousel_category);
+router.get('/carousel/category', carousel_controller.getCarousel_category);
 router.get('/category', category_controller.getall_category);
 router.get('/category/:id', category_controller.getone_category);
 router.post('/category', category_controller.create_category);
