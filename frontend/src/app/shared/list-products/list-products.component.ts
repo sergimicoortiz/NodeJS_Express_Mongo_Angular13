@@ -30,9 +30,8 @@ export class ListProductsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.category_slug = this.ActivatedRoute.snapshot.paramMap.get('slug') || "";
+    this.setParams();
     this.get_products();
-
     document.addEventListener('click', e => e.preventDefault());
   }
 
@@ -45,24 +44,16 @@ export class ListProductsComponent implements OnInit {
     return params;
   }//getScrollRequestParams
 
+  setParams() {
+    this.category_slug = this.ActivatedRoute.snapshot.paramMap.get('slug') || "";
+  }//setParams
+
   get_products(): void {
     this.ProductService.products = [];
 
     if (this.ProductService.products.length == 0) {
-      if (this.category_slug !== "" && this.home == false) {
-        this.CategoryService.get(this.category_slug, this.params).subscribe({
-          next: data => {
-            this.ProductService.products = data.docs;
-            this.currentPage = data.page;
-            this.lastPage = Number(data.totalPages);
-            this.CalculatePages();
-          },
-          error: e => {
-            console.error(e)
-          }
-        });
-      } else if (this.category_slug === "" && this.home == false) {
-        this.ProductService.all_products(this.params).subscribe({
+      if (this.home == false) {
+        this.ProductService.all_products(this.params, this.category_slug).subscribe({
           next: data => {
             this.ProductService.products = data.docs;
             this.currentPage = data.page;
@@ -71,10 +62,9 @@ export class ListProductsComponent implements OnInit {
           },
           error: e => console.error(e)
         });
-      }//end else if
-      else {
+      } else {
         this.onScroll();
-      }//elseif
+      }//end else if
     }//if
 
     this.ProductService.products$.subscribe({

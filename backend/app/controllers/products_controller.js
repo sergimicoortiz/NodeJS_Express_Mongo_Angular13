@@ -21,9 +21,17 @@ async function getall_products(req, res) {
     try {
         const page = parseInt(req.query.page);
         const size = parseInt(req.query.size);
-        const options = CalculatePagination(page || 1, size || 9);
-        const products = await Product.paginate({}, options);
-        res.json(products);
+        const category_slug = req.params.category;
+        let options = CalculatePagination(page || 1, size || 9);
+        if (category_slug) {
+            options = { limit: options.limit, skip: options.offset };
+            const total = await Category.findOne({ slug: category_slug }).populate({ path: 'category_products', select: 'slug' })
+            const category = await Category.find({ slug: category_slug }).populate({ path: 'category_products', options: options });
+            res.json(category.map(e => e.toJSONpagination(options, page, total.category_products.length))[0]);
+        } else {
+            const products = await Product.paginate({}, options);
+            res.json(products);
+        }//end else if
     } catch (error) {
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
     }//end trycath
@@ -32,8 +40,8 @@ async function getall_products(req, res) {
 async function getall_products_popular(req, res) {
     console.log(req.query)
     try {
-        const {offset, limit} = req.query;
-        const products = await Product.find().sort({"likes":-1}).skip(offset).limit(limit);
+        const { offset, limit } = req.query;
+        const products = await Product.find().sort({ "likes": -1 }).skip(offset).limit(limit);
         res.json(products);
     } catch (error) {
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));

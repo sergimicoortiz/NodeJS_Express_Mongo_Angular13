@@ -27,11 +27,11 @@ export class ProductService {
     this.productsList.next(data);
   }
 
-  all_products(params: any): Observable<PaginateProduct> {
-    return this.http.get<PaginateProduct>(URL, { params });
+  all_products(params: any, category_slug: String): Observable<PaginateProduct> {
+    return this.http.get<PaginateProduct>(`${URL}/${category_slug}`, { params });
   }
 
-  all_products_popular(params:any): Observable<Product[]> {
+  all_products_popular(params: any): Observable<Product[]> {
     return this.http.get<Product[]>(products_popular_url, { params });
   }
 
