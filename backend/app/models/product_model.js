@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const slug = require('slug');
 const uniqueValidator = require('mongoose-unique-validator');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 
 const product_shcema = new mongoose.Schema({
@@ -21,6 +22,7 @@ const product_shcema = new mongoose.Schema({
 });
 
 product_shcema.plugin(uniqueValidator, { msg: "already taken" });
+product_shcema.plugin(mongoosePaginate);
 
 product_shcema.pre('validate', function (next) {
     if (!this.slug) {

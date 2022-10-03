@@ -1,6 +1,6 @@
 <div *ngIf="products$ && home">
     <h1>Most Popular</h1>
-    <div class="container" 
+    <div class="container_cat" 
     infinite-scroll 
     [infiniteScrollDistance]="1"
     [infiniteScrollThrottle] = "500"
@@ -9,6 +9,32 @@
     </div>
 </div>
 <div *ngIf="products$?.length == 0">No products</div>
-<div *ngIf="products$ && !home" class="container">
+<div *ngIf="products$ && !home" class="container_cat">
     <app-card-products class="item" *ngFor="let product of products$" [product]="product"></app-card-products>
+</div>
+
+<div class="container" *ngIf="products$?.length != 0 && lastPage > 1">
+    <button class="btn" *ngIf="currentPage !=1" (click)="SetPage(currentPage, -1)">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+    </button>
+
+    <div class="link-container">
+        <a href="" class="page--link" [ngClass]="{'page--link--current': currentPage == 1}" (click)="SetPage(1)">1</a>
+        <span *ngIf="currentPage > 5">...</span>
+        <a *ngFor="let page of pages" href="" class="page--link"
+            [ngClass]="{'page--link--current': currentPage == page}" (click)="SetPage(page)">{{page}}</a>
+        <span *ngIf="currentPage < lastPage-5">...</span>
+        <a href="" class="page--link" [ngClass]="{'page--link--current': currentPage == lastPage}"
+            (click)="SetPage(lastPage)">{{lastPage}}</a>
+    </div>
+
+    <button class="btn" *ngIf="currentPage !=lastPage" (click)="SetPage(currentPage, +1)">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+        </svg>
+    </button>
 </div>

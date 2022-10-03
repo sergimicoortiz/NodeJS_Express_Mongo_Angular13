@@ -12,10 +12,16 @@ export class ListProductsComponent implements OnInit {
 
   products$?: Product[];
   category_slug: String = "";
-  categorys?: Category[];
   offset = 0;
+  currentPage: Number = 1;
+  lastPage: number = 1;
+  pages: Number[] = [];
 
   @Input() home = false;
+  params: any = {
+    page: 1,
+    size: 10
+  }
 
   constructor(
     private ProductService: ProductService,
@@ -26,6 +32,8 @@ export class ListProductsComponent implements OnInit {
   ngOnInit(): void {
     this.category_slug = this.ActivatedRoute.snapshot.paramMap.get('slug') || "";
     this.get_products();
+
+    document.addEventListener('click', e => e.preventDefault());
   }
 
   getScrollRequestParams(offset: number, limit: number): any {
@@ -35,32 +43,40 @@ export class ListProductsComponent implements OnInit {
     params[`limit`] = limit;
 
     return params;
-  }
+  }//getScrollRequestParams
 
   get_products(): void {
-    if (this.home == false) {
-      this.ProductService.products = [];
-    }
+    this.ProductService.products = [];
+
     if (this.ProductService.products.length == 0) {
       if (this.category_slug !== "" && this.home == false) {
-        this.CategoryService.get(this.category_slug).subscribe({
+        this.CategoryService.get(this.category_slug, this.params).subscribe({
           next: data => {
-            this.ProductService.products = data.category_products
+            this.ProductService.products = data.docs;
+            this.currentPage = data.page;
+            this.lastPage = Number(data.totalPages);
+            this.CalculatePages();
           },
           error: e => {
             console.error(e)
           }
         });
-      } else if (this.home == false) {
-        this.ProductService.all_products().subscribe({
-          next: data => this.ProductService.products = data,
+      } else if (this.category_slug === "" && this.home == false) {
+        this.ProductService.all_products(this.params).subscribe({
+          next: data => {
+            this.ProductService.products = data.docs;
+            this.currentPage = data.page;
+            this.lastPage = Number(data.totalPages);
+            this.CalculatePages();
+          },
           error: e => console.error(e)
         });
       }//end else if
       else {
         this.onScroll();
-      }
-    }
+      }//elseif
+    }//if
+
     this.ProductService.products$.subscribe({
       next: data => this.products$ = data,
       error: e => console.error(e)
@@ -80,5 +96,45 @@ export class ListProductsComponent implements OnInit {
         error: (e) => { console.error(e) }
       });
     }
-  }
+  }//onScroll
+
+  CalculatePages(): void {
+    this.pages = [];
+    if (this.currentPage === 1) {
+      for (let i = 2; i <= 6; i++) {
+        if (i < this.lastPage) {
+          this.pages.push(i);
+        }
+      }//for
+    }
+    else if (this.currentPage === this.lastPage) {
+      for (let i = Number(this.lastPage) - 1; i > 1; i--) {
+        if (i > Number(this.lastPage) - 6) {
+          this.pages.push(i);
+        }//if
+      }//for
+    }
+    else {
+      this.pages = [this.currentPage];
+      for (let i = 1; i < 4; i++) {
+        if (Number(this.currentPage) + i < this.lastPage) {
+          this.pages.push(Number(this.currentPage) + i);
+        }
+        if (Number(this.currentPage) - i > 1) {
+          this.pages.unshift(Number(this.currentPage) - i);
+        }
+      }//for
+      if (this.pages.length > 6) {
+        this.pages.pop();
+      }//if
+    }//else if
+  }//CalculatePages
+
+  SetPage(page: Number, sum: any = 0): void {
+    if (this.currentPage !== page + sum) {
+      this.params.page = page + sum;
+      this.get_products();
+    }//if
+  }//SetPage
+
 }//class

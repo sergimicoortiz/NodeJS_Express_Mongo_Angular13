@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Product } from '../models/product.model';
+import { Product } from '../models';
+import { PaginateProduct } from '../models';
 
 const URL = 'http://localhost:3001/api/products';
 const products_popular_url = 'http://localhost:3001/api/products_popular';
@@ -26,8 +27,8 @@ export class ProductService {
     this.productsList.next(data);
   }
 
-  all_products(): Observable<Product[]> {
-    return this.http.get<Product[]>(URL);
+  all_products(params: any): Observable<PaginateProduct> {
+    return this.http.get<PaginateProduct>(URL, { params });
   }
 
   all_products_popular(params:any): Observable<Product[]> {

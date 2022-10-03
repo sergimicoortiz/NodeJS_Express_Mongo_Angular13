@@ -3,6 +3,19 @@ const Category = mongoose.model('Category');
 const FormatError = require('../utils/responseApi.js').FormatError;
 const FormatSuccess = require('../utils/responseApi.js').FormatSuccess;
 
+const CalculatePagination = (page = 1, size = 9) => {
+    if (page <= 0) {
+        page = 1;
+    }
+    if (size <= 0) {
+        size = 1
+    }
+    return {
+        limit: size,
+        skip: size * (page - 1)
+    }
+}//CalculatePaginate
+
 async function getall_category(req, res) {
     try {
         const category = await Category.find().populate('category_products');
@@ -12,17 +25,32 @@ async function getall_category(req, res) {
     }//end trycath
 }//getall_category
 
+/* async function getone_category(req, res) {
+    try {
+        const id = req.params.id
+        const page = parseInt(req.query.page);
+        const size = parseInt(req.query.size);
+        const options = CalculatePagination(page || 1, size || 9);
+        const category = await Category.findOne({ slug: id }).populate('category_products');
+        res.json(category);
+    } catch (error) {
+        console.error(error);
+        if (error.kind === 'ObjectId') { res.status(404).json(FormatError("Category not found", res.statusCode)); }
+        else { res.status(500).json(FormatError("An error has ocurred", res.statusCode)); }
+    }
+}; */
+
 async function getone_category(req, res) {
     try {
         const id = req.params.id
-        //const category = await Category.findOne({ slug: id }).populate({ path: 'category_products', options: { limit: 2, skip: 2 } });
-        const category = await Category.findOne({ slug: id }).populate('category_products');
-        if (!category) {
-            res.status(404).json(FormatError("Category not found", res.statusCode));
-        } else {
-            res.json(category);
-        };
+        const page = parseInt(req.query.page);
+        const size = parseInt(req.query.size);
+        const options = CalculatePagination(page || 1, size || 9);
+        const total = await Category.findOne({ slug: id }).populate({ path: 'category_products', select: 'slug' })
+        const category = await Category.find({ slug: id }).populate({ path: 'category_products', options: options });
+        res.json(category.map(e => e.toJSONpagination(options, page, total.category_products.length))[0]);
     } catch (error) {
+        console.error(error);
         if (error.kind === 'ObjectId') { res.status(404).json(FormatError("Category not found", res.statusCode)); }
         else { res.status(500).json(FormatError("An error has ocurred", res.statusCode)); }
     }
