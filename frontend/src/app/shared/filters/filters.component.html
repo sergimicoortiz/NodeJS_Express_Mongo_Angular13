@@ -1,1 +1,31 @@
 <app-search (searchOutput)="search($event)"></app-search>
+<div class="container-filters">
+    
+    <!-- Select category -->
+    <span class="custom-dropdown big">
+        <select>
+            <option selected disabled hidden>--------> Select category <-------</option>
+            <option>Sherlock Holmes</option>
+            <option>The Great Gatsby</option>
+            <option>V for Vendetta</option>
+            <option>The Wolf of Wallstreet</option>
+            <option>Quantum of Solace</option>
+        </select>
+    </span>
+<br>
+    <!-- Order by -->
+    <div class="order custom-dropdown big">
+        <select>
+            <option selected disabled hidden>-------------> Order by <------------</option>
+            <option>Biggest price</option>
+            <option>Most liked</option>
+            <option>Biggest price and most liked</option>
+        </select>
+    </div>
+<br>
+    <!-- Price -->
+    <div class="div-price">
+        Min Price <input type="number" name="" id="" min="0" class="input_price" onkeyup="if(this.value<0){this.value= this.value * -1}"> -- --
+        <input type="number" name="" id="" class="input_price" onkeyup="if(this.value<0){this.value= this.value * -1}"> Max Price
+    </div>
+</div>
