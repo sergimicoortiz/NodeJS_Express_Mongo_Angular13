@@ -2,7 +2,7 @@
     <img *ngFor="let category of category; let i = index"
     src="{{category.category_picture}}"
     [ngClass]="{'image-active':selectIndex === i}"
-    routerLink="/shop/category/{{category.slug}}">
+    routerLink="/shop/{{category.slug}}">
 
     <div *ngIf="indicators" class="carousel-dot-container">
         <span *ngFor="let dot of category; let i = index" 

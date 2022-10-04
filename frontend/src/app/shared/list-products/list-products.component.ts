@@ -44,7 +44,13 @@ export class ListProductsComponent implements OnInit {
     return params;
   }//getScrollRequestParams
 
-  setParams() {
+  search(data: String) {
+    this.params.page = 1; //Pagination don't work with search
+    this.params.name = data;
+    this.get_products();
+  }
+
+  setParams(): void {
     this.category_slug = this.ActivatedRoute.snapshot.paramMap.get('slug') || "";
   }//setParams
 
