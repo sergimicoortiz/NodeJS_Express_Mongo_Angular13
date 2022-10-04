@@ -48,6 +48,9 @@ export class ListProductsComponent implements OnInit {
     if (data.name) {
       this.params.name = data.name;
     }
+    if(data.category){
+      this.category_slug = data.category;
+    }
     this.get_products();
   }//filters
 

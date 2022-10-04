@@ -13,7 +13,9 @@ export class FiltersComponent implements OnInit {
 
 
   @Output() filterOutput: EventEmitter<String> = new EventEmitter();
-
+  category_filter: String = "";
+  order_price_filter: String = "";
+  order_likes_filter: String = "";
   categorys: Category[] = [];
 
   constructor(
@@ -31,8 +33,11 @@ export class FiltersComponent implements OnInit {
     this.SendFilters(data);
   }
 
-  SendFilters(search: String): void {
+  SendFilters(search?: String): void {
     let filters: any = {};
+    if (this.category_filter) {
+      filters.category = this.category_filter;
+    }
     if (search) {
       filters.name = search;
     }
@@ -66,5 +71,4 @@ export class FiltersComponent implements OnInit {
     }
     this.filterOutput.emit(filters);
   }
-
 }//class

@@ -52,7 +52,6 @@ async function getall_products(req, res) {
             res.json(category.map(e => e.toJSONpagination(options, page, total.category_products.length))[0]);
         } else {
             options = { ...options, sort: sort };
-            console.log(options)
             const products = await Product.paginate(search, options);
             res.json(products);
         }//end else if
@@ -62,7 +61,6 @@ async function getall_products(req, res) {
 }//getall_products
 
 async function getall_products_popular(req, res) {
-    console.log(req.query)
     try {
         const { offset, limit } = req.query;
         const products = await Product.find().sort({ "likes": -1 }).limit(limit);

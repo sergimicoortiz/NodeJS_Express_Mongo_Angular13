@@ -3,23 +3,33 @@
 
     <!-- Select category -->
     <span class="custom-dropdown big">
-        <select>
-            <option selected disabled hidden>--------> Select category <-------</option>
-            <option *ngFor="let category of categorys">{{category.category_name}}</option>
-
+        <select (change)="SendFilters()" [(ngModel)]="category_filter">
+            <option disabled hidden value="">--------> Select category <-------</option>
+            <option *ngFor="let category of categorys" [ngValue]="category.slug">{{category.category_name}}</option>
         </select>
     </span>
     <br>
+
     <!-- Order by -->
     <div class="order custom-dropdown big">
-        <select>
-            <option selected disabled hidden>-------------> Order by <------------</option>
-            <option>Biggest price</option>
-            <option>Most liked</option>
-            <option>Biggest price and most liked</option>
+        <select (change)="SendFilters()" [(ngModel)]="order_price_filter">
+            <option selected disabled hidden value="">---------> Order price by <--------</option>
+            <option [ngValue]=0>Higher to lower</option>
+            <option [ngValue]=1>Lower to higher</option>
         </select>
     </div>
     <br>
+
+    <!-- Order by -->
+    <div class="order custom-dropdown big">
+        <select (change)="SendFilters()" [(ngModel)]="order_likes_filter">
+            <option selected disabled hidden value="">---------> Order likes by  <---------</option>
+            <option [ngValue]=0>Higher to lower</option>
+            <option [ngValue]=1>Lower to higher</option>
+        </select>
+    </div>
+    <br>
+
     <!-- Price -->
     <div class="div-price">
         Min Price <input type="number" name="" id="" min="0" class="input_price"
