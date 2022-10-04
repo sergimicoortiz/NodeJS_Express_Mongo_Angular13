@@ -11,7 +11,7 @@ export class ListProductsComponent implements OnInit {
 
   products$?: Product[];
   category_slug: String = "";
-  offset = 0;
+  pageScroll = 1;
   currentPage: Number = 1;
   lastPage: number = 1;
   pages: Number[] = [];
@@ -33,12 +33,9 @@ export class ListProductsComponent implements OnInit {
     document.addEventListener('click', e => e.preventDefault());
   }
 
-  getScrollRequestParams(offset: number, limit: number): any {
+  getScrollRequestParams(page: number, limit: number): any {
     let params: any = {};
-
-    params[`offset`] = offset;
-    params[`limit`] = limit;
-
+    params[`limit`] = page * limit;
     return params;
   }//getScrollRequestParams
 
@@ -81,11 +78,11 @@ export class ListProductsComponent implements OnInit {
 
   onScroll() {
     if (this.ProductService.products.length < 12) {
-      const params = this.getScrollRequestParams(this.offset, 3);
+      const params = this.getScrollRequestParams(this.pageScroll, 3);
       this.ProductService.all_products_popular(params).subscribe({
         next: (data) => {
-          this.ProductService.products = this.ProductService.products.concat(data)
-          this.offset = this.offset + 3;
+          this.ProductService.products = data;
+          this.pageScroll++;
         },
         error: (e) => { console.error(e) }
       });
