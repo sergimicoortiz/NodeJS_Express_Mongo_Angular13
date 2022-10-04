@@ -11,6 +11,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { CarouselItemsComponent } from './carousel-items/carousel-items.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SearchComponent } from './search/search.component';
+import { FiltersComponent } from './filters/filters.component';
 
 
 
@@ -30,6 +31,7 @@ import { SearchComponent } from './search/search.component';
         CarouselComponent,
         CarouselItemsComponent,
         SearchComponent,
+        FiltersComponent,
     ],
     exports: [
         ListCategoryComponent,

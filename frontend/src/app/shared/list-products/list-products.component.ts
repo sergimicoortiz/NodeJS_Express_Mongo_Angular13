@@ -1,7 +1,6 @@
-import { Component, Directive, Input, OnInit } from '@angular/core';
-import { ProductService, Product, CategoryService, Category } from '../../core'
+import { Component, Input, OnInit } from '@angular/core';
+import { ProductService, Product } from '../../core'
 import { ActivatedRoute } from '@angular/router';
-import { off } from 'process';
 
 @Component({
   selector: 'app-list-products',
@@ -25,12 +24,11 @@ export class ListProductsComponent implements OnInit {
 
   constructor(
     private ProductService: ProductService,
-    private CategoryService: CategoryService,
     private ActivatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.setParams();
+    this.category_slug = this.ActivatedRoute.snapshot.paramMap.get('slug') || "";
     this.get_products();
     document.addEventListener('click', e => e.preventDefault());
   }
@@ -44,15 +42,17 @@ export class ListProductsComponent implements OnInit {
     return params;
   }//getScrollRequestParams
 
-  search(data: String) {
-    this.params.page = 1; //Pagination don't work with search
-    this.params.name = data;
-    this.get_products();
-  }
+  filters(data: any) {
+    this.params = {
+      page: 1,
+      size: 10
+    };
 
-  setParams(): void {
-    this.category_slug = this.ActivatedRoute.snapshot.paramMap.get('slug') || "";
-  }//setParams
+    if (data.name) {
+      this.params.name = data.name;
+    }
+    this.get_products();
+  }//filters
 
   get_products(): void {
     this.ProductService.products = [];
@@ -82,12 +82,10 @@ export class ListProductsComponent implements OnInit {
   onScroll() {
     if (this.ProductService.products.length < 12) {
       const params = this.getScrollRequestParams(this.offset, 3);
-      console.log(params)
       this.ProductService.all_products_popular(params).subscribe({
         next: (data) => {
           this.ProductService.products = this.ProductService.products.concat(data)
-          this.offset = this.offset + 3,
-            console.log(this.offset)
+          this.offset = this.offset + 3;
         },
         error: (e) => { console.error(e) }
       });

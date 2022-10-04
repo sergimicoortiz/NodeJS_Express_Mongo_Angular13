@@ -6,7 +6,7 @@
     </div>
 </div>
 <br>
-<app-search *ngIf="!home" (searchOutput)="search($event)"></app-search>
+<app-filters *ngIf="!home" (filterOutput)="filters($event)"></app-filters>
 <br>
 <div *ngIf="products$?.length == 0">No products</div>
 <div *ngIf="products$ && !home" class="container_cat">
