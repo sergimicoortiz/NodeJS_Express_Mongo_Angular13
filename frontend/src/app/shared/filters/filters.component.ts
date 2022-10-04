@@ -1,5 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Category } from 'src/app/core';
+import { CategoryService } from 'src/app/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-filters',
@@ -11,10 +14,17 @@ export class FiltersComponent implements OnInit {
 
   @Output() filterOutput: EventEmitter<String> = new EventEmitter();
 
+  categorys: Category[] = [];
 
-  constructor() { }
+  constructor(
+    private CategoryService: CategoryService,
+    private ActivatedRoute: ActivatedRoute,
+    private Location: Location
+  ) { }
 
   ngOnInit(): void {
+    this.get_categorys();
+    this.getURL();
   }
 
   search(data: String): void {
@@ -26,7 +36,35 @@ export class FiltersComponent implements OnInit {
     if (search) {
       filters.name = search;
     }
+    this.setURL(filters);
     this.filterOutput.emit(filters);
   }//SendFilters
+
+  get_categorys() {
+    this.CategoryService.getAll().subscribe({
+      next: data => this.categorys = data,
+      error: error => console.error(error)
+    });
+  }//get_categorys
+
+  setURL(filters: any) {
+    const category: String | null = this.ActivatedRoute.snapshot.paramMap.get('slug');
+    if (category) {
+      this.Location.replaceState(`/shop/category/${category}/${btoa(JSON.stringify(filters))}`);
+
+    } else {
+      this.Location.replaceState(`/shop/filter/${btoa(JSON.stringify(filters))}`);
+    }//end else if
+  }//setURL
+
+  getURL() {
+    let filters: any = {};
+    try {
+      filters = JSON.parse(atob(this.ActivatedRoute.snapshot.paramMap.get('filter') || ''));
+    } catch (error) {
+
+    }
+    this.filterOutput.emit(filters);
+  }
 
 }//class

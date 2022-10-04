@@ -35,6 +35,13 @@ category_shcema.methods.toJSONcarusel = function () {
     }
 }//toJSONcarusel
 
+category_shcema.methods.toJSONfilters = function () {
+    return {
+        slug: this.slug,
+        category_name: this.category_name
+    }
+}//toJSONfilters
+
 category_shcema.methods.toJSONpagination = function (options, page, total) {
     return {
         docs: this.category_products,

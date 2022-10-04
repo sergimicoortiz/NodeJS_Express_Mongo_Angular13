@@ -6,7 +6,7 @@ const FormatSuccess = require('../utils/responseApi.js').FormatSuccess;
 async function getall_category(req, res) {
     try {
         const category = await Category.find();
-        res.json(category);
+        res.json(category.map(item => item.toJSONfilters()));
     } catch (error) {
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
     }//end trycath
