@@ -23,13 +23,18 @@ async function getall_products(req, res) {
         const size = parseInt(req.query.size);
         const category_slug = req.params.category;
         let options = CalculatePagination(page || 1, size || 9);
+        let search = {};
+        if (req.query.name) {
+            search.name = { $regex: new RegExp(req.query.name) };
+        }
+        console.log(search)
         if (category_slug) {
             options = { limit: options.limit, skip: options.offset };
-            const total = await Category.findOne({ slug: category_slug }).populate({ path: 'category_products', select: 'slug' })
-            const category = await Category.find({ slug: category_slug }).populate({ path: 'category_products', options: options });
+            const total = await Category.findOne({ slug: category_slug }).populate({ path: 'category_products', select: 'slug', match: search })
+            const category = await Category.find({ slug: category_slug }).populate({ path: 'category_products', options: options, match: search });
             res.json(category.map(e => e.toJSONpagination(options, page, total.category_products.length))[0]);
         } else {
-            const products = await Product.paginate({}, options);
+            const products = await Product.paginate(search, options);
             res.json(products);
         }//end else if
     } catch (error) {
