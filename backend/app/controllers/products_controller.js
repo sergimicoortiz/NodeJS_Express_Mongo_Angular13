@@ -24,16 +24,35 @@ async function getall_products(req, res) {
         const category_slug = req.params.category;
         let options = CalculatePagination(page || 1, size || 9);
         let search = {};
+        let priceMin = req.query.priceMin;
+        let priceMax = req.query.priceMax;
+        let sort = {};
         if (req.query.name) {
             search.name = { $regex: new RegExp(req.query.name) };
         }
-        console.log(search)
+        if (req.query.owner) {
+            search.owner = { $regex: new RegExp(req.query.owner) };
+        }
+        if (req.query.priceMin || req.query.priceMax) {
+            search.$and = [{ price: { $gte: priceMin } }, { price: { $lte: priceMax } }];
+        }
+
+        if (req.query.orderPrice && req.query.orderLike) {
+            sort = {"price": -1, "likes": -1}
+        } else if (req.query.orderPrice) {
+            sort = { "price": -1 }
+        } else {
+            sort = { "likes": -1 }
+        }
+
         if (category_slug) {
-            options = { limit: options.limit, skip: options.offset };
+            options = { limit: options.limit, skip: options.offset, sort: sort };
             const total = await Category.findOne({ slug: category_slug }).populate({ path: 'category_products', select: 'slug', match: search })
-            const category = await Category.find({ slug: category_slug }).populate({ path: 'category_products', options: options, match: search });
+            const category = await Category.find({ slug: category_slug }).populate({ path: 'category_products', match: search, options: options });
             res.json(category.map(e => e.toJSONpagination(options, page, total.category_products.length))[0]);
         } else {
+            options = { ...options, sort: sort };
+            console.log(options)
             const products = await Product.paginate(search, options);
             res.json(products);
         }//end else if
