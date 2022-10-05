@@ -3,7 +3,10 @@
       <input type="text" class="searchTerm" placeholder="What are you looking for?" [(ngModel)]="search"
          (keyup)="keyup(this)">
       <button type="submit" class="searchButton" (click)="redirect_shop(this)">
-         <i class="fa fa-search"></i>
+         <fa-icon [icon]="faSearch"></fa-icon>
+      </button>
+      <button type="submit" class="searchButton red" (click)="deleteSearch()">
+         <fa-icon [icon]="faX"></fa-icon>
       </button>
    </div>
 </div>

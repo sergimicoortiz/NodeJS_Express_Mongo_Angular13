@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { faSearch, faX } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-search',
@@ -8,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
 
+  faSearch = faSearch;
+  faX = faX;
   @Input() search: String = '';
 
   @Output() searchOutput: EventEmitter<String> = new EventEmitter();
@@ -26,12 +29,17 @@ export class SearchComponent implements OnInit {
     const filters: any = {
       name: event.search
     }
-    const url_redirect: String = `/shop/filter/${btoa(JSON.stringify(filters))}`
+    const url_redirect: String = `/shop/${btoa(JSON.stringify(filters))}`
     if (this.Router.url.split('/')[1] === 'home') {
       this.Router.navigate([url_redirect]);
     } else {
       this.searchOutput.emit(event.search);
     }
   }//redirect_shop
+
+  deleteSearch() {
+    this.search = '';
+    this.searchOutput.emit(this.search);
+  }
 
 }//class

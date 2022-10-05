@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { ListCategoryComponent } from "./list-category/list-category.component";
 import { ListProductsComponent } from './list-products/list-products.component';
@@ -23,6 +24,7 @@ import { FiltersComponent } from './filters/filters.component';
         HttpClientModule,
         RouterModule,
         InfiniteScrollModule,
+        FontAwesomeModule
     ],
     declarations: [
         ListCategoryComponent,
