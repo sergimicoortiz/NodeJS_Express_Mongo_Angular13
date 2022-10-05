@@ -97,7 +97,7 @@ input::-webkit-inner-spin-button {
 .button_range_filter{
     border-radius: 10px;
     background-color: red;
-    border: 1px solid #1abc9c;
+    border: 1px solid red;
     margin-top: 4%;
     margin-left: 27.5%;
 }
