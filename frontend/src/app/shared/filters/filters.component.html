@@ -4,9 +4,9 @@
     <!-- Select category -->
     <span class="custom-dropdown big">
         <select (change)="SendFilters()" [(ngModel)]="category_filter">
-            <option value=""> -------- Select category -------</option>
+            <option disabled hidden value=""> -------- Select category -------</option>
             <option *ngFor="let category of categorys" [ngValue]="category.slug">{{category.category_name}}</option>
-        </select>
+        </select><button (click)="remove_category()" class="button_class">x</button>
     </span>
     <br>
 
@@ -16,7 +16,7 @@
             <option disabled hidden value="">--------- Order price by --------</option>
             <option [ngValue]="'1'">Higher to lower</option>
             <option [ngValue]="'2'">Lower to higher</option>
-        </select>
+        </select><button (click)="remove_price()" class="button_class">x</button>
     </div>
     <br>
 
@@ -26,7 +26,7 @@
             <option disabled hidden value="">--------- Order likes by ---------</option>
             <option [ngValue]="'1'">Higher to lower</option>
             <option [ngValue]="'2'">Lower to higher</option>
-        </select>
+        </select><button (click)="remove_likes()" class="button_class">x</button>
     </div>
     <br>
 
@@ -38,5 +38,11 @@
         <input type="number" name="" id="" class="input_price" onkeyup="if(this.value<0){this.value= this.value * -1}"
             [(ngModel)]="maxPrice" (keyup)="newMaxprice(this)">
         Max Price
+    </div><button (click)="remove_range_price()" class="button_range">Delete_range</button>
+    <br>
+    <br>
+    <div class="order custom-dropdown big">
+        <p>Do you whant to delete all filters?</p>
     </div>
+    <button (click)="remove_all()" class="button_range_filter">Remove Filters</button>
 </div>

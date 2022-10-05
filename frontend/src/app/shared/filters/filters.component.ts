@@ -94,4 +94,33 @@ export class FiltersComponent implements OnInit {
     this.order_likes_filter = String(filters.likes_order || '');
     this.filterOutput.emit(filters);
   }
+  remove_category() {
+    this.category_filter = '';
+    this.SendFilters()
+  }
+
+  remove_price() {
+    this.order_price_filter = '';
+    this.SendFilters()
+  }
+
+  remove_likes() {
+    this.order_likes_filter = '';
+    this.SendFilters()
+  }
+
+  remove_range_price() {
+    this.minPrice = '';
+    this.maxPrice = '';
+    this.SendFilters()
+  }
+
+  remove_all() {
+    this.category_filter = '';
+    this.order_likes_filter = '';
+    this.order_price_filter = '';
+    this.minPrice = '';
+    this.maxPrice = '';
+    this.SendFilters()
+  }
 }//class
