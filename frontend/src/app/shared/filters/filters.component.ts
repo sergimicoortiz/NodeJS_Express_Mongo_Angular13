@@ -49,7 +49,6 @@ export class FiltersComponent implements OnInit {
   SendFilters(): void {
     let filters: any = {};
     if (this.category_filter) {
-      //console.log(this.category_filter);
       filters.category = this.category_filter;
     }
     if (this.order_price_filter) {
@@ -79,19 +78,33 @@ export class FiltersComponent implements OnInit {
   }//get_categorys
 
   setURL(filters: any) {
-    this.Location.replaceState(`/shop/${btoa(JSON.stringify(filters))}`);
+    const filters_base64: string = btoa(JSON.stringify(filters))
+    this.Location.replaceState(`/shop/${filters_base64}`);
+    localStorage.setItem('filters', filters_base64);
   }//setURL
 
   getURL() {
     let filters: any = {};
+    let filters_base64: string | null = '';
+
+    if (this.ActivatedRoute.snapshot.paramMap.get('filter')) {
+      localStorage.removeItem('filters');
+      filters_base64 = this.ActivatedRoute.snapshot.paramMap.get('filter');
+    } else if (localStorage.getItem('filters')) {
+      filters_base64 = localStorage.getItem('filters');
+      this.Location.replaceState(`/shop/${filters_base64}`);
+    }//else if
+
     try {
-      filters = JSON.parse(atob(this.ActivatedRoute.snapshot.paramMap.get('filter') || ''));
+      filters = JSON.parse(atob(filters_base64 || ''));
     } catch (error) { }
+
     this.minPrice = filters.minPrice;
     this.maxPrice = filters.maxPrice;
     this.category_filter = filters.category || '';
     this.order_price_filter = String(filters.price_order || '');
     this.order_likes_filter = String(filters.likes_order || '');
+    this.searchValue = filters.name || '';
     this.filterOutput.emit(filters);
-  }
+  }//getURL
 }//class

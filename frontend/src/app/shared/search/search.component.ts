@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
 
-  search: string = '';
+  @Input() search: String = '';
 
   @Output() searchOutput: EventEmitter<String> = new EventEmitter();
   constructor(
