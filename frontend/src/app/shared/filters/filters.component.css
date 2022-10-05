@@ -42,14 +42,6 @@ h5{
     pointer-events: none;
 }
 
-.custom-dropdown::after {
-    /*  Custom dropdown arrow */
-    content: "\25BC";
-    font-size: .625em;
-    top: 50%;
-    margin-top: -.5em;
-}
-
 .custom-dropdown::before {
     /*  Custom dropdown arrow cover */
     right: 0;
@@ -70,10 +62,6 @@ h5{
     background-color: rgba(0, 0, 0, .15);
 }
 
-.custom-dropdown::after {
-    color: rgba(0, 0, 0, .4);
-}
-
 .order{
     cursor: pointer;
     text-align: center;
@@ -90,4 +78,26 @@ h5{
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+}
+
+.button_class{
+    border-radius: 60%;
+    background-color: #4fddc1;
+    border: 1px solid #1abc9c;;
+}
+
+.button_range{
+    border-radius: 10px;
+    background-color: #4fddc1;
+    border: 1px solid #1abc9c;
+    margin-top: 4%;
+    margin-left: 27.5%;
+}
+
+.button_range_filter{
+    border-radius: 10px;
+    background-color: red;
+    border: 1px solid #1abc9c;
+    margin-top: 4%;
+    margin-left: 27.5%;
 }
