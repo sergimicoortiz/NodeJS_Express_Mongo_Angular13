@@ -24,8 +24,8 @@ async function getall_products(req, res) {
         const category_slug = req.params.category;
         let options = CalculatePagination(page || 1, size || 9);
         let search = {};
-        let priceMin = req.query.priceMin;
-        let priceMax = req.query.priceMax;
+        let minPrice = req.query.minPrice;
+        let maxPrice = req.query.maxPrice;
         let sort = {};
         if (req.query.name) {
             search.name = { $regex: new RegExp(req.query.name) };
@@ -33,16 +33,33 @@ async function getall_products(req, res) {
         if (req.query.owner) {
             search.owner = { $regex: new RegExp(req.query.owner) };
         }
-        if (req.query.priceMin || req.query.priceMax) {
-            search.$and = [{ price: { $gte: priceMin } }, { price: { $lte: priceMax } }];
+
+        //Search min and max price
+        if (req.query.minPrice && req.query.maxPrice) {
+            search.$and = [{ price: { $gte: minPrice } }, { price: { $lte: maxPrice } }];
+        } else if (req.query.minPrice && req.query.maxPrice == undefined) {
+            search.$and = [{ price: { $gte: minPrice } }];
+        } else if (req.query.minPrice == undefined && req.query.maxPrice) {
+            search.$and = [{ price: { $lte: maxPrice } }];
         }
 
-        if (req.query.orderPrice && req.query.orderLike) {
-            sort = {"price": -1, "likes": -1}
-        } else if (req.query.orderPrice) {
+        //Order by price and likes
+        if (req.query.price_order == 1 && req.query.likes_order == 1) {
+            sort = { "price": -1, "likes": -1 }
+        } else if (req.query.price_order == 2 && req.query.likes_order == 1) {
+            sort = { "price": 1, "likes": -1 }
+        } else if (req.query.price_order == 1 && req.query.likes_order == 2) {
+            sort = { "price": -1, "likes": 1 }
+        } else if (req.query.price_order == 2 && req.query.likes_order == 2) {
+            sort = { "price": 1, "likes": 1 }
+        } else if (req.query.price_order == 1 && req.query.likes_order == undefined) {
             sort = { "price": -1 }
-        } else {
+        } else if (req.query.price_order == 2 && req.query.likes_order == undefined) {
+            sort = { "price": 1 }
+        } else if (req.query.price_order == undefined && req.query.likes_order == 1) {
             sort = { "likes": -1 }
+        } else if (req.query.price_order == undefined && req.query.likes_order == 2) {
+            sort = { "likes": 1 }
         }
 
         if (category_slug) {

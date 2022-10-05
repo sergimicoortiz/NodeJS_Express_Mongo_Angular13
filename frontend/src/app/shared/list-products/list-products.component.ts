@@ -48,6 +48,23 @@ export class ListProductsComponent implements OnInit {
     if (data.name) {
       this.params.name = data.name;
     }
+
+    if(data.price_order){
+      this.params.price_order = data.price_order;
+    }
+    
+    if(data.likes_order){
+      this.params.likes_order = data.likes_order;
+    }
+
+    if(data.minPrice){
+      this.params.minPrice = data.minPrice;
+    }
+    
+    if(data.maxPrice){
+      this.params.maxPrice = data.maxPrice;
+    }
+
     if(data.category){
       this.category_slug = data.category;
     }

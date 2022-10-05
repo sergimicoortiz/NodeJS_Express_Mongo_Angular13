@@ -13,9 +13,9 @@
     <!-- Order by -->
     <div class="order custom-dropdown big">
         <select (change)="SendFilters()" [(ngModel)]="order_price_filter">
-            <option selected disabled hidden value="">---------> Order price by <--------</option>
-            <option [ngValue]=0>Higher to lower</option>
-            <option [ngValue]=1>Lower to higher</option>
+            <option disabled hidden value="">---------> Order price by <--------</option>
+            <option [ngValue]="'1'">Higher to lower</option>
+            <option [ngValue]="'2'">Lower to higher</option>
         </select>
     </div>
     <br>
@@ -23,9 +23,9 @@
     <!-- Order by -->
     <div class="order custom-dropdown big">
         <select (change)="SendFilters()" [(ngModel)]="order_likes_filter">
-            <option selected disabled hidden value="">---------> Order likes by  <---------</option>
-            <option [ngValue]=0>Higher to lower</option>
-            <option [ngValue]=1>Lower to higher</option>
+            <option disabled hidden value="">---------> Order likes by  <---------</option>
+            <option [ngValue]="'1'">Higher to lower</option>
+            <option [ngValue]="'2'">Lower to higher</option>
         </select>
     </div>
     <br>
@@ -33,8 +33,8 @@
     <!-- Price -->
     <div class="div-price">
         Min Price <input type="number" name="" id="" min="0" class="input_price"
-            onkeyup="if(this.value<0){this.value= this.value * -1}"> -- --
-        <input type="number" name="" id="" class="input_price" onkeyup="if(this.value<0){this.value= this.value * -1}">
+            onkeyup="if(this.value<0){this.value= this.value * -1}" [(ngModel)]="minPrice" (keyup)="newMinprice(this)"> -- --
+        <input type="number" name="" id="" class="input_price" onkeyup="if(this.value<0){this.value= this.value * -1}" [(ngModel)]="maxPrice" (keyup)="newMaxprice(this)">
         Max Price
     </div>
 </div>

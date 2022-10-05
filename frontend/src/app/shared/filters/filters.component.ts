@@ -17,6 +17,8 @@ export class FiltersComponent implements OnInit {
   order_price_filter: String = "";
   order_likes_filter: String = "";
   categorys: Category[] = [];
+  minPrice: String = "";
+  maxPrice: String = "";
 
   constructor(
     private CategoryService: CategoryService,
@@ -33,10 +35,31 @@ export class FiltersComponent implements OnInit {
     this.SendFilters(data);
   }
 
+  newMinprice(event: any): void {
+    this.minPrice = event.minPrice
+    this.SendFilters()
+  }
+  newMaxprice(event: any): void {
+    this.maxPrice = event.maxPrice
+    this.SendFilters()
+  }
+
   SendFilters(search?: String): void {
     let filters: any = {};
     if (this.category_filter) {
       filters.category = this.category_filter;
+    }
+    if (this.order_price_filter) {
+      filters.price_order = Number(this.order_price_filter);
+    }
+    if (this.order_likes_filter) {
+      filters.likes_order = Number(this.order_likes_filter);
+    }
+    if(this.minPrice){
+      filters.minPrice = this.minPrice;
+    }
+    if(this.maxPrice){
+      filters.maxPrice = this.maxPrice;
     }
     if (search) {
       filters.name = search;
