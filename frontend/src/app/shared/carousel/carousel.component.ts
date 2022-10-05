@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Category } from '../../core'
 
 @Component({
@@ -7,6 +8,10 @@ import { Category } from '../../core'
   styleUrls: ['./carousel.component.css']
 })
 export class CarouselComponent implements OnInit {
+
+  constructor(
+    private Router: Router
+  ) { }
 
   @Input() category: Category[] = [];
   @Input() indicators = true;
@@ -23,7 +28,7 @@ export class CarouselComponent implements OnInit {
   }
 
   autoSlideImages(): void {
-    setInterval(()=>{
+    setInterval(() => {
       this.onNextClick();
     }, this.slideInterval);
   }
@@ -47,4 +52,11 @@ export class CarouselComponent implements OnInit {
       this.selectIndex++;
     }
   }
-}
+
+  redirect(slug: String): void {
+    const filters: any = { category: slug };
+    const URL = `/shop/${btoa(JSON.stringify(filters))}`
+    this.Router.navigate([URL]);
+  }//redirect
+
+}//class

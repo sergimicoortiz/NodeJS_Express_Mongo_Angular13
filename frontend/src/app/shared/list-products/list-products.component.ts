@@ -49,24 +49,26 @@ export class ListProductsComponent implements OnInit {
       this.params.name = data.name;
     }
 
-    if(data.price_order){
+    if (data.price_order) {
       this.params.price_order = data.price_order;
     }
-    
-    if(data.likes_order){
+
+    if (data.likes_order) {
       this.params.likes_order = data.likes_order;
     }
 
-    if(data.minPrice){
+    if (data.minPrice) {
       this.params.minPrice = data.minPrice;
     }
-    
-    if(data.maxPrice){
+
+    if (data.maxPrice) {
       this.params.maxPrice = data.maxPrice;
     }
 
-    if(data.category){
+    if (data.category) {
       this.category_slug = data.category;
+    } else {
+      this.category_slug = '';
     }
     this.get_products();
   }//filters

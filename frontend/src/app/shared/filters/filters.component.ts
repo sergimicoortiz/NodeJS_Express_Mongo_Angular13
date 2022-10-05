@@ -19,6 +19,7 @@ export class FiltersComponent implements OnInit {
   categorys: Category[] = [];
   minPrice: String = "";
   maxPrice: String = "";
+  searchValue: String = '';
 
   constructor(
     private CategoryService: CategoryService,
@@ -32,7 +33,8 @@ export class FiltersComponent implements OnInit {
   }
 
   search(data: String): void {
-    this.SendFilters(data);
+    this.searchValue = data;
+    this.SendFilters();
   }
 
   newMinprice(event: any): void {
@@ -44,9 +46,10 @@ export class FiltersComponent implements OnInit {
     this.SendFilters()
   }
 
-  SendFilters(search?: String): void {
+  SendFilters(): void {
     let filters: any = {};
     if (this.category_filter) {
+      //console.log(this.category_filter);
       filters.category = this.category_filter;
     }
     if (this.order_price_filter) {
@@ -55,14 +58,14 @@ export class FiltersComponent implements OnInit {
     if (this.order_likes_filter) {
       filters.likes_order = Number(this.order_likes_filter);
     }
-    if(this.minPrice){
+    if (this.minPrice) {
       filters.minPrice = this.minPrice;
     }
-    if(this.maxPrice){
+    if (this.maxPrice) {
       filters.maxPrice = this.maxPrice;
     }
-    if (search) {
-      filters.name = search;
+    if (this.searchValue) {
+      filters.name = this.searchValue;
     }
     this.setURL(filters);
     this.filterOutput.emit(filters);
@@ -76,22 +79,19 @@ export class FiltersComponent implements OnInit {
   }//get_categorys
 
   setURL(filters: any) {
-    const category: String | null = this.ActivatedRoute.snapshot.paramMap.get('slug');
-    if (category) {
-      this.Location.replaceState(`/shop/category/${category}/${btoa(JSON.stringify(filters))}`);
-
-    } else {
-      this.Location.replaceState(`/shop/filter/${btoa(JSON.stringify(filters))}`);
-    }//end else if
+    this.Location.replaceState(`/shop/${btoa(JSON.stringify(filters))}`);
   }//setURL
 
   getURL() {
     let filters: any = {};
     try {
       filters = JSON.parse(atob(this.ActivatedRoute.snapshot.paramMap.get('filter') || ''));
-    } catch (error) {
-
-    }
+    } catch (error) { }
+    this.minPrice = filters.minPrice;
+    this.maxPrice = filters.maxPrice;
+    this.category_filter = filters.category || '';
+    this.order_price_filter = String(filters.price_order || '');
+    this.order_likes_filter = String(filters.likes_order || '');
     this.filterOutput.emit(filters);
   }
 }//class
