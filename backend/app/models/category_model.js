@@ -5,18 +5,18 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 
 
-const category_shcema = new mongoose.Schema({
+const category_schema = new mongoose.Schema({
     slug: { type: String, lowercase: true, unique: true },
     category_name: String,
     category_picture: String,
     category_products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }]
 });
 
-category_shcema.plugin(uniqueValidator, { msg: "already taken" });
-//category_shcema.plugin(mongoosePaginate);
+category_schema.plugin(uniqueValidator, { msg: "already taken" });
+//category_schema.plugin(mongoosePaginate);
 
 
-category_shcema.pre('validate', function (next) {
+category_schema.pre('validate', function (next) {
     if (!this.slug) {
         this.slugify();
     }
@@ -24,25 +24,25 @@ category_shcema.pre('validate', function (next) {
     next();
 });//pre
 
-category_shcema.methods.slugify = function () {
+category_schema.methods.slugify = function () {
     this.slug = slug(this.category_name) + '-' + (Math.random() * Math.pow(36, 6) | 0).toString(36);
 };//slugify
 
-category_shcema.methods.toJSONcarusel = function () {
+category_schema.methods.toJSONcarusel = function () {
     return {
         slug: this.slug,
         category_picture: this.category_picture
     }
 }//toJSONcarusel
 
-category_shcema.methods.toJSONfilters = function () {
+category_schema.methods.toJSONfilters = function () {
     return {
         slug: this.slug,
         category_name: this.category_name
     }
 }//toJSONfilters
 
-category_shcema.methods.toJSONpagination = function (options, page, total) {
+category_schema.methods.toJSONpagination = function (options, page, total) {
     return {
         docs: this.category_products,
         totalDocs: total,
@@ -54,4 +54,4 @@ category_shcema.methods.toJSONpagination = function (options, page, total) {
     }
 }//toJSONpagination
 
-mongoose.model('Category', category_shcema);
+mongoose.model('Category', category_schema);

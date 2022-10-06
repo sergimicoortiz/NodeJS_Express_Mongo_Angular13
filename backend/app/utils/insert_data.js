@@ -19,6 +19,7 @@ async function main() {
             const products = fake_products(process.env.DUMMY_PRODUCTS || 5, process.env.DUMMY_COMMENTS || 5);
             let products_id = [];
             for (let p = 0; p < products.length; p++) {
+                products[p].category = categorys[c].category_name;
                 const new_product = new Product(products[p]);
                 const save = await new_product.save();
                 products_id.push(String(save._id));

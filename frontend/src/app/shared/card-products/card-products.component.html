@@ -1,6 +1,6 @@
 <div>
     <div *ngIf="!product">No product</div>
-    <div *ngIf="product">
+    <div *ngIf="product" (click)="redirect()">
         <figure class="snip1423">
             <img src="{{product.picture[0]}}" alt="" />
             <figcaption>
@@ -10,10 +10,12 @@
                     {{product.price}}€
                 </div>
                 <div class="likes">
-                   Likes: {{product.likes}}
+                    Likes: {{product.likes}}
                 </div>
-            </figcaption><i class="ion-android-cart"></i>
-            <a href="#"></a>
+                <div class="likes">
+                    Category: {{product.category}}
+                </div>
+            </figcaption>
         </figure>
     </div>
 </div>

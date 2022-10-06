@@ -4,8 +4,10 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Product } from '../models';
 import { PaginateProduct } from '../models';
 
-const URL = 'http://localhost:3001/api/products';
-const products_popular_url = 'http://localhost:3001/api/products_popular';
+const URL_BASE = 'http://localhost:3001/api'
+const URL = `${URL_BASE}/products`;
+const URL_DETAILS = `${URL_BASE}/product`;
+const products_popular_url = `${URL_BASE}/products_popular`;
 
 
 @Injectable({
@@ -17,6 +19,9 @@ export class ProductService {
   private productsList = new BehaviorSubject<Product[]>([]);
   readonly products$ = this.productsList.asObservable();
 
+  private CurrentProduct = new BehaviorSubject<Product | any>({});
+  readonly product$ = this.CurrentProduct.asObservable();
+
   constructor(private http: HttpClient) { }
 
   get products(): Product[] {
@@ -25,6 +30,14 @@ export class ProductService {
 
   set products(data: Product[]) {
     this.productsList.next(data);
+  }
+
+  get product(): Product {
+    return this.CurrentProduct.getValue();
+  }
+
+  set product(data: Product | any) {
+    this.CurrentProduct.next(data);
   }
 
   all_products(params: any, category_slug: String): Observable<PaginateProduct> {
@@ -36,7 +49,7 @@ export class ProductService {
   }
 
   get_product(id: String): Observable<Product> {
-    return this.http.get<Product>(`${URL}/${id}`);
+    return this.http.get<Product>(`${URL_DETAILS}/${id}`);
   }
 
   delete_product(id: String): Observable<Product[]> {

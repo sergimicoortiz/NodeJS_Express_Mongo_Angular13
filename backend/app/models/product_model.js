@@ -4,12 +4,13 @@ const uniqueValidator = require('mongoose-unique-validator');
 const mongoosePaginate = require('mongoose-paginate-v2');
 
 
-const product_shcema = new mongoose.Schema({
+const product_schema = new mongoose.Schema({
     slug: { type: String, lowercase: true, unique: true },
     name: String,
     price: Number,
     description: String,
     owner: String,
+    category: String,
     picture: [String],
     date: String,
     likes: Number,
@@ -21,18 +22,18 @@ const product_shcema = new mongoose.Schema({
     }]
 });
 
-product_shcema.plugin(uniqueValidator, { msg: "already taken" });
-product_shcema.plugin(mongoosePaginate);
+product_schema.plugin(uniqueValidator, { msg: "already taken" });
+product_schema.plugin(mongoosePaginate);
 
-product_shcema.pre('validate', function (next) {
+product_schema.pre('validate', function (next) {
     if (!this.slug) {
         this.slugify();
     }
     next();
 });//pre
 
-product_shcema.methods.slugify = function () {
+product_schema.methods.slugify = function () {
     this.slug = slug(this.name) + '-' + (Math.random() * Math.pow(36, 6) | 0).toString(36);
 };//slugify
 
-mongoose.model('Product', product_shcema);
+mongoose.model('Product', product_schema);

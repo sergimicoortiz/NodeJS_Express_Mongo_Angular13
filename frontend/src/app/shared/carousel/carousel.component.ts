@@ -14,6 +14,7 @@ export class CarouselComponent implements OnInit {
   ) { }
 
   @Input() category: Category[] = [];
+  @Input() products: String[] = [];
   @Input() indicators = true;
   @Input() controls = true;
   @Input() autoSlide = false;

@@ -109,6 +109,7 @@ async function create_product(req, res) {
             price: req.body.price || 0,
             description: req.body.description || null,
             owner: req.body.owner || null,
+            //category: req.body.category || null,
             picture: req.body.picture || [null],
             date: new Date(),
             likes: 0,
@@ -121,6 +122,7 @@ async function create_product(req, res) {
                     category_products: product._id
                 }
             });
+        product.category = category.category_name;
         const new_product = await product.save();
         res.json(new_product);
     } catch (error) {
