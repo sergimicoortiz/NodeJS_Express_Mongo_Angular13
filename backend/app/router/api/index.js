@@ -2,8 +2,9 @@ var router = require('express').Router();
 
 const category_controller = require("../../controllers/category_controller")
 const product_controller = require("../../controllers/products_controller")
-const comment_constroller = require('../../controllers/comment_controller');
+//const comment_constroller = require('../../controllers/comment_controller');
 const carousel_controller = require('../../controllers/carousel_controller');
+const user_controller = require('../../controllers/users_controller');
 
 
 router.get('/carousel/category', carousel_controller.getCarousel_category);
@@ -25,8 +26,11 @@ router.delete('/product/:id', product_controller.delete_product);
 router.delete('/products_all', product_controller.deleteAll_product);
 router.put('/product/:id', product_controller.update_product);
 
+router.get('/user', user_controller.get_user);
+router.post('/user', user_controller.create_user);
+router.post('/user/login', user_controller.login);
 
-router.post('/product/:id/comments', comment_constroller.add_comment);
-router.delete('/product/:id/comments/:comment_id', comment_constroller.delete_comment);
+//router.post('/product/:id/comments', comment_constroller.add_comment);
+//router.delete('/product/:id/comments/:comment_id', comment_constroller.delete_comment);
 
 module.exports = router;

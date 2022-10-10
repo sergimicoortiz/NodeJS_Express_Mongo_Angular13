@@ -3,3 +3,4 @@ MONGO_URI=mongodb://localhost:27017/mydb
 CORSURL=http://localhost:4200
 DUMMY_PRODUCTS=50
 DUMMY_COMMENTS=5
+SECRET=pepito
