@@ -8,11 +8,11 @@ export interface Product {
     picture: String[]
     date: String
     likes: Number
-    comments: [{
+    /* comments: [{
         owner: String
         msg: String
         date: String
         likes: Number
         _id: String
-    }]
+    }] */
 }
