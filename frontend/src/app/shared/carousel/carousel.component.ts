@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Category } from '../../core'
+import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-carousel',
@@ -20,7 +22,11 @@ export class CarouselComponent implements OnInit {
   @Input() autoSlide = false;
   @Input() slideInterval = 3000;
 
+  faArrowAltCircleLeft = faArrowAltCircleLeft;
+  faArrowAltCircleRight = faArrowAltCircleRight;
+
   selectIndex = 0;
+  selectIndex_product = 0;
 
   ngOnInit(): void {
     if (this.autoSlide) {
@@ -36,6 +42,7 @@ export class CarouselComponent implements OnInit {
 
   selectImage(index: number): void {
     this.selectIndex = index;
+    this.selectIndex_product = index;
   }
 
   onPrevClick(): void {
@@ -51,6 +58,12 @@ export class CarouselComponent implements OnInit {
       this.selectIndex = 0;
     } else {
       this.selectIndex++;
+    }
+
+    if (this.selectIndex_product === this.products.length - 1) {
+      this.selectIndex_product = 0;
+    } else {
+      this.selectIndex_product++;
     }
   }
 

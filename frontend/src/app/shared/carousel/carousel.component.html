@@ -11,35 +11,23 @@
     </div>
 
     <div *ngIf="controls" class="btn-carousel btn-prev">
-        <i class="fas fa-arrow-circle-left icon-carousel icon-prev"
-        (click)="onPrevClick()"></i>
+        <fa-icon [icon]="faArrowAltCircleLeft" (click)="onPrevClick()" class="icon-carousel icon-prev"></fa-icon>
     </div>
 
     <div *ngIf="controls" class="btn-carousel btn-next">
-        <i class="fas fa-arrow-circle-right icon-carousel icon-next"
-        (click)="onNextClick()"></i>
+        <fa-icon [icon]="faArrowAltCircleRight" (click)="onNextClick()" class="icon-carousel icon-next"></fa-icon>
     </div>
 </div>
 
 <div *ngIf="products" class="carousel-container">
     <img *ngFor="let product of products; let i = index"
     src="{{product}}"
-    [ngClass]="{'image-active':selectIndex === i}">
+    [ngClass]="{'image-active':selectIndex_product === i}">
 
      <div *ngIf="indicators" class="carousel-dot-container">
         <span *ngFor="let dot of products; let i = index" 
         class="dot"
-        [ngClass]="{'active':selectIndex === i}"
+        [ngClass]="{'active':selectIndex_product === i}"
         (click)="selectImage(i)"></span>
     </div>
-
-    <!-- <div *ngIf="controls" class="btn-carousel btn-prev">
-        <i class="fas fa-arrow-circle-left icon-carousel icon-prev"
-        (click)="onPrevClick()"></i>
-    </div>
-
-    <div *ngIf="controls" class="btn-carousel btn-next">
-        <i class="fas fa-arrow-circle-right icon-carousel icon-next"
-        (click)="onNextClick()"></i> 
-    </div>   -->
 </div>
