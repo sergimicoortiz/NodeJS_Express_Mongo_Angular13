@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { ProductService, Product } from '../core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class DetailsComponent implements OnInit {
 
   product?: Product;
+  picture_product: String[] = [];
 
   constructor(
     private ProductService: ProductService,
@@ -32,7 +33,7 @@ export class DetailsComponent implements OnInit {
     }
 
     this.ProductService.product$.subscribe({
-      next: data => this.product = data,
+      next: data => {this.product = data, this.picture_product = data.picture},
       error: e => console.error(e)
     })
   }

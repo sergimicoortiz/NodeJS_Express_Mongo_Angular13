@@ -21,25 +21,25 @@
     </div>
 </div>
 
-<div *ngIf="category.length > 0" class="carousel-container">
-    <img *ngFor="let category of category; let i = index"
-    src="{{category.category_picture}}"
-    [ngClass]="{'image-active':selectIndex === i}" (click)="redirect(category.slug)">
+<div *ngIf="products" class="carousel-container">
+    <img *ngFor="let product of products; let i = index"
+    src="{{product}}"
+    [ngClass]="{'image-active':selectIndex === i}">
 
-    <div *ngIf="indicators" class="carousel-dot-container">
-        <span *ngFor="let dot of category; let i = index" 
+     <div *ngIf="indicators" class="carousel-dot-container">
+        <span *ngFor="let dot of products; let i = index" 
         class="dot"
         [ngClass]="{'active':selectIndex === i}"
         (click)="selectImage(i)"></span>
     </div>
 
-    <div *ngIf="controls" class="btn-carousel btn-prev">
+    <!-- <div *ngIf="controls" class="btn-carousel btn-prev">
         <i class="fas fa-arrow-circle-left icon-carousel icon-prev"
         (click)="onPrevClick()"></i>
     </div>
 
     <div *ngIf="controls" class="btn-carousel btn-next">
         <i class="fas fa-arrow-circle-right icon-carousel icon-next"
-        (click)="onNextClick()"></i>
-    </div>
+        (click)="onNextClick()"></i> 
+    </div>   -->
 </div>
