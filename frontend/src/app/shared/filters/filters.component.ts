@@ -64,7 +64,7 @@ export class FiltersComponent implements OnInit {
       filters.maxPrice = this.maxPrice;
     }
     if (this.searchValue) {
-      filters.name = this.searchValue;
+      filters.name = this.searchValue.toLocaleLowerCase();
     }
     this.setURL(filters);
     this.filterOutput.emit(filters);
@@ -107,7 +107,7 @@ export class FiltersComponent implements OnInit {
     this.searchValue = filters.name || '';
     this.filterOutput.emit(filters);
   }
-  
+
   remove_category() {
     this.category_filter = '';
     this.SendFilters()

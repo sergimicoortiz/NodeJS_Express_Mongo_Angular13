@@ -5,21 +5,21 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 
 
 const product_schema = new mongoose.Schema({
-    slug: { type: String, lowercase: true, unique: true },
-    name: String,
-    price: Number,
-    description: String,
+    slug: { type: String, lowercase: true, unique: true},
+    name: { type: String, lowercase: true },
+    price: { type: Number, default: 0 },
+    description: { type: String, maxLength: 400 },
     owner: String,
     category: String,
     picture: [String],
-    date: String,
-    likes: Number,
-    comments: [{
+    date: { type: Date, default: Date.now() },
+    likes: { type: Number, default: 0 },
+    /* comments: [{
         owner: String,
         msg: String,
         date: String,
         likes: Number
-    }]
+    }] */
 });
 
 product_schema.plugin(uniqueValidator, { msg: "already taken" });

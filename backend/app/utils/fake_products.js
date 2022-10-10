@@ -30,7 +30,7 @@ function fake_products(n, c) {
             picture: [faker.image.cats(pic_resolution[0], pic_resolution[1], true), faker.image.cats(pic_resolution[0], pic_resolution[1], true), faker.image.cats(pic_resolution[0], pic_resolution[1], true)],
             likes: parseInt(faker.commerce.price(10, 300)),
             date: new Date(),
-            comments: fake_comments(c)
+           // comments: fake_comments(c)
         };
         products.push(product);
     }//for
