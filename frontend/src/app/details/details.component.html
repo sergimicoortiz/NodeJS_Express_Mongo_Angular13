@@ -5,7 +5,9 @@
         <div class="control">
             <button class="btn">
                 <span class="price">{{product?.price}}€</span>
-                <span class="shopping-cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+                <span class="shopping-cart">
+                    <fa-icon [icon]="faShoppingCart" aria-hidden="true"></fa-icon>
+                </span>
                 <span class="buy">Buy Now</span>
             </button>
         </div>
@@ -13,5 +15,5 @@
     </div>
     <div class="product-image">
         <app-carousel [products]="picture_product" [autoSlide]="true"></app-carousel>
-    </div>   
+    </div>
 </div>

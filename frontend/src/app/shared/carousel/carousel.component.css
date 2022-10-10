@@ -34,7 +34,7 @@
     height: 13px;
     width: 13px;
     margin: 0 5px;
-    background-color: black;
+    background-color: rgb(135, 242, 189);
     border-radius: 50%;
     display: inline-block;
     transition: opacity 0.6s ease;

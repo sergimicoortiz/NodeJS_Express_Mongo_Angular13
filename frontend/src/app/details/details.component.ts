@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { ProductService, Product } from '../core';
 import { ActivatedRoute } from '@angular/router';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-details',
@@ -11,6 +12,7 @@ export class DetailsComponent implements OnInit {
 
   product?: Product;
   picture_product: String[] = [];
+  faShoppingCart = faShoppingCart;
 
   constructor(
     private ProductService: ProductService,
@@ -33,7 +35,7 @@ export class DetailsComponent implements OnInit {
     }
 
     this.ProductService.product$.subscribe({
-      next: data => {this.product = data, this.picture_product = data.picture},
+      next: data => { this.product = data, this.picture_product = data.picture },
       error: e => console.error(e)
     })
   }

@@ -41,7 +41,8 @@ import { FiltersComponent } from './filters/filters.component';
         CardProductsComponent,
         CarouselComponent,
         CarouselItemsComponent,
-        SearchComponent
+        SearchComponent,
+        FontAwesomeModule
     ],
 })
 export class SharedModule { }
