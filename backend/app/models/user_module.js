@@ -33,11 +33,10 @@ const UserSchema = mongoose.Schema(
 
 UserSchema.plugin(uniqueValidator, { message: "is already taken" });
 
-UserSchema.methods.validPassword = (password, s, h) => {
-    const hash = crypto.pbkdf2Sync(password, s, 10000, 512, 'sha512').toString('hex');
-    return h === hash;
-    //return this.salt;
-};//validPassword
+UserSchema.methods.validPassword = function (password) {
+    const hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
+    return this.hash === hash;
+};
 
 UserSchema.methods.addUser = function (username, email, image, password) {
     this.username = username;
@@ -49,7 +48,7 @@ UserSchema.methods.addUser = function (username, email, image, password) {
     return this.save();
 }//addUser
 
-UserSchema.methods.generateJWT = () => {
+UserSchema.methods.generateJWT = function () {
     const today = new Date();
     const exp = new Date(today);
     exp.setDate(today.getDate() + 60);
@@ -58,7 +57,17 @@ UserSchema.methods.generateJWT = () => {
         id: this.id,
         username: this.username,
         exp: parseInt(exp.getTime() / 1000),
-    }, process.env.SECRET);
+    }, process.env.SECRET || 'pepito');
 };
+
+UserSchema.methods.toAuthJSON = function () {
+    return {
+        username: this.username,
+        email: this.email,
+        //token: this.generateJWT(),
+        token: this.token,
+        image: this.image
+    };
+};//toAuthJSON
 
 mongoose.model('User', UserSchema);

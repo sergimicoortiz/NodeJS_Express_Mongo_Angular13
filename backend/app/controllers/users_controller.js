@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const passport = require('passport');
 const FormatError = require('../utils/responseApi.js').FormatError;
 const FormatSuccess = require('../utils/responseApi.js').FormatSuccess;
 
 
 async function get_user(req, res) {
+    console.log(req.auth);
     try {
         const show_user = await User.findOne({ "a": req.body.username });
         res.json(show_user);
@@ -29,17 +31,25 @@ async function create_user(req, res) {
 }//create_user
 
 
-async function login(req, res) {
-    try {
-        const user = await User.findOne({ username: req.body.username });
-        const test = user.validPassword(req.body.password, user.salt, user.hash);
-        console.log(test);
-        //res.json(user);
-        res.send('a');
-    } catch (error) {
-        console.error(error);
-        res.status(500).json(FormatError("An error has ocurred", res.statusCode));
+//PREGUNTAR NEXT
+async function login(req, res, next) {
+    if (!req.body.username) {
+        return res.status(422).json(FormatError('Must pass a username'));
     }
+
+    if (!req.body.password) {
+        return res.status(422).json(FormatError('Must pass a password'));
+    }
+
+    passport.authenticate('local', { session: false }, function (err, user, info) {
+        if (err) { return next(err); }
+        if (user) {
+            user.token = user.generateJWT();
+            return res.json(user.toAuthJSON());
+        } else {
+            return res.status(422).json(info);
+        }
+    })(req, res, next);
 }//login
 
 const user_controller = {

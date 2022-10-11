@@ -16,6 +16,7 @@ connectdb();
 app.use(cors(cors_options));
 app.use(express.json());
 require('./app/models/index.js');
+require('./app/config/passport.js');
 app.use(require("./app/router/index"));
 app.listen(PORT, () => {
     console.log(`The app is in 127.0.0.1:${PORT}`);
