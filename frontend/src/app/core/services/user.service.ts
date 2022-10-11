@@ -21,9 +21,6 @@ export class UserService {
     constructor(
         private jwtService: JwtService
     ) { }
-
-
-
     setAuth(user: User) {
         this.jwtService.saveToken(user.token);
         this.currentUserSubject.next(user);

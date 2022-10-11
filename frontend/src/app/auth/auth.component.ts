@@ -23,8 +23,7 @@ export class AuthComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) {
     this.authForm = this.fb.group({
-      'email': ['', Validators.required],
-      'username': ["", Validators.required],
+      'username': ['', Validators.required],
       'password': ['', Validators.required]
     });
   }
@@ -34,26 +33,23 @@ export class AuthComponent implements OnInit {
       this.authType = data[data.length - 1].path;
       this.title = (this.authType === 'login') ? 'Sign in' : 'Sign up';
       if (this.authType === 'register') {
-        this.authForm.addControl('username', new FormControl());
+        this.authForm = this.fb.group({
+          'username': ['', Validators.required],
+          'email': ['', Validators.required],
+          'password': ['', Validators.required]
+        });
       }
       this.cd.markForCheck();
     });
   }
 
   submitForm() {
-    console.log(this.authForm.value);
-    /* this.isSubmitting = true;
-
-    const credentials = this.authForm.value;
-    console.log(credentials);
-    this.userService
-      .attemptAuth(this.authType, credentials)
-      .subscribe(
-        data => this.router.navigateByUrl('/'),
-        err => {
-          this.isSubmitting = false;
-          this.cd.markForCheck();
-        }
-      ); */
+    const data = this.authForm.value
+    console.log(data);
+    if (this.authType === 'login') {
+      console.log('login');
+    } else if (this.authType === 'register') {
+      console.log('register');
+    }
   }//submitForm
 }//class

@@ -4,18 +4,14 @@
 
             <div class="col-md-6 offset-md-3 col-xs-12">
                 <p class="text-xs-center">
-                    <a routerLink="/login" *ngIf="authType === 'register'">Have an account?</a>
-                    <a routerLink="/register" *ngIf="authType === 'login'">Need an account?</a>
+                    <a routerLink="/auth/login" *ngIf="authType === 'register'">Have an account?</a>
+                    <a routerLink="/auth/register" *ngIf="authType === 'login'">Need an account?</a>
                 </p>
                 <form [formGroup]="authForm" (ngSubmit)="submitForm()">
-                    <fieldset [disabled]="isSubmitting">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" name="name" required>
-                         </div>
-                        <!-- <fieldset class="form-group">
+                    <fieldset [disabled]="isSubmitting" class="form-group">
+                        <fieldset class="form-group">
                             <input formControlName="username" placeholder="Username"
-                                class="form-control form-control-lg" type="text"  />
+                                class="form-control form-control-lg" type="text" />
                         </fieldset>
                         <fieldset class="form-group">
                             <input formControlName="email" placeholder="Email" class="form-control form-control-lg"
@@ -24,9 +20,11 @@
                         <fieldset class="form-group">
                             <input formControlName="password" placeholder="Password"
                                 class="form-control form-control-lg" type="password" />
-                        </fieldset> -->
-                        <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">Submit
+                        </fieldset>
+                        <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid"
+                            type="submit">Submit
                         </button>
+                        <!--  <button class="btn btn-lg btn-primary pull-xs-right" type="submit">Submit</button> -->
                     </fieldset>
                 </form>
             </div>
