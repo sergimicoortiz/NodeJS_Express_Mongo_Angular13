@@ -42,7 +42,9 @@ import { FiltersComponent } from './filters/filters.component';
         CarouselComponent,
         CarouselItemsComponent,
         SearchComponent,
-        FontAwesomeModule
+        FontAwesomeModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
 })
 export class SharedModule { }
