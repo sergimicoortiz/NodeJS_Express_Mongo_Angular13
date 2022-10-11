@@ -1,20 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
-
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-//Toaster
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-//Form Reactive
-//import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { HeaderComponent } from './shared/layout/index';
 import { FooterComponent } from './shared/layout/index';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -27,8 +20,7 @@ import { FooterComponent } from './shared/layout/index';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    //FormsModule,
-    //ReactiveFormsModule,
+    CoreModule,
     ToastrModule.forRoot({
     })
   ],

@@ -5,15 +5,15 @@ const FormatError = require('../utils/responseApi.js').FormatError;
 const FormatSuccess = require('../utils/responseApi.js').FormatSuccess;
 
 
-/* async function get_user(req, res) {
-    console.log(req.auth);
+async function get_user(req, res) {
     try {
         const show_user = await User.findOne({ username: req.body.username });
-        res.json(show_user);
+        console.log(req.auth);
+        res.json(req.auth);
     } catch (error) {
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
     }
-}//get_user */
+}//get_user
 
 async function create_user(req, res) {
     try {
@@ -54,7 +54,7 @@ async function login(req, res, next) {
 
 const user_controller = {
     create_user: create_user,
-    // get_user: get_user,
+    get_user: get_user,
     login: login
 }
 

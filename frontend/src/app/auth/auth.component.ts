@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, User } from '../core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-auth',
@@ -18,9 +19,10 @@ export class AuthComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService,
+    private UserService: UserService,
     private fb: FormBuilder,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private ToastrService: ToastrService
   ) {
     this.authForm = this.fb.group({
       'username': ['', Validators.required],
@@ -29,6 +31,7 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.test();
     this.route.url.subscribe(data => {
       this.authType = data[data.length - 1].path;
       this.title = (this.authType === 'login') ? 'Sign in' : 'Sign up';
@@ -44,12 +47,44 @@ export class AuthComponent implements OnInit {
   }
 
   submitForm() {
+    this.isSubmitting = true;
     const data = this.authForm.value
-    console.log(data);
     if (this.authType === 'login') {
-      console.log('login');
+      this.UserService.login(data).subscribe({
+        next: data => {
+          this.ToastrService.success("Login succefull");
+          setTimeout(() => {
+            this.router.navigate(['/home']);
+          }, 3000);
+        },
+        error: e => {
+          console.error(e)
+          this.ToastrService.error("This user or password is not correct");
+          this.isSubmitting = false;
+        }
+      })
     } else if (this.authType === 'register') {
-      console.log('register');
+      this.UserService.register(data).subscribe({
+        next: data => {
+          if (data.type === 'error') {
+            this.ToastrService.error("This user already created");
+            this.isSubmitting = false;
+          } else {
+            this.ToastrService.success("Registered successfully moving to login");
+            setTimeout(() => {
+              this.router.navigate(['/auth/login']);
+            }, 3000);
+          }
+        },
+        error: e => console.error(e)
+      })
     }
   }//submitForm
+
+  test() {
+    this.UserService.test().subscribe({
+      next: data => console.log(data),
+      error: e => console.log(e)
+    });
+  }
 }//class

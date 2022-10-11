@@ -22,7 +22,10 @@ const UserSchema = mongoose.Schema(
             required: true,
             //unique: true
         },
-        image: String,
+        image: {
+            type: String,
+            default: 'default image'
+        },
         hash: String,
         salt: String
         //favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Products" }],
