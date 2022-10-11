@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { HeaderComponent } from './shared/layout/index';
 import { FooterComponent } from './shared/layout/index';
+
 @NgModule({
   declarations: [
     AppComponent,

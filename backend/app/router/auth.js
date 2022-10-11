@@ -1,7 +1,5 @@
 const { expressjwt: jwt } = require("express-jwt");
-const dotenv = require('dotenv').config();
-//const secret = require('../config').secret;
-const secret = process.env.SECRET || 'pepito';
+const secret = require('../config').secret;
 
 function getTokenFromHeader(req) {
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token') {
@@ -16,13 +14,14 @@ const auth = {
         algorithms: ["HS256"],
         userProperty: 'payload',
         getToken: getTokenFromHeader
-    })/* ,
+    }),
     optional: jwt({
         secret: secret,
         userProperty: 'payload',
+        algorithms: ["HS256"],
         credentialsRequired: false,
         getToken: getTokenFromHeader
-    }) */
+    })
 };
 
 module.exports = auth;

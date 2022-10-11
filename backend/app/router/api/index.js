@@ -28,7 +28,7 @@ router.delete('/product/:id', product_controller.delete_product);
 router.delete('/products_all', product_controller.deleteAll_product);
 router.put('/product/:id', product_controller.update_product);
 
-router.get('/user', auth.required, user_controller.get_user);
+//router.get('/user', auth.optional, user_controller.get_user);
 router.post('/user', user_controller.create_user);
 router.post('/user/login', user_controller.login);
 

@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const dotenv = require('dotenv').config();
 const uniqueValidator = require('mongoose-unique-validator');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
+const secret = require('../config').secret;
 
 const UserSchema = mongoose.Schema(
     {
@@ -57,14 +57,13 @@ UserSchema.methods.generateJWT = function () {
         id: this.id,
         username: this.username,
         exp: parseInt(exp.getTime() / 1000),
-    }, process.env.SECRET || 'pepito');
+    }, secret);
 };
 
 UserSchema.methods.toAuthJSON = function () {
     return {
         username: this.username,
         email: this.email,
-        //token: this.generateJWT(),
         token: this.token,
         image: this.image
     };
