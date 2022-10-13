@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { UserService, User } from 'src/app/core';
+import { Component, OnInit } from '@angular/core';
+import { JwtService } from 'src/app/core';
 import { Router } from '@angular/router';
+import { UserService, User } from 'src/app/core';
 
 @Component({
   selector: 'app-header',
@@ -8,26 +9,32 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  user?: User;
+  isLoged: Boolean = false;
+  user: User = {} as User;
 
   constructor(
+    private JwtService: JwtService,
     private UserService: UserService,
-    private Router: Router,
-    private cd: ChangeDetectorRef
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    /*  this.UserService.currentUser.subscribe({
-       next: user => {
-         this.user = user,
-           this.cd.markForCheck()
-       },
-       error: e => console.error(e)
-     }); */
+    this.UserService.currentUser.subscribe({
+      next: data => {
+        if (data.username) {
+          this.isLoged = true;
+          this.user = data;
+        } else {
+          this.isLoged = false;
+        }
+      },
+      error: e => console.error(e)
+    }
+    );
   }
 
-  // logout() {
-  //   this.UserService.purgeAuth();
-  //   this.Router.navigate(['/home']);
-  // }//logut
+  logout() {
+    this.UserService.purgeAuth();
+    this.router.navigate(['/home']);
+  }//logout
 }//class

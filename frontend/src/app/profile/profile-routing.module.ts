@@ -10,8 +10,12 @@ const routes: Routes = [
     component: ProfileComponent,
     resolve: {
       profile: ProfileResolver
-    }
-  }
+    },
+  },
+  {
+    path: '',
+    redirectTo: '/home'
+  },
 ];
 
 @NgModule({

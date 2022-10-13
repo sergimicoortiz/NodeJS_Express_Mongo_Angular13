@@ -18,11 +18,8 @@ export class ProfileResolver implements Resolve<Profile> {
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<Profile> {
-    /* this.profilesService.get(route.params['username']).subscribe(console.log);
-    const username = typeof route.params['username'];
-    console.log(username == null); */
-    return this.profilesService.get(route.params['username']);
-
+  ): Observable<any> {
+    return this.profilesService.get(route.params['username'])
+      .pipe(catchError((error) => this.router.navigate(['/home'])));
   }
 }

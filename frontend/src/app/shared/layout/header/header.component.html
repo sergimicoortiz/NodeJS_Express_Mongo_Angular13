@@ -3,9 +3,8 @@
   <nav>
     <button routerLink="home">Home</button>
     <button routerLink="shop">Shop</button>
-    <button routerLink="auth/register">Register</button>
-    <!-- <div *ngIf="user">{{user.username}}
-      <button (click)="logout()">Log Out</button>
-    </div> -->
+    <button routerLink="auth/login" *ngIf="!isLoged">Login</button>
+    <button routerLink="profile/{{user.username}}" *ngIf="isLoged">Profile</button>
+    <button *ngIf="isLoged" (click)="logout()">Logout</button>
   </nav>
 </header>
