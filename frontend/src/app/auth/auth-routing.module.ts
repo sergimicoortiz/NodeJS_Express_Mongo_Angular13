@@ -6,7 +6,7 @@ import { NoAuthGuard } from '../core/guard';
 const routes: Routes = [
   {
     path: '',
-    component: AuthComponent,
+    redirectTo:"/auth/login",
     canActivate: [NoAuthGuard]
   },
   {
