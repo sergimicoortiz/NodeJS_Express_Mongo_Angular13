@@ -7,7 +7,7 @@
                     <a routerLink="/auth/login" *ngIf="authType === 'register'">Have an account?</a>
                     <a routerLink="/auth/register" *ngIf="authType === 'login'">Need an account?</a>
                 </p>
-                <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+                <form [formGroup]="authForm">
                     <fieldset [disabled]="isSubmitting" class="form-group">
                         <fieldset class="form-group">
                             <input formControlName="username" placeholder="Username"
@@ -22,9 +22,8 @@
                                 class="form-control form-control-lg" type="password" />
                         </fieldset>
                         <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid"
-                            type="submit">Submit
+                            type="submit" (click)="submitForm()">Submit
                         </button>
-                        <!--  <button class="btn btn-lg btn-primary pull-xs-right" type="submit">Submit</button> -->
                     </fieldset>
                 </form>
             </div>
