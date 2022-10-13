@@ -72,4 +72,12 @@ UserSchema.methods.toAuthJSON = function () {
     };
 };//toAuthJSON
 
+UserSchema.methods.toProfileJSON = function () {
+    return {
+        username: this.username,
+        email: this.email,
+        image: this.image
+    };
+}//toProfileJSON
+
 mongoose.model('User', UserSchema);
