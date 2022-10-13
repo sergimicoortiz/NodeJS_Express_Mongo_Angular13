@@ -22,6 +22,18 @@ export class UserService {
         private jwtService: JwtService,
         private http: HttpClient
     ) { }
+
+    populate(): void {
+        if (this.jwtService.getToken()) {
+            this.http.get<User>(URL_BASE).subscribe({
+                next: data => this.setAuth(data),
+                error: e => { console.error(e); this.purgeAuth() }
+            });
+        } else {
+            this.purgeAuth();
+        }
+    }
+
     setAuth(user: User) {
         this.jwtService.saveToken(user.token);
         this.currentUserSubject.next(user);
@@ -47,8 +59,4 @@ export class UserService {
                 }
             ));
     }//login
-
-    test(): Observable<any> {
-        return this.http.get<any>(`${URL_BASE}`);
-    }//test
-}
+}//class

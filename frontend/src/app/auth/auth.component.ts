@@ -31,7 +31,6 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.test();
     this.route.url.subscribe(data => {
       this.authType = data[data.length - 1].path;
       this.title = (this.authType === 'login') ? 'Sign in' : 'Sign up';
@@ -47,6 +46,7 @@ export class AuthComponent implements OnInit {
   }
 
   submitForm() {
+    console.log('a');
     this.isSubmitting = true;
     const data = this.authForm.value
     if (this.authType === 'login') {
@@ -80,11 +80,4 @@ export class AuthComponent implements OnInit {
       })
     }
   }//submitForm
-
-  test() {
-    this.UserService.test().subscribe({
-      next: data => console.log(data),
-      error: e => console.log(e)
-    });
-  }
 }//class

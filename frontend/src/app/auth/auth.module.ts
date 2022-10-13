@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
-
+import { NoAuthGuard } from '../core/guard';
 import { SharedModule } from '../shared/shared.module';
 
 
@@ -13,6 +13,7 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     AuthRoutingModule,
     SharedModule
-  ]
+  ],
+  providers: [NoAuthGuard]
 })
 export class AuthModule { }

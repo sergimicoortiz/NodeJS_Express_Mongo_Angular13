@@ -7,9 +7,15 @@ const FormatSuccess = require('../utils/responseApi.js').FormatSuccess;
 
 async function get_user(req, res) {
     try {
-        const show_user = await User.findOne({ username: req.body.username });
-        console.log(req.auth);
-        res.json(req.auth);
+        const id = req.auth.id;
+        if (id) {
+            const user = await User.findOne({ id: id });
+            if (user) {
+                res.json(user.toAuthJSON());
+            }
+        } else {
+            res.status(404).json(FormatError("An error has ocurred", res.statusCode));
+        }
     } catch (error) {
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
     }
@@ -17,6 +23,19 @@ async function get_user(req, res) {
 
 async function create_user(req, res) {
     try {
+        if (!req.body.username) {
+            return res.status(422).json(FormatError('Must pass a username'));
+        }
+        if (!req.body.password) {
+            return res.status(422).json(FormatError('Must pass a password'));
+        }
+        if (!req.body.email) {
+            return res.status(422).json(FormatError('Must pass a email'));
+        }
+        /* if (!req.body.image) {
+            return res.status(422).json(FormatError('Must pass a image'));
+        } */
+
         const user_exist = await User.findOne({ username: req.body.username });
         if (user_exist === null) {
             const user = new User();
@@ -44,7 +63,6 @@ async function login(req, res, next) {
     passport.authenticate('local', { session: false }, function (err, user, info) {
         if (err) { return next(err); }
         if (user) {
-            user.token = user.generateJWT();
             return res.json(user.toAuthJSON());
         } else {
             return res.status(422).json(info);
