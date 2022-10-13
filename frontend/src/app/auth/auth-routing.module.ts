@@ -5,11 +5,6 @@ import { NoAuthGuard } from '../core/guard';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo:"/auth/login",
-    canActivate: [NoAuthGuard]
-  },
-  {
     path: 'register',
     component: AuthComponent,
     canActivate: [NoAuthGuard]
@@ -19,6 +14,11 @@ const routes: Routes = [
     component: AuthComponent,
     canActivate: [NoAuthGuard]
   },
+  {
+    path: '',
+    redirectTo: "/auth/login",
+    canActivate: [NoAuthGuard]
+  }
 ];
 
 @NgModule({
