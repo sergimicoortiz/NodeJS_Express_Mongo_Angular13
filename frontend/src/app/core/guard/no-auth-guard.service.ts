@@ -22,7 +22,7 @@ export class NoAuthGuard implements CanActivate {
                     this.router.navigate(['/home']);
                 }
             },
-            error: e => console.log(e),
+            error: e => console.error(e),
         })
         return this.userService.isAuthenticated.pipe(take(1), map(isAuth => !isAuth));
     }

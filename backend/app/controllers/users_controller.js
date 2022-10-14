@@ -32,11 +32,16 @@ async function create_user(req, res) {
         if (!req.body.email) {
             return res.status(422).json(FormatError('Must pass a email'));
         }
-        /* if (!req.body.image) {
-            return res.status(422).json(FormatError('Must pass a image'));
-        } */
-
-        const user_exist = await User.findOne({ username: req.body.username });
+        const user_exist = await User.findOne({
+            $or: [
+                {
+                    username: req.body.username
+                },
+                {
+                    email: req.body.email
+                }
+            ]
+        });
         if (user_exist === null) {
             const user = new User();
             user.addUser(req.body.username, req.body.email, req.body.image, req.body.password);
@@ -70,10 +75,54 @@ async function login(req, res, next) {
     })(req, res, next);
 }//login
 
+async function update_user(req, res) {
+    try {
+        const search_user = await User.findOne({
+            $or: [
+                {
+                    username: req.body.username
+                },
+                {
+                    email: req.body.email
+                }
+            ]
+        });
+        if (search_user !== null) {
+            return res.status(200).json(FormatError("User or email already exist", res.statusCode));
+        } else {
+            const id = req.auth.id;
+            if (id) {
+                const user = await User.findOne({ id: id });
+                if (user) {
+                    if (req.body.username) {
+                        user.username = req.body.username;
+                    }
+                    if (req.body.email) {
+                        user.email = req.body.email;
+                    }
+                    if (req.body.password) {
+                        user.generatePassword(req.body.password);
+                    }
+                    if (req.body.image) {
+                        user.image = req.body.image;
+                    }
+                    await user.save();
+                    res.json(FormatSuccess('User updated'));
+                }
+            } else {
+                res.status(404).json(FormatError("An error has ocurred", res.statusCode));
+            }
+        }
+    } catch {
+        res.status(500).json(FormatError("An error has ocurred", res.statusCode));
+    }
+}//update_user
+
 const user_controller = {
     create_user: create_user,
     get_user: get_user,
-    login: login
+    login: login,
+    update_user: update_user
 }
 
 module.exports = user_controller;

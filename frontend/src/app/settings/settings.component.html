@@ -5,46 +5,29 @@
 
                 <h1 class="text-xs-center">Your Settings</h1>
 
-                <!-- <app-list-errors [errors]="errors"></app-list-errors> -->
-
-                <!-- <form [formGroup]="settingsForm" (ngSubmit)="submitForm()">
-                    <fieldset [disabled]="isSubmitting">
-
+                 <form [formGroup]="settingsForm">
+                    <fieldset [disabled]="isSubmitting" class="form-group">
                         <fieldset class="form-group">
-                            <input class="form-control" type="text" placeholder="URL of profile picture"
-                                formControlName="image" />
+                            <input formControlName="username" placeholder="Username"
+                                class="form-control form-control-lg" type="text" />
                         </fieldset>
-
                         <fieldset class="form-group">
-                            <input class="form-control form-control-lg" type="text" placeholder="Username"
-                                formControlName="username" />
+                            <input formControlName="email" placeholder="Email" class="form-control form-control-lg"
+                                type="text" />
                         </fieldset>
-
                         <fieldset class="form-group">
-                            <textarea class="form-control form-control-lg" rows="8" placeholder="Short bio about you"
-                                formControlName="bio">
-                </textarea>
+                            <input formControlName="password" placeholder="Password"
+                                class="form-control form-control-lg" type="password" />
                         </fieldset>
-
                         <fieldset class="form-group">
-                            <input class="form-control form-control-lg" type="email" placeholder="Email"
-                                formControlName="email" />
+                            <input formControlName="image" placeholder="URL Image"
+                                class="form-control form-control-lg" type="text" />
                         </fieldset>
-
-                        <fieldset class="form-group">
-                            <input class="form-control form-control-lg" type="password" placeholder="New Password"
-                                formControlName="password" />
-                        </fieldset>
-
-                        <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
-                            Update Settings
+                        <button class="btn btn-lg btn-primary pull-xs-right"
+                            type="submit" (click)="submitChange()">Submit
                         </button>
-
                     </fieldset>
-                </form> -->
-
-                <!-- Line break for logout button -->
-                <hr />
+                </form>
 
                 <button class="btn btn-outline-danger" (click)="logout()">
                     Or click here to logout.

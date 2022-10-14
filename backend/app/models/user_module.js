@@ -41,13 +41,17 @@ UserSchema.methods.validPassword = function (password) {
     return this.hash === hash;
 };
 
+UserSchema.methods.generatePassword = function (password) {
+    this.salt = crypto.randomBytes(16).toString('hex');
+    this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
+};//generatePassword
+
 UserSchema.methods.addUser = function (username, email, image, password) {
     this.username = username;
     this.email = email;
     this.image = image;
     this.id = uuidv4();
-    this.salt = crypto.randomBytes(16).toString('hex');
-    this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
+    this.generatePassword(password);
     return this.save();
 }//addUser
 

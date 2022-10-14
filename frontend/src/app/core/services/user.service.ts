@@ -6,6 +6,7 @@ import { User } from '../models';
 import { JwtService } from './jwt.service';
 
 const URL_BASE = 'http://localhost:3001/api/user'
+const URL_Settings = 'http://localhost:3001/api/settings'
 
 @Injectable({
     providedIn: 'root'
@@ -59,4 +60,8 @@ export class UserService {
                 }
             ));
     }//login
+
+    settings_user(data: any): Observable<any> {
+        return this.http.put<any>(`${URL_Settings}`, data);
+    }
 }//class

@@ -32,6 +32,7 @@ router.put('/product/:id', product_controller.update_product);
 router.get('/user', auth.required, user_controller.get_user);
 router.post('/user', user_controller.create_user);
 router.post('/user/login', user_controller.login);
+router.put('/settings', auth.required, user_controller.update_user);
 
 
 router.param('username', profile_controller.param_username);
