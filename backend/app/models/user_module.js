@@ -24,7 +24,7 @@ const UserSchema = mongoose.Schema(
         },
         image: {
             type: String,
-            default: 'default image'
+            default: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg'
         },
         hash: String,
         salt: String

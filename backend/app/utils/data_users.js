@@ -3,7 +3,7 @@ const pic_resolution = [400, 400];
 
 const users = [{
     username: "a",
-    email: "a",
+    email: "a@gmail.com",
     password: "a",
     image: faker.image.cats(pic_resolution[0], pic_resolution[1], true)
 },
