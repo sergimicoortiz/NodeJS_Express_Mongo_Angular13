@@ -27,10 +27,13 @@ const UserSchema = mongoose.Schema(
             default: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg'
         },
         hash: String,
-        salt: String
-        //favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Products" }],
-        //following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-        //followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+        salt: String,
+        likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
+        following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+        followers: {
+            type: Number,
+            default: 0
+        },
     }
 );//UserSchema
 
@@ -67,6 +70,48 @@ UserSchema.methods.generateJWT = function () {
     }, secret);
 };
 
+UserSchema.methods.like = function (product) {
+    if (this.likes.indexOf(product._id) === -1) {
+        this.likes.push(product._id);
+        product.addLike();
+    }
+    return this.save();
+};
+
+UserSchema.methods.unlike = function (product) {
+    this.likes.remove(product._id);
+    product.removeLike();
+    return this.save();
+};
+
+
+//Start follow functions
+UserSchema.methods.follow = function (id) {
+    if (this.following.indexOf(id) === -1) {
+        this.following.push(id);
+        this.followers = this.followers + 1;
+    }
+    return this.save();
+};
+
+
+//Not working
+// UserSchema.methods.unfollow = function (id) {
+//     this.following.remove(id);
+//     this.followers = this.followers - 1;
+//     return this.save();
+// };
+
+// Not woriking
+// UserSchema.methods.isFollowing = function (id) {
+//     console.log(id)
+//     console.log(this.id)
+//     console.log( this.following.some(function (id) {
+//         console.log(id)
+//         return id.toString() === id.toString();
+//     }))
+// };
+
 UserSchema.methods.toAuthJSON = function () {
     return {
         username: this.username,
@@ -76,11 +121,14 @@ UserSchema.methods.toAuthJSON = function () {
     };
 };//toAuthJSON
 
-UserSchema.methods.toProfileJSON = function () {
+UserSchema.methods.toProfileJSON = function (user) {
+    console.log(user.id, "asd")
     return {
         username: this.username,
         email: this.email,
-        image: this.image
+        image: this.image,
+        following : this.following,
+        // following: user ? user.isFollowing(this.user.id) : false
     };
 }//toProfileJSON
 

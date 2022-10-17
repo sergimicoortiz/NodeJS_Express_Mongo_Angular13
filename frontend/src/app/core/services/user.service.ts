@@ -63,5 +63,5 @@ export class UserService {
 
     settings_user(data: any): Observable<any> {
         return this.http.put<any>(`${URL_Settings}`, data);
-    }
+    }//settings_user
 }//class

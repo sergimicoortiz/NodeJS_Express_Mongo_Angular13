@@ -54,8 +54,6 @@ async function create_user(req, res) {
     }
 }//create_user
 
-
-//PREGUNTAR NEXT
 async function login(req, res, next) {
     if (!req.body.username) {
         return res.status(422).json(FormatError('Must pass a username'));

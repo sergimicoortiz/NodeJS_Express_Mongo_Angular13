@@ -17,33 +17,9 @@ export class CategoryService {
 
   getAll(): Observable<Category[]> {
     return this.http.get<Category[]>(baseUrl);
-  }
-
-  /*  get(id: String): Observable<Category> {
-     return this.http.get<Category>(`${baseUrl}/${id}`);
-   } */
-
-  get(id: String, params: any): Observable<PaginateProduct> {
-    return this.http.get<PaginateProduct>(`${baseUrl}/${id}`, { params });
-  }
-
-  create(data: Category): Observable<Category> {
-    return this.http.post<Category>(baseUrl, data);
-  }
-
-  update(id: String, data: Category): Observable<Category> {
-    return this.http.put<Category>(`${baseUrl}/${id}`, data);
-  }
-
-  delete(id: String): Observable<Category> {
-    return this.http.delete<Category>(`${baseUrl}/${id}`);
-  }
-
-  deleteAll(): Observable<Category> {
-    return this.http.delete<Category>(removeAllUrl);
-  }
+  }//getAll
 
   getCarousel(): Observable<Category[]> {
     return this.http.get<Category[]>(carouselUrl);
-  }
+  }//getCarousel
 }
