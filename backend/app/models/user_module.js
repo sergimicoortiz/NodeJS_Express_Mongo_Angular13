@@ -94,23 +94,15 @@ UserSchema.methods.follow = function (id) {
     return this.save();
 };
 
+UserSchema.methods.unfollow = function (id) {
+    this.following.remove(id);
+    this.followers = this.followers - 1;
+    return this.save();
+};
 
-//Not working
-// UserSchema.methods.unfollow = function (id) {
-//     this.following.remove(id);
-//     this.followers = this.followers - 1;
-//     return this.save();
-// };
-
-// Not woriking
-// UserSchema.methods.isFollowing = function (id) {
-//     console.log(id)
-//     console.log(this.id)
-//     console.log( this.following.some(function (id) {
-//         console.log(id)
-//         return id.toString() === id.toString();
-//     }))
-// };
+UserSchema.methods.isFollowing = function (id) {
+    return this.following.some(sid => sid.toString() === id.toString())
+}
 
 UserSchema.methods.toAuthJSON = function () {
     return {
@@ -122,13 +114,13 @@ UserSchema.methods.toAuthJSON = function () {
 };//toAuthJSON
 
 UserSchema.methods.toProfileJSON = function (user) {
-    console.log(user.id, "asd")
     return {
+        // id:this._id,
         username: this.username,
         email: this.email,
         image: this.image,
-        following : this.following,
-        // following: user ? user.isFollowing(this.user.id) : false
+        array_following: this.following,
+        following: user ? user.isFollowing(this._id) : false
     };
 }//toProfileJSON
 

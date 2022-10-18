@@ -2,6 +2,10 @@ const faker = require('@faker-js/faker/locale/en').faker;
 const categorys = require('./data_categorys.js');
 const pic_resolution = [400, 400];
 
+function randomNumber(max, min = 0) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
 function fake_comments(n) {
     let comments = [];
     for (let i = 0; i < n; i++) {
@@ -16,8 +20,9 @@ function fake_comments(n) {
     return comments;
 }//fake_comments
 
-function fake_products(n, c) {
+function fake_products(n, c, users_id) {
     let products = [];
+    const max = users_id.length - 1;
     for (let i = 0; i < n; i++) {
         const min = 0;
         const max = categorys.length - 1;
@@ -26,11 +31,11 @@ function fake_products(n, c) {
             name: faker.commerce.product(),
             price: parseInt(faker.commerce.price(10, 300)),
             description: faker.lorem.paragraph(1),
-            owner: faker.name.firstName(),
+            owner: users_id[randomNumber(max)],
             picture: [faker.image.cats(pic_resolution[0], pic_resolution[1], true), faker.image.cats(pic_resolution[0], pic_resolution[1], true), faker.image.cats(pic_resolution[0], pic_resolution[1], true)],
             likes: parseInt(faker.commerce.price(10, 300)),
             date: new Date(),
-           // comments: fake_comments(c)
+            // comments: fake_comments(c)
         };
         products.push(product);
     }//for

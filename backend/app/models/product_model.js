@@ -8,11 +8,12 @@ const product_schema = new mongoose.Schema({
     name: { type: String, lowercase: true },
     price: { type: Number, default: 0 },
     description: { type: String, maxLength: 400 },
-    owner: String,
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     category: String,
     picture: [String],
     date: { type: Date, default: Date.now() },
     likes: { type: Number, default: 0 },
+    haveLike: { type: Boolean, default: false }
 });
 
 product_schema.plugin(uniqueValidator, { msg: "already taken" });
@@ -39,18 +40,9 @@ product_schema.methods.removeLike = function () {
     this.save();
 }//removeLike
 
-/* product_schema.methods.toLikeJSON = function (user) {
-    return {
-        slug: this.slug,
-        name: this.name,
-        price: this.price,
-        description: this.description,
-        owner: this.owner,
-        category: this.category,
-        picture: this.picture,
-        date: this.date,
-        likes: this.likes,
-    };
-}//toLikeJSON */
+product_schema.methods.toLikeJSON = function (user) {
+    if (user.likes.indexOf(this._id) !== -1) { this.haveLike = true; }
+    return this;
+}//toLikeJSON
 
 mongoose.model('Product', product_schema);

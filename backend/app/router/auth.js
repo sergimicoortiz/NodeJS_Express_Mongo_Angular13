@@ -14,14 +14,14 @@ const auth = {
         algorithms: ["HS256"],
         userProperty: 'payload',
         getToken: getTokenFromHeader
-    })/* ,
+    }),
     optional: jwt({
         secret: secret,
-        userProperty: 'payload',
         algorithms: ["HS256"],
-        credentialsRequired: false,
-        getToken: getTokenFromHeader
-    }) */
+        userProperty: 'payload',
+        getToken: getTokenFromHeader,
+        credentialsRequired: false
+    })
 };
 
 module.exports = auth;

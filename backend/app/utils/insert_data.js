@@ -18,14 +18,11 @@ async function main() {
         const User = mongoose.model('User');
         await Category.collection.drop();
         await Product.collection.drop();
-        await User.collection.drop();
-        for (let u = 0; u < users.length; u++) {
-            const user = new User;
-            user.addUser(users[u].username, users[u].email, users[u].image, users[u].password);
-            console.log(`User ${users[u].username} added`);
-        }//for users
+
+        let users_id = await User.find();
+        users_id = users_id.map(i => i._id.toString());
         for (let c = 0; c < categorys.length; c++) {
-            const products = fake_products(process.env.DUMMY_PRODUCTS || 5, process.env.DUMMY_COMMENTS || 5);
+            const products = fake_products(process.env.DUMMY_PRODUCTS || 5, process.env.DUMMY_COMMENTS || 5, users_id);
             let products_id = [];
             for (let p = 0; p < products.length; p++) {
                 products[p].category = categorys[c].category_name;

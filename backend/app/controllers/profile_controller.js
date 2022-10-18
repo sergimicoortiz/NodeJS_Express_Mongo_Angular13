@@ -9,7 +9,7 @@ async function param_username(req, res, next, username) {
         if (!user) {
             return res.status(404).json(FormatError("No profile found", res.statusCode));
         }//if
-        req.profile = user.toProfileJSON(user);
+        req.profile = user;
         return next();
     } catch (error) {
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
@@ -17,7 +17,12 @@ async function param_username(req, res, next, username) {
 }//param :username
 
 async function get_profile(req, res) {
-    res.json(req.profile);
+    if (req.auth.id) {
+        const user_auth = await User.findOne({ id: req.auth.id });
+        res.json(req.profile.toProfileJSON(user_auth));
+    } else {
+        res.json(req.profile.toProfileJSON());
+    }
 }//get_profile
 
 async function follow(req, res) {
@@ -35,7 +40,17 @@ async function follow(req, res) {
 }
 
 async function unfollow(req, res) {
-
+    try {
+        const user = await User.findOne({ id: req.auth.id });
+        if (!user) {
+            return res.status(404).json(FormatError("No profile found", res.statusCode));
+        }
+        const userToFollow = await User.findOne({ username: req.profile.username });
+        user.unfollow(userToFollow._id);
+        res.json(FormatSuccess("User unfollowed"));
+    } catch (error) {
+        res.status(500).json(FormatError("An error has ocurred", res.statusCode));
+    }//try catch
 }
 
 const profile_controller = {

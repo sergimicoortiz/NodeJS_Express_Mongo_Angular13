@@ -13,12 +13,12 @@ router.get('/carousel/category', carousel_controller.getCarousel_category);
 router.get('/category', category_controller.getall_category);
 
 //Product
-router.get('/products', product_controller.getall_products);
-router.get('/products/:category', product_controller.getall_products);
-router.get('/products_popular', product_controller.getall_products_popular);
-router.get('/product/:slug', product_controller.getone_product);
+router.get('/products', auth.optional, product_controller.getall_products);
+router.get('/products/:category', auth.optional, product_controller.getall_products);
+router.get('/products_popular', auth.optional, product_controller.getall_products_popular);
+router.get('/product/:slug', auth.optional, product_controller.getone_product);
 router.post('/product/:slug/like', auth.required, product_controller.like);
-router.delete('/product/:slug/like', auth.required, product_controller.unlike);
+router.delete('/product/:slug/unlike', auth.required, product_controller.unlike);
 
 //User
 router.get('/user', auth.required, user_controller.get_user);
@@ -29,7 +29,7 @@ router.get('/user/likes', auth.required, product_controller.get_likes);
 
 //Profile
 router.param('username', profile_controller.param_username);
-router.get('/profile/:username', profile_controller.get_profile);
+router.get('/profile/:username', auth.optional, profile_controller.get_profile);
 router.post('/profile/:username/follow', auth.required, profile_controller.follow);
 router.delete('/profile/:username/unfollow', auth.required, profile_controller.unfollow);
 

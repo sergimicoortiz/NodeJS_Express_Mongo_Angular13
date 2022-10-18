@@ -63,17 +63,26 @@ async function getall_products(req, res) {
             sort = { "likes": 1 }
         }
 
+        let products = {};
+
         if (category_slug) {
             options = { limit: options.limit, skip: options.offset, sort: sort };
             const total = await Category.findOne({ slug: category_slug }).populate({ path: 'category_products', select: 'slug', match: search })
             const category = await Category.find({ slug: category_slug }).populate({ path: 'category_products', match: search, options: options });
-            res.json(category.map(e => e.toJSONpagination(options, page, total.category_products.length))[0]);
+            products = category.map(e => e.toJSONpagination(options, page, total.category_products.length))[0];
         } else {
             options = { ...options, sort: sort };
-            const products = await Product.paginate(search, options);
-            res.json(products);
-        }//end else if
+            products = await Product.paginate(search, options);
+        }//if category
+
+        if (req.auth) {
+            const user_auth = await User.findOne({ id: req.auth.id });
+            products.docs = products.docs.map(p => p.toLikeJSON(user_auth));
+        }//if auth
+
+        res.json(products);
     } catch (error) {
+        console.error(error);
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
     }//end trycath
 }//getall_products
@@ -82,6 +91,10 @@ async function getall_products_popular(req, res) {
     try {
         const { offset, limit } = req.query;
         const products = await Product.find().sort({ "likes": -1 }).limit(limit);
+        if (req.auth) {
+            const user_auth = await User.findOne({ id: req.auth.id });
+            products.map(p => p.toLikeJSON(user_auth));
+        }
         res.json(products);
     } catch (error) {
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
@@ -95,7 +108,12 @@ async function getone_product(req, res) {
         if (!product) {
             res.status(404).json(FormatError("Product not found", res.statusCode));
         } else {
-            res.json(product);
+            if (req.auth) {
+                const user_auth = await User.findOne({ id: req.auth.id });
+                res.json(product.toLikeJSON(user_auth));
+            } else {
+                res.json(product);
+            }
         };
     } catch (error) {
         if (error.kind === 'ObjectId') { res.status(404).json(FormatError("Product not found", res.statusCode)); }
@@ -138,15 +156,15 @@ async function unlike(req, res) {
 async function get_likes(req, res) {
     try {
         const user = await User.findOne({ id: req.auth.id }).populate({ path: 'likes' });
+        const user_toLike = await User.findOne({ id: req.auth.id });
         if (user) {
-            res.json(user.likes);
+            res.json(user.likes.map(m => m.toLikeJSON(user_toLike)));
         } else {
             res.status(404).json(FormatError("User not found", res.statusCode))
         }
     } catch (error) {
         console.error(error);
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
-
     }
 }
 

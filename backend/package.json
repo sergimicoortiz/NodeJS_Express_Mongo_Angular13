@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "insert_data": "node ./app/utils/insert_data.js"
+    "insert_data": "node ./app/utils/insert_data.js",
+    "insert_users": "node ./app/utils/insert_users.js"
   },
   "keywords": [],
   "author": "",
