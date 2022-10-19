@@ -1,7 +1,7 @@
 <div>
     <div *ngIf="!product">No product</div>
-    <div *ngIf="product" (click)="redirect()">
-        <figure class="snip1423">
+    <div *ngIf="product">
+        <figure class="snip1423" (click)="redirect()">
             <img src="{{product.picture[0]}}" alt="" />
             <figcaption>
                 <h3>{{product.name}}</h3>
@@ -17,5 +17,6 @@
                 </div>
             </figcaption>
         </figure>
+        <app-button-like [product]="product"></app-button-like>
     </div>
 </div>

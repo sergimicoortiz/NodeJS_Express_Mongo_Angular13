@@ -17,5 +17,13 @@ export class ProfilesService {
 
     get(username: string): Observable<Profile> {
         return this.http.get<Profile>(`${URL_BASE}/${username}`);
-    }
+    }//get
+
+    follow(username: string): Observable<any> {
+        return this.http.post<any>(`${URL_BASE}/${username}/follow`, {});
+    }//follow
+
+    unfollow(username: string): Observable<any> {
+        return this.http.delete<any>(`${URL_BASE}/${username}/unfollow`);
+    }//unfollow
 }

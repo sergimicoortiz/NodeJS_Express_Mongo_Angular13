@@ -17,7 +17,7 @@ async function param_username(req, res, next, username) {
 }//param :username
 
 async function get_profile(req, res) {
-    if (req.auth.id) {
+    if (req.auth) {
         const user_auth = await User.findOne({ id: req.auth.id });
         res.json(req.profile.toProfileJSON(user_auth));
     } else {

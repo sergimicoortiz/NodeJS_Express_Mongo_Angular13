@@ -6,3 +6,4 @@ export * from './card-products/card-products.component';
 export * from './layout/index';
 export * from './search/search.component';
 export * from './filters/filters.component';
+export * from './buttons';

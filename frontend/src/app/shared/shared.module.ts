@@ -13,6 +13,7 @@ import { CarouselItemsComponent } from './carousel-items/carousel-items.componen
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SearchComponent } from './search/search.component';
 import { FiltersComponent } from './filters/filters.component';
+import { ButtonLikeComponent, ButtonFollowComponent } from './buttons';
 
 
 
@@ -34,6 +35,8 @@ import { FiltersComponent } from './filters/filters.component';
         CarouselItemsComponent,
         SearchComponent,
         FiltersComponent,
+        ButtonLikeComponent,
+        ButtonFollowComponent
     ],
     exports: [
         ListCategoryComponent,
@@ -42,6 +45,8 @@ import { FiltersComponent } from './filters/filters.component';
         CarouselComponent,
         CarouselItemsComponent,
         SearchComponent,
+        ButtonLikeComponent,
+        ButtonFollowComponent,
         FontAwesomeModule,
         FormsModule,
         ReactiveFormsModule

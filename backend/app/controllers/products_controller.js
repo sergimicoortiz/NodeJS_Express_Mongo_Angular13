@@ -144,7 +144,7 @@ async function unlike(req, res) {
         const product = await Product.findOne({ slug: slug });
         if (user && product) {
             user.unlike(product);
-            res.json(FormatSuccess('Unike done correctly'));
+            res.json(FormatSuccess('Unlike done correctly'));
         } else {
             res.status(404).json(FormatError("Product not found", res.statusCode));
         }

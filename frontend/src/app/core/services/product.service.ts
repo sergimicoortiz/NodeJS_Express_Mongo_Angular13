@@ -51,4 +51,12 @@ export class ProductService {
   get_product(id: String): Observable<Product> {
     return this.http.get<Product>(`${URL_DETAILS}/${id}`);
   }//get_product
+
+  like(id: String): Observable<any> {
+    return this.http.post(`${URL_DETAILS}/${id}/like`, {})
+  }
+
+  unlike(id: String): Observable<any> {
+    return this.http.delete(`${URL_DETAILS}/${id}/unlike`)
+  }
 }//class
