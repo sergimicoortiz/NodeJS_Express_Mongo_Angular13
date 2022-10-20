@@ -32,4 +32,8 @@ export class ProfileComponent implements OnInit {
     });//check current user
   }
 
+  onToggleFollowing(following: boolean) {
+    this.profile.following = following;
+    console.log(this.profile.following)
+  }
 }//class

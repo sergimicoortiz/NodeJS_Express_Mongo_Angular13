@@ -13,7 +13,7 @@
                     </a>
                 </div>
 
-                <app-button-follow [profile]="profile" [hidden]="isUser"></app-button-follow>
+                <app-button-follow [profile]="profile" [hidden]="isUser" (toggle)="onToggleFollowing($event)"></app-button-follow>
                 
             </div>
         </div>

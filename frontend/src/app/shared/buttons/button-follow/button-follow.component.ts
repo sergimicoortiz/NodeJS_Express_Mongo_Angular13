@@ -27,7 +27,6 @@ export class ButtonFollowComponent implements OnInit {
   }
   
   toggleFollowing() {
-    console.log(this.profile.following)
     this.isSubmitting = true;
     this.userService.isAuthenticated.pipe(take(1)).subscribe({
       next: data => {
@@ -41,7 +40,6 @@ export class ButtonFollowComponent implements OnInit {
             this.profilesService.follow(this.profile.username).subscribe({
               next: data => {
                 if (data.type = "success") {
-                  this.profile.following = true;
                   this.isSubmitting = false;
                   this.toggle.emit(true);
                 }
@@ -52,9 +50,8 @@ export class ButtonFollowComponent implements OnInit {
             this.profilesService.unfollow(this.profile.username).subscribe({
               next: data => {
                 if (data.type = "success") {
-                  this.profile.following = false;
                   this.isSubmitting = false;
-                  this.toggle.emit(true);
+                  this.toggle.emit(false);
                 }
               },
                 error: error => console.error(error)
