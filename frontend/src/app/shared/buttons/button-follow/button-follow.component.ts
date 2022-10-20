@@ -24,10 +24,10 @@ export class ButtonFollowComponent implements OnInit {
   isSubmitting = false;
   isUser: Boolean = false;
   ngOnInit(): void {
-
   }
-
+  
   toggleFollowing() {
+    console.log(this.profile.following)
     this.isSubmitting = true;
     this.userService.isAuthenticated.pipe(take(1)).subscribe({
       next: data => {
@@ -39,8 +39,25 @@ export class ButtonFollowComponent implements OnInit {
         } else {
           if (!this.profile.following) {
             this.profilesService.follow(this.profile.username).subscribe({
-              next: data => console.log(data),
-              error: error => console.error(error)
+              next: data => {
+                if (data.type = "success") {
+                  this.profile.following = true;
+                  this.isSubmitting = false;
+                  this.toggle.emit(true);
+                }
+              },
+                error: error => console.error(error)
+            });
+          }else{
+            this.profilesService.unfollow(this.profile.username).subscribe({
+              next: data => {
+                if (data.type = "success") {
+                  this.profile.following = false;
+                  this.isSubmitting = false;
+                  this.toggle.emit(true);
+                }
+              },
+                error: error => console.error(error)
             });
           }
         }
