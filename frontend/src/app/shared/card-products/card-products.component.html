@@ -17,6 +17,14 @@
                 </div>
             </figcaption>
         </figure>
-        <app-button-like [product]="product"></app-button-like>
+        <div class="snip1423">
+            <app-button-like [product]="product" (toggle)="deleteFromProfile($event)"></app-button-like>
+            <div class="owner" routerLink="/profile/{{product.owner.username}}">
+
+                Owner: {{product.owner.username}}
+                <br>
+                <img src="{{product.owner.image}}" style="width: 100px;">
+            </div>
+        </div>
     </div>
 </div>

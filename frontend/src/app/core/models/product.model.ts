@@ -3,7 +3,10 @@ export interface Product {
     name: String
     price: Number
     description: String
-    owner: String
+    owner: {
+        username: String
+        image: String
+    }
     category: String
     picture: String[]
     date: String

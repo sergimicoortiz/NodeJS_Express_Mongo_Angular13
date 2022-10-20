@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { ProductService, Product } from '../core';
 import { ActivatedRoute } from '@angular/router';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-details',
@@ -16,7 +17,8 @@ export class DetailsComponent implements OnInit {
 
   constructor(
     private ProductService: ProductService,
-    private ActivatedRoute: ActivatedRoute
+    private ActivatedRoute: ActivatedRoute,
+    private Router: Router
   ) { }
 
   ngOnInit(): void {
@@ -38,5 +40,8 @@ export class DetailsComponent implements OnInit {
       next: data => { this.product = data, this.picture_product = data.picture },
       error: e => console.error(e)
     })
+  }
+  redirectOwner(){
+    this.Router.navigate([`/profile/${this.product?.owner.username}`]);
   }
 }//class

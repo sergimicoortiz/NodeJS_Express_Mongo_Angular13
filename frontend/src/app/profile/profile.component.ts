@@ -18,22 +18,22 @@ export class ProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
-    private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.route.data.subscribe({
-      next: data => this.profile = data['profile'] as Profile,
+      next: data => {
+        this.profile = data['profile'] as Profile;
+        this.userService.currentUser.subscribe({
+          next: data => this.isUser = (data.username === this.profile.username),
+          error: e => console.error(e)
+        });//check current user
+      },
       error: e => console.error(e)
     });//get profile
-    this.userService.currentUser.subscribe({
-      next: data => this.isUser = (data.username === this.profile.username),
-      error: e => console.error(e)
-    });//check current user
   }
 
   onToggleFollowing(following: boolean) {
     this.profile.following = following;
-    console.log(this.profile.following)
   }
 }//class

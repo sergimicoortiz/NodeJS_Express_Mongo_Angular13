@@ -119,7 +119,7 @@ UserSchema.methods.toProfileJSON = function (user) {
         username: this.username,
         email: this.email,
         image: this.image,
-        array_following: this.following,
+        //array_following: this.following,
         following: user ? user.isFollowing(this._id) : false
     };
 }//toProfileJSON

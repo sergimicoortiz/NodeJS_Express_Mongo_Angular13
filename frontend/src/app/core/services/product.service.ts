@@ -44,6 +44,10 @@ export class ProductService {
     return this.http.get<PaginateProduct>(`${URL}/${category_slug}`, { params });
   }//all_products
 
+  all_products_like(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${URL_BASE}/user/likes`);
+  }//all_products_like
+
   all_products_popular(params: any): Observable<Product[]> {
     return this.http.get<Product[]>(products_popular_url, { params });
   }//all_products_popular

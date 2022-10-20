@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from 'src/app/core';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/core';
@@ -10,7 +10,9 @@ import { ProductService } from 'src/app/core';
 })
 export class CardProductsComponent implements OnInit {
 
-  @Input() product?: Product;
+  @Input() product: Product = {} as Product;
+  @Output() deleteProfileId = new EventEmitter<String>();
+
 
   constructor(
     private Router: Router,
@@ -22,6 +24,12 @@ export class CardProductsComponent implements OnInit {
 
   redirect() {
     this.ProductService.product = this.product;
-    this.Router.navigate([`/details/${this.product?.slug}`]);
+    this.Router.navigate([`/details/${this.product.slug}`]);
   }//redirect
+
+  deleteFromProfile(deleted: Boolean): any {
+    if (deleted === false) {
+      this.deleteProfileId.emit(this.product.slug);
+    }
+  }
 }//class

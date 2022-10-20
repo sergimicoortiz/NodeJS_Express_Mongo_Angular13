@@ -11,7 +11,13 @@
                 <span class="buy">Buy Now</span>
             </button>
         </div>
-
+    </div>
+    <div class="snip1423">
+        <div class="owner" (click)="redirectOwner()">
+            Owner: {{product?.owner?.username}}
+            <br>
+            <img src="{{product?.owner?.image}}" style="width: 100px;">
+        </div>
     </div>
     <div class="product-image">
         <app-carousel [products]="picture_product" [autoSlide]="true"></app-carousel>

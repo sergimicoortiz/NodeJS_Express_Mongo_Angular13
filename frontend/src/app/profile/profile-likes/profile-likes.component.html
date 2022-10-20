@@ -1,0 +1,5 @@
+<div *ngIf="products.length == 0">No products</div>
+<div *ngIf="products" class="container_cat">
+    <app-card-products class="item" *ngFor="let product of products" [product]="product"
+        (deleteProfileId)="deleteFromList($event)"></app-card-products>
+</div>

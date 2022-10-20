@@ -68,10 +68,10 @@ async function getall_products(req, res) {
         if (category_slug) {
             options = { limit: options.limit, skip: options.offset, sort: sort };
             const total = await Category.findOne({ slug: category_slug }).populate({ path: 'category_products', select: 'slug', match: search })
-            const category = await Category.find({ slug: category_slug }).populate({ path: 'category_products', match: search, options: options });
+            const category = await Category.find({ slug: category_slug }).populate({ path: 'category_products', match: search, options: options, populate: { path: 'owner', select: 'username image -_id' } });
             products = category.map(e => e.toJSONpagination(options, page, total.category_products.length))[0];
         } else {
-            options = { ...options, sort: sort };
+            options = { ...options, sort: sort, populate: { path: 'owner', select: 'username image -_id' } };
             products = await Product.paginate(search, options);
         }//if category
 
@@ -90,7 +90,7 @@ async function getall_products(req, res) {
 async function getall_products_popular(req, res) {
     try {
         const { offset, limit } = req.query;
-        const products = await Product.find().sort({ "likes": -1 }).limit(limit);
+        const products = await Product.find().sort({ "likes": -1 }).limit(limit).populate({ path: 'owner', select: 'username image -_id' });
         if (req.auth) {
             const user_auth = await User.findOne({ id: req.auth.id });
             products.map(p => p.toLikeJSON(user_auth));
@@ -104,7 +104,7 @@ async function getall_products_popular(req, res) {
 async function getone_product(req, res) {
     try {
         const slug = req.params.slug
-        const product = await Product.findOne({ slug: slug });
+        const product = await Product.findOne({ slug: slug }).populate({ path: 'owner', select: 'username image -_id' });
         if (!product) {
             res.status(404).json(FormatError("Product not found", res.statusCode));
         } else {
@@ -155,7 +155,7 @@ async function unlike(req, res) {
 
 async function get_likes(req, res) {
     try {
-        const user = await User.findOne({ id: req.auth.id }).populate({ path: 'likes' });
+        const user = await User.findOne({ id: req.auth.id }).populate({ path: 'likes', populate: { path: 'owner', select: 'username image -_id' } });
         const user_toLike = await User.findOne({ id: req.auth.id });
         if (user) {
             res.json(user.likes.map(m => m.toLikeJSON(user_toLike)));
