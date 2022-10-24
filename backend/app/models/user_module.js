@@ -115,13 +115,18 @@ UserSchema.methods.toAuthJSON = function () {
 
 UserSchema.methods.toProfileJSON = function (user) {
     return {
-        // id:this._id,
         username: this.username,
         email: this.email,
         image: this.image,
-        //array_following: this.following,
         following: user ? user.isFollowing(this._id) : false
     };
 }//toProfileJSON
+
+UserSchema.methods.toProfileCommentJSON = function () {
+    return {
+        username: this.username,
+        image: this.image
+    };
+}//toProfileCommentJSON
 
 mongoose.model('User', UserSchema);

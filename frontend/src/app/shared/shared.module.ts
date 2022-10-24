@@ -14,6 +14,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SearchComponent } from './search/search.component';
 import { FiltersComponent } from './filters/filters.component';
 import { ButtonLikeComponent, ButtonFollowComponent } from './buttons';
+import { CardCommentComponent } from './card-comment/card-comment.component';
 
 
 
@@ -36,7 +37,8 @@ import { ButtonLikeComponent, ButtonFollowComponent } from './buttons';
         SearchComponent,
         FiltersComponent,
         ButtonLikeComponent,
-        ButtonFollowComponent
+        ButtonFollowComponent,
+        CardCommentComponent
     ],
     exports: [
         ListCategoryComponent,
@@ -47,6 +49,7 @@ import { ButtonLikeComponent, ButtonFollowComponent } from './buttons';
         SearchComponent,
         ButtonLikeComponent,
         ButtonFollowComponent,
+        CardCommentComponent,
         FontAwesomeModule,
         FormsModule,
         ReactiveFormsModule

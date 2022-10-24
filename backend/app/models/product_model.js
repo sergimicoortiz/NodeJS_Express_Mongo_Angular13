@@ -13,7 +13,8 @@ const product_schema = new mongoose.Schema({
     picture: [String],
     date: { type: Date, default: Date.now() },
     likes: { type: Number, default: 0 },
-    haveLike: { type: Boolean, default: false }
+    haveLike: { type: Boolean, default: false },
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 });
 
 product_schema.plugin(uniqueValidator, { msg: "already taken" });

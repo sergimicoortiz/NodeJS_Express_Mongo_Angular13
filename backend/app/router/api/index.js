@@ -5,6 +5,7 @@ const product_controller = require("../../controllers/products_controller")
 const carousel_controller = require('../../controllers/carousel_controller');
 const user_controller = require('../../controllers/users_controller');
 const profile_controller = require('../../controllers/profile_controller.js');
+const comment_constroller = require('../../controllers/comment_controller.js');
 
 //Carusel
 router.get('/carousel/category', carousel_controller.getCarousel_category);
@@ -35,7 +36,10 @@ router.delete('/profile/:username/unfollow', auth.required, profile_controller.u
 
 
 //Comments
-//router.post('/product/:id/comments', comment_constroller.add_comment);
-//router.delete('/product/:id/comments/:comment_id', comment_constroller.delete_comment);
+router.param('slug_comment', comment_constroller.get_param);
+router.get('/comment/:slug_comment', auth.optional, comment_constroller.get_comment);
+router.post('/comment/:slug_comment', auth.required, comment_constroller.add_comment);
+router.delete('/comment/:id', auth.required, comment_constroller.delete_comment);
+router.put('/comment/:id', auth.required, comment_constroller.update_comment);
 
 module.exports = router;
