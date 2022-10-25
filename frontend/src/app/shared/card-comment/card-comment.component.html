@@ -1,1 +1,15 @@
-<p>card-comment works!</p>
+<li class="box_result row">
+    <div class="avatar_comment col-md-1">
+        <img src="{{comment.owner.image}}" />
+    </div>
+    <div class="result_comment col-md-11">
+        <h4>{{comment.owner.username}}</h4>
+        <p>{{comment.msg}}</p>
+        <div class="tools_comment">
+            <span>{{comment.createdAt}}</span>
+        </div>
+        <div class="pull-right">
+            <button (click)="comment_delete()" type="button" value="1" style="background-color: red;" *ngIf="currentUsername == comment.owner.username" >Delete</button>
+        </div>
+    </div>
+</li>

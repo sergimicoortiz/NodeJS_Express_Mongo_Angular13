@@ -23,4 +23,6 @@
         <app-carousel [products]="picture_product" [autoSlide]="true"></app-carousel>
     </div>
 </div>
-<app-card-comment></app-card-comment>
+<app-comments [comments]="comments" [currentUsername]="currentUsername" (deleteId)="deleteComment($event)"
+    (formEmiter)="createComment($event)">
+</app-comments>

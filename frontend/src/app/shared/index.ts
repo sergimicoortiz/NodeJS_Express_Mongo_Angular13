@@ -8,3 +8,4 @@ export * from './search/search.component';
 export * from './filters/filters.component';
 export * from './buttons';
 export * from './card-comment/card-comment.component';
+export * from './comments/comments.component';

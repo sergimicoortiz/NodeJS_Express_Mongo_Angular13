@@ -22,7 +22,7 @@ async function main() {
         let users_id = await User.find();
         users_id = users_id.map(i => i._id.toString());
         for (let c = 0; c < categorys.length; c++) {
-            const products = fake_products(process.env.DUMMY_PRODUCTS || 5, process.env.DUMMY_COMMENTS || 5, users_id);
+            const products = fake_products(process.env.DUMMY_PRODUCTS || 5, users_id);
             let products_id = [];
             for (let p = 0; p < products.length; p++) {
                 products[p].category = categorys[c].category_name;

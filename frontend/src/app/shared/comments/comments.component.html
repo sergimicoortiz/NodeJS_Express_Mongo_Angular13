@@ -1,0 +1,29 @@
+<body>
+    <div class="container">
+        <div class="col-md-12" id="fbcomment">
+            <div class="header_comment">
+                <span class="count_comment">{{comments.length}} Comments</span>
+            </div>
+            <div class="body_comment">
+                <div class="row" *ngIf="currentUsername != undefined">
+                    <form [formGroup]="commentForm">
+                        <div class="box_comment col-md-11">
+                            <textarea class="commentar" placeholder="Add a comment..." formControlName="msg"></textarea>
+                            <div class="box_post">
+                                <div class="pull-right">
+                                    <button type="button" (click)="submitForm()">Post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    <ul id="list_comment" class="col-md-12">
+                        <app-card-comment *ngFor="let comment of comments" [comment]="comment"
+                            [currentUsername]="currentUsername" (id_comment)="sendIdDelete($event)"></app-card-comment>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

@@ -15,6 +15,7 @@ import { SearchComponent } from './search/search.component';
 import { FiltersComponent } from './filters/filters.component';
 import { ButtonLikeComponent, ButtonFollowComponent } from './buttons';
 import { CardCommentComponent } from './card-comment/card-comment.component';
+import { CommentsComponent } from './comments/comments.component';
 
 
 
@@ -38,7 +39,8 @@ import { CardCommentComponent } from './card-comment/card-comment.component';
         FiltersComponent,
         ButtonLikeComponent,
         ButtonFollowComponent,
-        CardCommentComponent
+        CardCommentComponent,
+        CommentsComponent
     ],
     exports: [
         ListCategoryComponent,
@@ -50,6 +52,7 @@ import { CardCommentComponent } from './card-comment/card-comment.component';
         ButtonLikeComponent,
         ButtonFollowComponent,
         CardCommentComponent,
+        CommentsComponent,
         FontAwesomeModule,
         FormsModule,
         ReactiveFormsModule

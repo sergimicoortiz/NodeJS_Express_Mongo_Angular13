@@ -40,6 +40,6 @@ router.param('slug_comment', comment_constroller.get_param);
 router.get('/comment/:slug_comment', auth.optional, comment_constroller.get_comment);
 router.post('/comment/:slug_comment', auth.required, comment_constroller.add_comment);
 router.delete('/comment/:id', auth.required, comment_constroller.delete_comment);
-router.put('/comment/:id', auth.required, comment_constroller.update_comment);
+//router.put('/comment/:id', auth.required, comment_constroller.update_comment);
 
 module.exports = router;

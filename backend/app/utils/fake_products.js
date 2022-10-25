@@ -6,21 +6,7 @@ function randomNumber(max, min = 0) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
-function fake_comments(n) {
-    let comments = [];
-    for (let i = 0; i < n; i++) {
-        const comment = {
-            owner: faker.name.firstName(),
-            msg: faker.lorem.paragraph(1),
-            likes: parseInt(faker.commerce.price(10, 300)),
-            date: new Date()
-        };
-        comments.push(comment);
-    }//end for
-    return comments;
-}//fake_comments
-
-function fake_products(n, c, users_id) {
+function fake_products(n, users_id) {
     let products = [];
     const max = users_id.length - 1;
     for (let i = 0; i < n; i++) {
@@ -35,7 +21,6 @@ function fake_products(n, c, users_id) {
             picture: [faker.image.cats(pic_resolution[0], pic_resolution[1], true), faker.image.cats(pic_resolution[0], pic_resolution[1], true), faker.image.cats(pic_resolution[0], pic_resolution[1], true)],
             likes: parseInt(faker.commerce.price(10, 300)),
             date: new Date(),
-            // comments: fake_comments(c)
         };
         products.push(product);
     }//for

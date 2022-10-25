@@ -50,11 +50,14 @@ async function add_comment(req, res) {
             product: req.product._id
         }
         const comment = new Comment(data);
-        const save = await comment.save();
-        const save_product = await Product.findOneAndUpdate({ slug: req.product.slug },
+        await comment.save();
+        const comment_populate = await comment.populate({ path: 'owner' });
+        await Product.findOneAndUpdate({ slug: req.product.slug },
             { $push: { comments: comment._id } });
-        res.json(FormatSuccess('Comment added'));
+        res.json(FormatSuccess('Comment added', comment_populate.toJSONFor()));
+        //res.json(comment.toJSONFor());
     } catch (error) {
+        console.error(error);
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
     }
 }//add_comment
@@ -68,7 +71,7 @@ async function delete_comment(req, res) {
         }
         const comment = await Comment.findById(id);
         if (String(comment.owner) === String(user._id)) {
-            const comment_delete = await Comment.findByIdAndDelete(id);
+            await Comment.findByIdAndDelete(id);
             res.json(FormatSuccess('Comment deleted'));
         } else {
             res.status(401).json(FormatError("No permision", res.statusCode));
@@ -79,7 +82,7 @@ async function delete_comment(req, res) {
     }
 }//delete_comment
 
-async function update_comment(req, res) {
+/* async function update_comment(req, res) {
     const user = await User.findOne({ id: req.auth.id });
     if (!user) {
         return res.status(404).json(FormatError("No profile found", res.statusCode));
@@ -87,14 +90,16 @@ async function update_comment(req, res) {
     if (!req.body.msg || req.body.msg.replace(/\s/g, "").length == 0) {
         return res.status(404).json(FormatError("No msg found", res.statusCode));
     }
-}//update_comment
+    const comment_search = await Comment.findOneAndUpdate({ id: req.params.id }, { msg: req.body.msg })
+    res.json(FormatSuccess('Comment updated'));
+}//update_comment */
 
 const comment_constroller = {
     add_comment: add_comment,
     delete_comment: delete_comment,
     get_comment: get_comment,
     get_param: get_param,
-    update_comment: update_comment
+    //update_comment: update_comment
 
 }
 
