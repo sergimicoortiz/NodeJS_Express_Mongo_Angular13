@@ -38,7 +38,7 @@ Es necesario crear el fichero .env en la carpeta backend. El contenido puede ser
 Tener instalado las siguientes herramientas:
 
 - [NodeJS](https://nodejs.org/en/download/) v16.17.0
-- [Angular Cli](https://angularjs.org) v13
+- [Angular](https://angularjs.org) v13
 - [MongoDB](https://www.mongodb.com/try/download/community)
 
 ### `Puesta en marcha`
@@ -70,12 +70,15 @@ Lista de tecnologías utilizadas en este proyecto:
   - Javascript
   - Routes
   - Models
+  - Controllers
+  - DB validation
   - Mongoose
-    - Models
+    - Relationships
     - Schema
+  - Middleware_auth
     - Header
-  - Middleware
     - Token JWT
+  - Dummys: users y products
 
 
 `Frontend` 🏛️
@@ -83,9 +86,16 @@ Lista de tecnologías utilizadas en este proyecto:
 - [Angular](https://angularjs.org): V13
   - TypeScript
   - Estructurado en Modules, Shared y Core
-  - Angualr Authentication
+  - Routes
+  - Models
+  - Components
+  - Reactive Forms
+    - Validation
+  - Lazy load
+  - Angular Authentication
     - Guards
     - Interceptor
+    - Services
     - Authentication JWT enviado por Headers
   - Sucriptions y Observables
   - RxJS Subjects
