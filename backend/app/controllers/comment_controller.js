@@ -20,17 +20,10 @@ async function get_param(req, res, next, slug_comment) {
 
 async function get_comment(req, res) {
     try {
-        /* let user_auth = null;
-        if (req.auth) {
-            user_auth = await User.findOne({ id: req.auth.id });
-        } */
         const product = req.product;
-        //const get_product = await product.populate({ path: 'comments', populate: { path: 'owner' } });
-        //res.json(get_product.comments.map(c => c.toJSONFor(user_auth)));
         const get_product = await product.populate({ path: 'comments', populate: { path: 'owner' } });
         res.json(get_product.comments.map(c => c.toJSONFor()));
     } catch (error) {
-        console.log(error);
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
     }
 }//get_comment
@@ -55,7 +48,6 @@ async function add_comment(req, res) {
         await Product.findOneAndUpdate({ slug: req.product.slug },
             { $push: { comments: comment._id } });
         res.json(FormatSuccess('Comment added', comment_populate.toJSONFor()));
-        //res.json(comment.toJSONFor());
     } catch (error) {
         console.error(error);
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
@@ -82,25 +74,11 @@ async function delete_comment(req, res) {
     }
 }//delete_comment
 
-/* async function update_comment(req, res) {
-    const user = await User.findOne({ id: req.auth.id });
-    if (!user) {
-        return res.status(404).json(FormatError("No profile found", res.statusCode));
-    }
-    if (!req.body.msg || req.body.msg.replace(/\s/g, "").length == 0) {
-        return res.status(404).json(FormatError("No msg found", res.statusCode));
-    }
-    const comment_search = await Comment.findOneAndUpdate({ id: req.params.id }, { msg: req.body.msg })
-    res.json(FormatSuccess('Comment updated'));
-}//update_comment */
-
 const comment_constroller = {
     add_comment: add_comment,
     delete_comment: delete_comment,
     get_comment: get_comment,
     get_param: get_param,
-    //update_comment: update_comment
-
 }
 
 module.exports = comment_constroller;

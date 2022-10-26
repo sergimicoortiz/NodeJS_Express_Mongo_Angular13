@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService, Product } from '../../core'
 
 @Component({
   selector: 'app-profile-products',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileProductsComponent implements OnInit {
 
-  constructor() { }
+  products: Product[] = [];
+
+  constructor(
+    private ProductService: ProductService
+  ) { }
 
   ngOnInit(): void {
+    this.getProducts();
   }
+
+  getProducts() {
+    this.ProductService.all_products_user().subscribe({
+      next: data => this.products = data,
+      error: error => console.error(error)
+    });
+  }//getProducts
 
 }

@@ -27,6 +27,7 @@ router.post('/user', user_controller.create_user);
 router.post('/user/login', user_controller.login);
 router.put('/settings', auth.required, user_controller.update_user);
 router.get('/user/likes', auth.required, product_controller.get_likes);
+router.get('/user/products', auth.required, product_controller.get_user_products);
 
 //Profile
 router.param('username', profile_controller.param_username);
@@ -40,6 +41,5 @@ router.param('slug_comment', comment_constroller.get_param);
 router.get('/comment/:slug_comment', auth.optional, comment_constroller.get_comment);
 router.post('/comment/:slug_comment', auth.required, comment_constroller.add_comment);
 router.delete('/comment/:id', auth.required, comment_constroller.delete_comment);
-//router.put('/comment/:id', auth.required, comment_constroller.update_comment);
 
 module.exports = router;

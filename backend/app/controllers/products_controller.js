@@ -166,7 +166,22 @@ async function get_likes(req, res) {
         console.error(error);
         res.status(500).json(FormatError("An error has ocurred", res.statusCode));
     }
-}
+}//get_likes
+
+async function get_user_products(req, res) {
+    try {
+        const user = await User.findOne({ id: req.auth.id });
+        if (user) {
+            const products = await Product.find({ owner: user._id }).populate({ path: 'owner', select: 'username image -_id' });
+            res.json(products.map(m => m.toLikeJSON(user)));
+        } else {
+            res.status(404).json(FormatError("User not found", res.statusCode))
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json(FormatError("An error has ocurred", res.statusCode));
+    }
+}//get_user_products
 
 const product_controller = {
     getall_products: getall_products,
@@ -174,7 +189,8 @@ const product_controller = {
     getall_products_popular: getall_products_popular,
     like: like,
     unlike: unlike,
-    get_likes: get_likes
+    get_likes: get_likes,
+    get_user_products: get_user_products
 }
 
 module.exports = product_controller

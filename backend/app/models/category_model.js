@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 const slug = require('slug');
 const uniqueValidator = require('mongoose-unique-validator');
-//const mongoosePaginate = require('mongoose-paginate-v2');
-
-
-
 const category_schema = new mongoose.Schema({
     slug: { type: String, lowercase: true, unique: true },
     category_name: { type: String, lowercase: true },
@@ -13,8 +9,6 @@ const category_schema = new mongoose.Schema({
 });
 
 category_schema.plugin(uniqueValidator, { msg: "already taken" });
-//category_schema.plugin(mongoosePaginate);
-
 
 category_schema.pre('validate', function (next) {
     if (!this.slug) {

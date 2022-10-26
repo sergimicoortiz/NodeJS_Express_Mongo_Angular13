@@ -13,7 +13,6 @@ comment_schema.methods.toJSONFor = function (user) {
         msg: this.msg,
         createdAt: this.createdAt,
         updatedAt: this.updatedAt,
-        //owner: this.owner.toProfileJSON(user)
         owner: this.owner.toProfileCommentJSON()
     };
 };

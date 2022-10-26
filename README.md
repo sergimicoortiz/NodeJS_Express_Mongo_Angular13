@@ -23,7 +23,7 @@ _Bienvenidas y bienvenidos a WalapopAcendado_
    Además permite visitar el perfil del vendedor.
 
 4. **Profile:**
-   Ver el perfil de cualquier usuario, seguirlo.
+   Ver el perfil de cualquier usuario, seguirlo. Si eres ese usuario podras ver tus productos y tus likes.
 
 5. **Login:**
    Register y Login de usuario.

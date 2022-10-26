@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService, Product, Comment, CommentService, UserService } from '../core';
 import { ActivatedRoute } from '@angular/router';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';

@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { Profile } from '../models/profile.model';
-import { map } from 'rxjs/operators';
 
 const URL_BASE = 'http://localhost:3001/api/profile'
 

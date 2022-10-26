@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Product } from '../models';
 import { PaginateProduct } from '../models';
@@ -47,6 +47,10 @@ export class ProductService {
   all_products_like(): Observable<Product[]> {
     return this.http.get<Product[]>(`${URL_BASE}/user/likes`);
   }//all_products_like
+
+  all_products_user(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${URL_BASE}/user/products`);
+  }//all_products_user
 
   all_products_popular(params: any): Observable<Product[]> {
     return this.http.get<Product[]>(products_popular_url, { params });
