@@ -12,17 +12,30 @@
                         <fieldset class="form-group">
                             <input formControlName="username" placeholder="Username"
                                 class="form-control form-control-lg" type="text" />
+                            <div *ngIf="f['username'].invalid && f['username'].dirty && f['username'].touched"
+                                style="color: red;">
+                                <div>Username name is invalid. Min 8 characters no special characters.</div>
+                            </div>
                         </fieldset>
-                        <fieldset class="form-group">
+                        <fieldset class="form-group" *ngIf="authType === 'register'">
                             <input formControlName="email" placeholder="Email" class="form-control form-control-lg"
-                                type="text" *ngIf="authType === 'register'" />
+                                type="text"/>
+                            <div *ngIf="f['email'].invalid && f['email'].dirty && f['email'].touched"
+                                style="color: red;">
+                                <div>Email is invalid</div>
+                            </div>
                         </fieldset>
                         <fieldset class="form-group">
                             <input formControlName="password" placeholder="Password"
                                 class="form-control form-control-lg" type="password" />
+                            <div *ngIf="f['password'].invalid && f['password'].dirty && f['password'].touched"
+                                style="color: red;">
+                                <div>Password is invalid. Min 8 characters 1 upercase 1 lowcase 1 number and 1 special
+                                    character required.</div>
+                            </div>
                         </fieldset>
-                        <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid"
-                            type="submit" (click)="submitForm()">Submit
+                        <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit"
+                            (click)="submitForm()">Submit
                         </button>
                     </fieldset>
                 </form>

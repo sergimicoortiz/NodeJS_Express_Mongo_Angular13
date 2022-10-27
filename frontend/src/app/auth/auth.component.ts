@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, User } from '../core';
 import { ToastrService } from 'ngx-toastr';
@@ -13,8 +13,17 @@ export class AuthComponent implements OnInit {
 
   authType: String = '';
   title: String = '';
-  isSubmitting = false;
+  isSubmitting: Boolean = false;
   authForm: FormGroup;
+  userRegex: RegExp = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
+  passwordRegex: RegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*_-]).{8,}$/;
+  emailRegex: RegExp = /^[a-zA-Z0-9_\.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+$/;
+  groupUsername: any = ['', [Validators.required, Validators.pattern(this.userRegex)]]
+  groupPassword: any = ['', [Validators.required, Validators.pattern(this.passwordRegex)]]
+  groupEmail: any = ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30), Validators.pattern(this.emailRegex)]]
+
+  groupPasswordLogin: any = ['', [Validators.required]]
+  groupUsernameLogin: any = ['', [Validators.required]]
 
   constructor(
     private route: ActivatedRoute,
@@ -25,8 +34,8 @@ export class AuthComponent implements OnInit {
     private ToastrService: ToastrService
   ) {
     this.authForm = this.fb.group({
-      'username': ['', Validators.required],
-      'password': ['', Validators.required]
+      'username': this.groupUsernameLogin,
+      'password': this.groupPasswordLogin
     });
   }
 
@@ -36,13 +45,17 @@ export class AuthComponent implements OnInit {
       this.title = (this.authType === 'login') ? 'Sign in' : 'Sign up';
       if (this.authType === 'register') {
         this.authForm = this.fb.group({
-          'username': ['', Validators.required],
-          'email': ['', Validators.required],
-          'password': ['', Validators.required]
+          'username': this.groupUsername,
+          'password': this.groupPassword,
+          'email': this.groupEmail,
         });
       }
       this.cd.markForCheck();
     });
+  }
+
+  get f(): { [key: string]: AbstractControl } {
+    return this.authForm.controls;
   }
 
   submitForm() {

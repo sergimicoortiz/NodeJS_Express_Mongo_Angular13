@@ -5,7 +5,7 @@
 
                 <h1 class="text-xs-center">Your Settings</h1>
 
-                 <form [formGroup]="settingsForm">
+                <form [formGroup]="settingsForm">
                     <fieldset [disabled]="isSubmitting" class="form-group">
                         <fieldset class="form-group">
                             <input formControlName="username" placeholder="Username"
@@ -20,11 +20,11 @@
                                 class="form-control form-control-lg" type="password" />
                         </fieldset>
                         <fieldset class="form-group">
-                            <input formControlName="image" placeholder="URL Image"
-                                class="form-control form-control-lg" type="text" />
+                            <input formControlName="image" placeholder="URL Image" class="form-control form-control-lg"
+                                type="text" />
                         </fieldset>
-                        <button class="btn btn-lg btn-primary pull-xs-right"
-                            type="submit" (click)="submitChange()">Submit
+                        <button class="btn btn-lg btn-primary pull-xs-right" type="submit" (click)="submitChange()"
+                            [disabled]="!settingsForm.valid">Submit
                         </button>
                     </fieldset>
                 </form>

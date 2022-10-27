@@ -14,15 +14,22 @@ export class SettingsComponent implements OnInit {
   settingsForm: FormGroup;
   isSubmitting = false;
 
+  userRegex: RegExp = /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
+  passwordRegex: RegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*_-]).{8,}$/;
+  emailRegex: RegExp = /^[a-zA-Z0-9_\.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+$/;
+  groupUsername: any = ['', [Validators.pattern(this.userRegex)]]
+  groupPassword: any = ['', [Validators.pattern(this.passwordRegex)]]
+  groupEmail: any = ['', [Validators.minLength(4), Validators.maxLength(30), Validators.pattern(this.emailRegex)]]
+
   constructor(private UserService: UserService,
     private router: Router,
     private fb: FormBuilder,
     private ToastrService: ToastrService) {
     this.settingsForm = this.fb.group({
-      'username': ['', Validators.required],
-      'password': ['', Validators.required],
-      'image': ['', Validators.required],
-      'email': ['', Validators.required]
+      'username': this.groupUsername,
+      'password': this.groupPassword,
+      'image': [''],
+      'email': this.groupEmail
     });
   }
 
@@ -30,40 +37,48 @@ export class SettingsComponent implements OnInit {
   }
 
   submitChange() {
-    let change: {} | any;
+    let change: any = {};
+    let send: Boolean = false;
     this.UserService.currentUser.subscribe({
       next: data => {
-        if (data.username != this.settingsForm.value.username) {
-          change = { "username": this.settingsForm.value.username, "password": this.settingsForm.value.password, "image": this.settingsForm.value.image }
+        if (data.username != this.settingsForm.value.username && this.settingsForm.value.username.length !== 0) {
+          change['username'] = this.settingsForm.value.username;
+          send = true;
         }
-        if (data.email != this.settingsForm.value.email) {
-          change = { "email": this.settingsForm.value.email, "password": this.settingsForm.value.password, "image": this.settingsForm.value.image }
+        if (data.email != this.settingsForm.value.email && this.settingsForm.value.email.length !== 0) {
+          change['email'] = this.settingsForm.value.email;
+          send = true;
         }
-        if (data.username != this.settingsForm.value.username && data.email != this.settingsForm.value.email) {
-          change = { "username": this.settingsForm.value.username, "email": this.settingsForm.value.email, "password": this.settingsForm.value.password, "image": this.settingsForm.value.image }
+        if (this.settingsForm.value.password.length !== 0) {
+          change['password'] = this.settingsForm.value.password;
+          send = true;
+        }
+        if (data.image != this.settingsForm.value.image && this.settingsForm.value.image.length !== 0) {
+          change['image'] = this.settingsForm.value.image;
+          send = true;
         }
       },
       error: e => console.error(e)
     })
 
-    if (change) {
+    if (send) {
       this.UserService.settings_user(change).subscribe({
         next: data => {
           if (data.type == "error") {
             this.ToastrService.error("User or email already exist");
-          }else{
+          } else {
             this.ToastrService.success("Updated correctly");
             setTimeout(() => {
               this.router.navigate(['/home']);
             }, 3000)
           }
-          },
+        },
         error: e => console.error(e)
       })
     } else {
-      this.ToastrService.error("You cant use the same data");
+      this.ToastrService.error("You cant use the same data and the form can't be empty");
     }
-  }
+  }//submitChange
 
   logout() {
     this.UserService.purgeAuth();
