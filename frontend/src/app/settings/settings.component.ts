@@ -68,9 +68,10 @@ export class SettingsComponent implements OnInit {
             this.ToastrService.error("User or email already exist");
           } else {
             this.ToastrService.success("Updated correctly");
+            this.UserService.setAuth(data.data);
             setTimeout(() => {
               this.router.navigate(['/home']);
-            }, 3000)
+            }, 3000);
           }
         },
         error: e => console.error(e)

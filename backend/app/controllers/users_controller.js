@@ -105,7 +105,7 @@ async function update_user(req, res) {
                         user.image = req.body.image;
                     }
                     await user.save();
-                    res.json(FormatSuccess('User updated'));
+                    res.json(FormatSuccess('User updated', user.toAuthJSON()));
                 }
             } else {
                 res.status(404).json(FormatError("An error has ocurred", res.statusCode));
