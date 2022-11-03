@@ -1,5 +1,6 @@
 PORT=3001
 MONGO_URI=mongodb://localhost:27017/mydb
+MONGO_URI=mongodb://mongo_db:27017/mydb   This is for docker
 CORSURL=http://localhost:4200
 DUMMY_PRODUCTS=50
 NODE_ENV=production

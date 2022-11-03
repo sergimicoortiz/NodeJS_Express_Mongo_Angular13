@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+  mongo_db:
+    image: mongo:latest
+    container_name: mongo_db
+    volumes:
+      - mongo_db:/data/db
+    restart: on-failure
+    hostname: mongo_db
+    networks:
+      - app
+
+  backend:
+    build: ./backend
+    depends_on:
+      - mongo_db
+    restart: on-failure
+    hostname: backend
+    networks:
+      - app
+
+  frontend:
+    build: ./frontend
+    restart: on-failure
+    depends_on:
+      - backend
+      - mongo_db
+    ports:
+      - 4200:4200
+    networks:
+      - app
+
+volumes:
+  mongo_db:
+networks:
+  app:
+    driver: bridge
