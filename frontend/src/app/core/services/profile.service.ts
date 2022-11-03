@@ -3,9 +3,7 @@ import { Observable } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { Profile } from '../models/profile.model';
-
-const URL_BASE = 'http://localhost:3001/api/profile'
-
+import { environment } from 'src/environments/environment.prod';
 @Injectable({
     providedIn: 'root'
 })
@@ -15,14 +13,14 @@ export class ProfilesService {
     ) { }
 
     get(username: string): Observable<Profile> {
-        return this.http.get<Profile>(`${URL_BASE}/${username}`);
+        return this.http.get<Profile>(`${environment.PROFILE_BASE}/${username}`);
     }//get
 
     follow(username: string): Observable<any> {
-        return this.http.post<any>(`${URL_BASE}/${username}/follow`, {});
+        return this.http.post<any>(`${environment.PROFILE_BASE}/${username}/follow`, {});
     }//follow
 
     unfollow(username: string): Observable<any> {
-        return this.http.delete<any>(`${URL_BASE}/${username}/unfollow`);
+        return this.http.delete<any>(`${environment.PROFILE_BASE}/${username}/unfollow`);
     }//unfollow
 }

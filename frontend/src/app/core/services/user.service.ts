@@ -4,10 +4,7 @@ import { Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { map, distinctUntilChanged } from 'rxjs/operators';
 import { User } from '../models';
 import { JwtService } from './jwt.service';
-
-const URL_BASE = 'http://localhost:3001/api/user'
-const URL_Settings = 'http://localhost:3001/api/settings'
-
+import { environment } from 'src/environments/environment.prod';
 @Injectable({
     providedIn: 'root'
 })
@@ -26,7 +23,7 @@ export class UserService {
 
     populate(): void {
         if (this.jwtService.getToken()) {
-            this.http.get<User>(URL_BASE).subscribe({
+            this.http.get<User>(environment.USER_BASE).subscribe({
                 next: data => this.setAuth(data),
                 error: e => { console.error(e); this.purgeAuth() }
             });
@@ -48,11 +45,11 @@ export class UserService {
     }//purgeAuth
 
     register(data: any): Observable<any> {
-        return this.http.post<any>(`${URL_BASE}`, data);
+        return this.http.post<any>(`${environment.USER_BASE}`, data);
     }//register
 
     login(data: any): Observable<User> {
-        return this.http.post<User>(`${URL_BASE + '/login'}`, data)
+        return this.http.post<User>(`${environment.USER_BASE + '/login'}`, data)
             .pipe(map(
                 user => {
                     this.setAuth(user);
@@ -62,6 +59,6 @@ export class UserService {
     }//login
 
     settings_user(data: any): Observable<any> {
-        return this.http.put<any>(`${URL_Settings}`, data);
+        return this.http.put<any>(`${environment.SETTINGS_BASE}`, data);
     }//settings_user
 }//class

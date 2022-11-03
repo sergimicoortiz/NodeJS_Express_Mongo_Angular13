@@ -3,12 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Product } from '../models';
 import { PaginateProduct } from '../models';
-
-const URL_BASE = 'http://localhost:3001/api'
-const URL = `${URL_BASE}/products`;
-const URL_DETAILS = `${URL_BASE}/product`;
-const products_popular_url = `${URL_BASE}/products_popular`;
-
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -41,30 +36,30 @@ export class ProductService {
   }
 
   all_products(params: any, category_slug: String): Observable<PaginateProduct> {
-    return this.http.get<PaginateProduct>(`${URL}/${category_slug}`, { params });
+    return this.http.get<PaginateProduct>(`${environment.PRODUCTS_BASE}/${category_slug}`, { params });
   }//all_products
 
   all_products_like(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${URL_BASE}/user/likes`);
+    return this.http.get<Product[]>(`${environment.BASE_URL}/user/likes`);
   }//all_products_like
 
   all_products_user(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${URL_BASE}/user/products`);
+    return this.http.get<Product[]>(`${environment.BASE_URL}/user/products`);
   }//all_products_user
 
   all_products_popular(params: any): Observable<Product[]> {
-    return this.http.get<Product[]>(products_popular_url, { params });
+    return this.http.get<Product[]>(environment.PRODUCTS_POPULAR, { params });
   }//all_products_popular
 
   get_product(id: String): Observable<Product> {
-    return this.http.get<Product>(`${URL_DETAILS}/${id}`);
+    return this.http.get<Product>(`${environment.PRODUCT_BASE}/${id}`);
   }//get_product
 
   like(id: String): Observable<any> {
-    return this.http.post(`${URL_DETAILS}/${id}/like`, {})
+    return this.http.post(`${environment.PRODUCT_BASE}/${id}/like`, {})
   }
 
   unlike(id: String): Observable<any> {
-    return this.http.delete(`${URL_DETAILS}/${id}/unlike`)
+    return this.http.delete(`${environment.PRODUCT_BASE}/${id}/unlike`)
   }
 }//class
