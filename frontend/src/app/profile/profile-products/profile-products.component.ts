@@ -4,7 +4,7 @@ import { ProductService, Product } from '../../core'
 @Component({
   selector: 'app-profile-products',
   templateUrl: './profile-products.component.html',
-  styleUrls: ['./profile-products.component.css']
+  styleUrls: ['./profile-products.component.scss']
 })
 export class ProfileProductsComponent implements OnInit {
 

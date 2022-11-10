@@ -8,7 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
   profile: Profile = {} as Profile;

@@ -4,7 +4,7 @@ import { CategoryService, Category, ProductService } from '../../core'
 @Component({
   selector: 'app-carousel-items',
   templateUrl: './carousel-items.component.html',
-  styleUrls: ['./carousel-items.component.css']
+  styleUrls: ['./carousel-items.component.scss']
 })
 export class CarouselItemsComponent implements OnInit {
 

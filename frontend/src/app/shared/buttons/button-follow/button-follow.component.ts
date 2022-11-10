@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-button-follow',
   templateUrl: './button-follow.component.html',
-  styleUrls: ['./button-follow.component.css']
+  styleUrls: ['./button-follow.component.scss']
 })
 export class ButtonFollowComponent implements OnInit {
 
