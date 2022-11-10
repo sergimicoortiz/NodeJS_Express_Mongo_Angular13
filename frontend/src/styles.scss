@@ -1,6 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
-
+//Imports
 @import '~ngx-toastr/toastr';
-body{
+@import '~bootstrap/scss/bootstrap';
+
+body {
     background-color: mintcream;
 }

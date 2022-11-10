@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './shared/layout/index';
 import { FooterComponent } from './shared/layout/index';
 import { CoreModule } from './core/core.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CoreModule } from './core/core.module';
     HttpClientModule,
     CoreModule,
     ToastrModule.forRoot({
-    })
+    }),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
