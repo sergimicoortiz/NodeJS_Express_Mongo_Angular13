@@ -36,6 +36,8 @@
 /*Resize the wrap to see the search bar change!*/
 
 .wrap {
+  padding-bottom: 1em;
+  padding-top: 1em;
   width: 30%;
   position: absolute;
   left: 50%;
@@ -45,4 +47,10 @@
 .red {
   background-color: red !important;
   border-color: red !important;
+}
+
+@media (max-width: 576px) {
+  .wrap {
+    padding-bottom: 3em;
+  }
 }

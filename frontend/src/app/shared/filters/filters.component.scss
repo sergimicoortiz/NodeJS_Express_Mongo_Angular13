@@ -2,7 +2,7 @@
     float: left;
     background-color: rgb(180, 251, 216);
     border: 2px rgb(188, 253, 189) solid;
-    width: 22%;
+    width: 30%;
     border-radius: 10%;
 }
 
@@ -15,7 +15,7 @@ h5 {
     position: relative;
     display: inline-block;
     vertical-align: middle;
-    margin: 10px;
+    margin: 1em;
 
     select {
         background-color: #1abc9c;
@@ -24,26 +24,8 @@ h5 {
         padding: .5em;
         border: 0;
         border-radius: 3px;
-        text-indent: 0.01px;
         text-overflow: '';
-        -webkit-appearance: button;
     }
-}
-
-p {
-    background-color: #1abc9c;
-    color: #fff;
-    font-size: inherit;
-    padding: .5em;
-
-    border: 0;
-    border-radius: 3px;
-    text-indent: 0.01px;
-    text-overflow: '';
-    -webkit-appearance: button;
-}
-
-.custom-dropdown {
 
     &::before,
     &::after {
@@ -73,6 +55,18 @@ p {
     }
 }
 
+p {
+    background-color: #1abc9c;
+    color: #fff;
+    font-size: inherit;
+    padding: .5em;
+
+    border: 0;
+    border-radius: 3px;
+    text-indent: 0.01px;
+    text-overflow: '';
+}
+
 .order {
     cursor: pointer;
     text-align: center;
@@ -84,14 +78,6 @@ p {
 
 .div-price {
     margin-left: 1.5%;
-}
-
-input {
-
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-    }
 }
 
 .button_class {
@@ -114,4 +100,28 @@ input {
     border: 1px solid red;
     margin-top: 4%;
     margin-left: 27.5%;
+}
+
+@media (max-width: 992px) {
+    .container-filters {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100%;
+    }
+
+    .div-price {
+        margin-left: 30%;
+    }
+
+    .button_range_filter {
+        margin-top: 4%;
+        margin-left: 0px;
+    }
+
+    .button_range {
+        margin-top: 4%;
+        margin-left: 20%;
+    }
 }

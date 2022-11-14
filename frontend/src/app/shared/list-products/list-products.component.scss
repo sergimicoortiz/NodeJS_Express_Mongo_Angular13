@@ -80,3 +80,12 @@
 span {
    color: #adb5bd;
 }
+
+// @media (max-width: 576px) {
+   @media (max-width: 992px) {
+   .main {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+   }
+}
