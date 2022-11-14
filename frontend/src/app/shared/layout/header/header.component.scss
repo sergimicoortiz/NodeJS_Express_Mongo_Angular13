@@ -13,12 +13,11 @@ header {
     gap: 10px;
     grid-template-columns: 1fr 1fr 1fr;
 
-}
-
-header img {
-    height: 130px;
-    grid-column-start: 1;
-    grid-column-end: 3;
+    img {
+        height: 130px;
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
 }
 
 nav {

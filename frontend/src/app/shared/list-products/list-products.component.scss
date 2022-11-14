@@ -28,11 +28,11 @@
    display: flex;
    justify-content: center;
    align-items: center;
-}
 
-.btn:active,
-.btn:hover {
-   background-color: #087f5b;
+   &:active,
+   &:hover {
+      background-color: #087f5b;
+   }
 }
 
 .icon {
@@ -45,27 +45,30 @@
    stroke: #fff;
 }
 
-.page--link:link,
-.page--link:visited {
-   font-size: 14px;
-   font-weight: 500;
-   text-decoration: none;
-   color: #343a40;
-   background-color: transparent;
-   padding: 17px 20px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   height: 36px;
-   width: 36px;
-}
+.page--link {
 
-.page--link:active,
-.page--link:hover,
-.page--link.page--link--current {
-   background-color: #087f5b;
-   color: #fff;
-   border-radius: 50%;
+   &:link,
+   &:visited {
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      color: #343a40;
+      background-color: transparent;
+      padding: 17px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      width: 36px;
+   }
+
+   &:active,
+   &:hover,
+   &.page--link--current {
+      background-color: #087f5b;
+      color: #fff;
+      border-radius: 50%;
+   }
 }
 
 .link-container {

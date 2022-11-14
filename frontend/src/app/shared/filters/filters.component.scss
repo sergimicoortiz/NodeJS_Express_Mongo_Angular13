@@ -6,87 +6,101 @@
     border-radius: 10%;
 }
 
-h5{
+h5 {
     margin-top: 10%;
     text-align: center;
 }
 
-
-/* Custom dropdown */
 .custom-dropdown {
     position: relative;
     display: inline-block;
     vertical-align: middle;
     margin: 10px;
-    /* demo only */
+
+    select {
+        background-color: #1abc9c;
+        color: #fff;
+        font-size: inherit;
+        padding: .5em;
+        border: 0;
+        border-radius: 3px;
+        text-indent: 0.01px;
+        text-overflow: '';
+        -webkit-appearance: button;
+    }
 }
 
-.custom-dropdown select, p {
+p {
     background-color: #1abc9c;
     color: #fff;
     font-size: inherit;
     padding: .5em;
-    /* padding-right: 2.5em; */
+
     border: 0;
     border-radius: 3px;
     text-indent: 0.01px;
     text-overflow: '';
     -webkit-appearance: button;
-    /* hide default arrow in chrome OSX */
 }
 
-.custom-dropdown::before,
-.custom-dropdown::after {
-    content: "";
-    position: absolute;
-    pointer-events: none;
+.custom-dropdown {
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+    }
+
+    &::before {
+        /*  Custom dropdown arrow cover */
+        right: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: 0 3px 3px 0;
+    }
+
+    select[disabled] {
+        color: rgba(0, 0, 0, 0.3);
+
+        &::after {
+            color: rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    &::before {
+        background-color: rgba(0, 0, 0, 0.15);
+    }
 }
 
-.custom-dropdown::before {
-    /*  Custom dropdown arrow cover */
-    right: 0;
-    top: 0;
-    bottom: 0;
-    border-radius: 0 3px 3px 0;
-}
-
-.custom-dropdown select[disabled] {
-    color: rgba(0, 0, 0, .3);
-}
-
-.custom-dropdown select[disabled]::after {
-    color: rgba(0, 0, 0, .1);
-}
-
-.custom-dropdown::before {
-    background-color: rgba(0, 0, 0, .15);
-}
-
-.order{
+.order {
     cursor: pointer;
     text-align: center;
 }
 
-.input_price{
+.input_price {
     width: 15%;
 }
 
-.div-price{
+.div-price {
     margin-left: 1.5%;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+input {
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
 }
 
-.button_class{
+.button_class {
     border-radius: 60%;
     background-color: #4fddc1;
-    border: 1px solid #1abc9c;;
+    border: 1px solid #1abc9c;
 }
 
-.button_range{
+.button_range {
     border-radius: 10px;
     background-color: #4fddc1;
     border: 1px solid #1abc9c;
@@ -94,7 +108,7 @@ input::-webkit-inner-spin-button {
     margin-left: 27.5%;
 }
 
-.button_range_filter{
+.button_range_filter {
     border-radius: 10px;
     background-color: red;
     border: 1px solid red;

@@ -15,10 +15,10 @@
   border-radius: 5px 0 0 5px;
   outline: none;
   color: #9DBFAF;
-}
 
-.searchTerm:focus{
-  color: #00B4CC;
+  &:focus {
+    color: #00B4CC;
+  }
 }
 
 .searchButton {
@@ -34,14 +34,15 @@
 }
 
 /*Resize the wrap to see the search bar change!*/
-.wrap{
+
+.wrap {
   width: 30%;
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.red{
+.red {
   background-color: red !important;
   border-color: red !important;
 }
