@@ -1,8 +1,8 @@
 <div>
     <div *ngIf="!product">No product</div>
     <div *ngIf="product">
-        <figure class="snip1423" (click)="redirect()">
-            <img src="{{product.picture[0]}}" alt="" />
+        <figure class="snip1423">
+            <img src="{{product.picture[0]}}" alt="" (click)="redirect()"/>
             <figcaption>
                 <h3>{{product.name}}</h3>
                 <p>{{product.description}}</p>
@@ -15,16 +15,13 @@
                 <div class="likes">
                     Category: {{product.category}}
                 </div>
+                <app-button-like [product]="product" (toggle)="deleteFromProfile($event)"></app-button-like>
+                <div class="owner" routerLink="/profile/{{product.owner.username}}">
+                    Owner: {{product.owner.username}}
+                    <br>
+                    <img src="{{product.owner.image}}" style="width: 100px;">
+                </div>
             </figcaption>
         </figure>
-        <div class="snip1423">
-            <app-button-like [product]="product" (toggle)="deleteFromProfile($event)"></app-button-like>
-            <div class="owner" routerLink="/profile/{{product.owner.username}}">
-
-                Owner: {{product.owner.username}}
-                <br>
-                <img src="{{product.owner.image}}" style="width: 100px;">
-            </div>
-        </div>
     </div>
 </div>
