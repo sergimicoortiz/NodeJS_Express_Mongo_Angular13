@@ -4,13 +4,25 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-xs-12 col-md-10 offset-md-1">
-                    <img [src]="profile.image" alt="user image" class="user-img" />
-                    <h4>{{ profile.username }}</h4>
-                    <a [routerLink]="['/settings']" [hidden]="!isUser"
-                        class="btn btn-sm btn-outline-secondary action-btn">
+                <div class="container">
+                    <div class="profile">
+                        <div class="profile-image">
+                            <img [src]="profile.image"
+                                alt="">
+                        </div>
+                        <div class="profile-user-settings">
+                            <h1 class="profile-user-name">{{ profile.username }}</h1>
+                            <a [routerLink]="['/settings']" [hidden]="!isUser"
+                        class="btn profile-edit-btn">
                         <i class="ion-gear-a"></i> Edit Profile Settings
                     </a>
+                        </div>
+                        <div class="profile-stats">
+                        </div>
+                        <div class="profile-bio">
+                            <p><span class="profile-real-name">Welcome to your profile {{ profile.username }}</span> 😺🐈🐈‍⬛</p>
+                        </div>
+                    </div>
                 </div>
 
                 <app-button-follow [profile]="profile" [hidden]="isUser" (toggle)="onToggleFollowing($event)">
