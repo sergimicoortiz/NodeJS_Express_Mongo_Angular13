@@ -11,6 +11,8 @@
     }
 }
 
+///Section general de todo el profile, donde pondremos style que usaremos en diferentes botones o imagenes
+
 body {
     font-family: "Open Sans", Arial, sans-serif;
     min-height: 100vh;
@@ -51,7 +53,9 @@ img {
     clip: rect(1px, 1px, 1px, 1px);
 }
 
-/* Profile Section */
+/// Section especifica del profile aqui nos encargamos de poner la imagen a la izquierda y darle un tamaño apropiado ademas
+/// de darle un border radius para hacerla mas redonda, tambien nos encargaremos de poner el boton de editar a la derecha
+/// y que dependiendo de como de grande sea la pantalla nunca se junten 
 
 .profile {
     padding: 5rem 0;
@@ -136,7 +140,7 @@ img {
     font-weight: 600;
 }
 
-/* Media Query */
+///Apartado donde haremos responsive el profile y que no se superpongan las cosas
 
 @media screen and (max-width: 40rem) {
     .profile {
@@ -214,8 +218,6 @@ img {
         display: block;
     }
 }
-
-/* Spinner Animation */
 
 @supports (display: grid) {
     .profile {
