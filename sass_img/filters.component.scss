@@ -1,0 +1,127 @@
+.container-filters {
+    float: left;
+    background-color: rgb(180, 251, 216);
+    border: 2px rgb(188, 253, 189) solid;
+    width: 30%;
+    border-radius: 10%;
+}
+
+h5 {
+    margin-top: 10%;
+    text-align: center;
+}
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 1em;
+
+    select {
+        background-color: #1abc9c;
+        color: #fff;
+        font-size: inherit;
+        padding: .5em;
+        border: 0;
+        border-radius: 3px;
+        text-overflow: '';
+    }
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+    }
+
+    &::before {
+        /*  Custom dropdown arrow cover */
+        right: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: 0 3px 3px 0;
+    }
+
+    select[disabled] {
+        color: rgba(0, 0, 0, 0.3);
+
+        &::after {
+            color: rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    &::before {
+        background-color: rgba(0, 0, 0, 0.15);
+    }
+}
+
+p {
+    background-color: #1abc9c;
+    color: #fff;
+    font-size: inherit;
+    padding: .5em;
+
+    border: 0;
+    border-radius: 3px;
+    text-indent: 0.01px;
+    text-overflow: '';
+}
+
+.order {
+    cursor: pointer;
+    text-align: center;
+}
+
+.input_price {
+    width: 15%;
+}
+
+.div-price {
+    margin-left: 1.5%;
+}
+
+.button_class {
+    border-radius: 60%;
+    background-color: #4fddc1;
+    border: 1px solid #1abc9c;
+}
+
+.button_range {
+    border-radius: 10px;
+    background-color: #4fddc1;
+    border: 1px solid #1abc9c;
+    margin-top: 4%;
+    margin-left: 27.5%;
+}
+
+.button_range_filter {
+    border-radius: 10px;
+    background-color: red;
+    border: 1px solid red;
+    margin-top: 4%;
+    margin-left: 27.5%;
+}
+
+@media (max-width: 992px) {
+    .container-filters {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100%;
+    }
+
+    .div-price {
+        margin-left: 30%;
+    }
+
+    .button_range_filter {
+        margin-top: 4%;
+        margin-left: 0px;
+    }
+
+    .button_range {
+        margin-top: 4%;
+        margin-left: 20%;
+    }
+}
