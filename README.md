@@ -1,6 +1,6 @@
 # NodeJS_Express_Mongo_Angular12
 
-Por [`Sergi Micó Otiz`](https://github.com/sergimicoortiz)  y  [`Juan Luis López del Barco`](https://github.com/JuanLuisLopez-code)
+Por [`Sergi Micó Ortiz`](https://github.com/sergimicoortiz)  y  [`Juan Luis López del Barco`](https://github.com/JuanLuisLopez-code)
 
 ## Table of Contents
 
