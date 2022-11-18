@@ -1,6 +1,6 @@
 node_modules
 package-lock.json
-env_example.txt
 .gitignore
 .browserslistrc
 .vscode
+.angular

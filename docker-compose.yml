@@ -18,18 +18,16 @@ services:
     command: sh -c '/app/wait-for-it.sh -t 0 mongo_container:27017 -- npm run start'
     networks:
       - app
+
+  frontend:
+    build: ./frontend
+    restart: on-failure
+    depends_on:
+      - backend
     ports:
-      - "3001:3001"
-  # frontend:
-  #   build: ./frontend
-  #   restart: on-failure
-  #   depends_on:
-  #     - backend
-  #     - mongo_db
-  #   ports:
-  #     - 4200:4200
-  #   networks:
-  #     - app
+      - 4200:4200
+    networks:
+      - app
 
 networks:
   app:
