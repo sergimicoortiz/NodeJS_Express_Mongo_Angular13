@@ -1,16 +1,17 @@
 version: '3.7'
-
+# Si se abre des del Portainer o 0.0.0.0:4200 no funciona (problema con CORS) ya que es para abrir des de localhost:4200
 services:
   # Constenedor de mongo en el cual incluimos como volumentes la informacion de la base de datos.
   # Ademas de que enlazamos el script import.sh al entrypoint para que sea ejecutado
-  # este escript importa la la base de datos que hemos enlazado e¡con el primer volumen.
+  # este escript importa la la base de datos que hemos enlazado con el primer volumen.
   mongo_container:
     image: mongo:latest
     container_name: mongo_container
+
     volumes:
       - ./mongo/dump/mydb:/dump
       - ./mongo/import.sh:/docker-entrypoint-initdb.d/import.sh
-    restart: on-failure
+    restart: always
     networks:
       - app
   # Este contenedor es el backend de nuestro proyecto, depende de el contenedor de mongo
@@ -20,7 +21,7 @@ services:
       - mongo_container
     ports:
       - "3001:3001"
-    restart: on-failure
+    restart: always
     #La aplicación de express arrancara cuando la base de datos este operativa.
     command: sh -c '/app/wait-for-it.sh -t 0 mongo_container:27017 -- npm run start'
     networks:
@@ -29,25 +30,31 @@ services:
   # Este contenedor es el frontend de nuestro proyecto, depende de el contenedor del backend.
   frontend:
     build: ./frontend
-    restart: on-failure
+    restart: always
     depends_on:
       - backend
     ports:
       - 4200:4200
     networks:
       - app
-
-#Este contenedor nos administrar la base de datos mongo.
-#Utiliza la variable de entorno ME_CONFIG_MONGODB_SERVER la cual contiene la ip o en este caso
-  mongo-express:
+  #Este contenedor nos administrar la base de datos mongo.
+  #Utiliza la variable de entorno ME_CONFIG_MONGODB_SERVER la cual contiene la ip o en este caso.
+  #Tambien utiliza la variable ME_CONFIG_MONGODB_ENABLE_ADMIN para poder acceder sin un usuario o contraseña expecificos.
+  #Necesita el restart always porque si no da error al no poder conectarse con mongo.
+  adminMongo_container:
     image: mongo-express:latest
     networks:
       - app
+    restart: always
     environment:
       - ME_CONFIG_MONGODB_SERVER=mongo_container
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_AUTH_DATABASE=mydb
     ports:
       - "8081:8081"
-
-#Los tres contenedores estan en la misma red.
+    depends_on:
+      - mongo_container
+      
+  #Los cuatro contenedores estan en la misma red.
 networks:
   app:

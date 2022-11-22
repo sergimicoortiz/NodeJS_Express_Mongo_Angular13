@@ -42,7 +42,7 @@ product_schema.methods.removeLike = function () {
 }//removeLike
 
 product_schema.methods.toLikeJSON = function (user) {
-    if (user.likes.indexOf(this._id) !== -1) { this.haveLike = true; }
+    if ((user.likes ?? []).indexOf(this._id) !== -1) { this.haveLike = true; }
     return this;
 }//toLikeJSON
 

@@ -13,4 +13,4 @@ COPY --from=install /app/node_modules ./node_modules
 COPY . .
 EXPOSE 4200
 #Arrancamos el servicio
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start_local"]
