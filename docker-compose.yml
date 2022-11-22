@@ -55,8 +55,8 @@ services:
     depends_on:
       - mongo_container
 
-#Para utilizar el load balncer hemos cambiado el puerto que utiliza el frontend para realizar las peticiones, ahora este es el 8080 y no el 3001.
-#De igual forma ahora se accede al frontend desde el puerto 8080 y no el 4200. 
+  #Para utilizar el load balncer hemos cambiado el puerto que utiliza el frontend para realizar las peticiones, ahora este es el 8080 y no el 3001.
+  #De igual forma ahora se accede al frontend desde el puerto 8080 y no el 4200. 
   loadBalancer:
     image: nginx:latest
     networks:
@@ -67,6 +67,20 @@ services:
     volumes:
       - "./loadbalancer/nginx.conf:/etc/nginx/nginx.conf"
     command: nginx -g "daemon off;"
-  #Los cuatro contenedores estan en la misma red.
+
+#Hemos associado el fichero de fonfiguración y hemos ejecutado el commando para que prometheus utilize este.
+#Hemos utilizado express-prometheus-middlewareen en el servidor para que prometheus pueda obtener sus metricas.
+  prometheus:
+    image: prom/prometheus:v2.20.1
+    container_name: prometheus_practica
+    networks:
+      - app
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+  #Los contenedores estan en la misma red.
 networks:
   app:
