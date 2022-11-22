@@ -1,4 +1,4 @@
-const PORT: Number = 3001;
+const PORT: Number = 8080;
 const BASE_URL: String = `http://localhost:${PORT}/api`;
 const CATEGORY_BASE = `${BASE_URL}/category`;
 const PROFILE_BASE = `${BASE_URL}/profile`;
