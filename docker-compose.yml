@@ -1,6 +1,9 @@
 version: '3.7'
 
 services:
+  # Constenedor de mongo en el cual incluimos como volumentes la informacion de la base de datos.
+  # Ademas de que enlazamos el script import.sh al entrypoint para que sea ejecutado
+  # este escript importa la la base de datos que hemos enlazado e¡con el primer volumen.
   mongo_container:
     image: mongo:latest
     container_name: mongo_container
@@ -10,15 +13,20 @@ services:
     restart: on-failure
     networks:
       - app
+  # Este contenedor es el backend de nuestro proyecto, depende de el contenedor de mongo
   backend:
     build: ./backend
     depends_on:
       - mongo_container
+    ports:
+      - "3001:3001"
     restart: on-failure
+    #La aplicación de express arrancara cuando la base de datos este operativa.
     command: sh -c '/app/wait-for-it.sh -t 0 mongo_container:27017 -- npm run start'
     networks:
       - app
 
+  # Este contenedor es el frontend de nuestro proyecto, depende de el contenedor del backend.
   frontend:
     build: ./frontend
     restart: on-failure
@@ -29,5 +37,17 @@ services:
     networks:
       - app
 
+#Este contenedor nos administrar la base de datos mongo.
+#Utiliza la variable de entorno ME_CONFIG_MONGODB_SERVER la cual contiene la ip o en este caso
+  mongo-express:
+    image: mongo-express:latest
+    networks:
+      - app
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo_container
+    ports:
+      - "8081:8081"
+
+#Los tres contenedores estan en la misma red.
 networks:
   app:
