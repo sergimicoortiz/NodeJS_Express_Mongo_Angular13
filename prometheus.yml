@@ -3,6 +3,7 @@ global:
   evaluation_interval: 30s
 scrape_configs:
   - job_name: "example-nodejs-app"
+    metrics_path: "/api/metrics"
     honor_labels: true
     static_configs:
       - targets: ["backend:3001"]
