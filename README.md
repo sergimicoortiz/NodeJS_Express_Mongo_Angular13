@@ -11,15 +11,21 @@ docker-compose up --build
  En caso de el anterior commando no funcionar pruebe a usar sudo.
 
 ---
-# Ficheros de importancia:
+# Ficheros de importancia, :
 
 ### Archivo de configuración de docker-compose con todo explicado en comentarios dentro del propio archivo:
 
 https://github.com/sergimicoortiz/NodeJS_Express_Mongo_Angular13/blob/main_docker_compose/docker-compose.yml
 
-### Archivo Dokerfile explicado en comentarios dentro del propio archivo:
+### Archivo Dokerfile y .dockerignore frontend:
 
 https://github.com/sergimicoortiz/NodeJS_Express_Mongo_Angular13/blob/main_docker_compose/frontend/Dockerfile
+
+https://github.com/sergimicoortiz/NodeJS_Express_Mongo_Angular13/blob/main_docker_compose/frontend/.dockerignore
+
+### Archivo Dokerfile backend:
+
+https://github.com/sergimicoortiz/NodeJS_Express_Mongo_Angular13/blob/main_docker_compose/backend/Dockerfile
 
 ### Archivo de configuración de prometheus:
 
